@@ -1,0 +1,261 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_iUPWfA": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_NNhjxM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/h1-port-3-1300x650.jpg",
+            "heading": "10% OFF",
+            "heading_size": "h1",
+            "subheading": "Primeira Compra",
+            "button_label": "Cupom",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-4",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_D94CYB": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/h2-banner-img-1.jpg",
+            "heading": "Peças mais vendidas",
+            "heading_size": "h1",
+            "subheading": "Moda fitness",
+            "button_label": "Confira",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-3",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_NNhjxM",
+        "slide_D94CYB"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "multicolumn_Jp79tV": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_PkatJd": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/desconto-circle_aad68299-f2cd-41d6-8264-ca8eb2cdfa01.svg",
+            "title": "Descontos",
+            "text": "<p>no pagamento por Pix</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_FVMCei": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/rapido-circle.svg",
+            "title": "<strong>Entrega rápida</strong>",
+            "text": "<p>para todo o Brasil</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_FePgca": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/credito-circle.svg",
+            "title": "Parcelamento",
+            "text": "<p>sem juros no cartão</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_HzEFzK": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/chat-circle.svg",
+            "title": "Atendimento",
+            "text": "<p>via whatsapp</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_PkatJd",
+        "column_FVMCei",
+        "column_FePgca",
+        "column_HzEFzK"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collection_list_jkLExi": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_nR4Ka9": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bodys"
+          }
+        },
+        "featured_collection_9DGare": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "leggings"
+          }
+        },
+        "featured_collection_LG3XET": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "macacao"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_nR4Ka9",
+        "featured_collection_9DGare",
+        "featured_collection_LG3XET"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "custom_css": [
+        "h2,p {text-align: center;}"
+      ],
+      "settings": {
+        "title": "Destaques",
+        "heading_size": "h2",
+        "description": "<p>Confira nossos destaques</p>",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_zPWzwX": {
+      "type": "image-banner",
+      "settings": {
+        "image": "shopify://shop_images/banner2.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "featured_collection_6XfBHm": {
+      "type": "featured-collection",
+      "custom_css": [
+        "h2,p {text-align: center;}"
+      ],
+      "settings": {
+        "title": "Destaques",
+        "heading_size": "h2",
+        "description": "<p>Confira nossos destaques</p>",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "slideshow_iUPWfA",
+    "multicolumn_Jp79tV",
+    "collection_list_jkLExi",
+    "featured_collection",
+    "image_banner_zPWzwX",
+    "featured_collection_6XfBHm"
+  ]
+}

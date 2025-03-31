@@ -1,0 +1,160 @@
+/* Pitbar */ 
+#Slider-template--17849793249451__multicolumn_Jp79tV li 
+    .multicolumn-card {
+    display: flex;
+    }
+@media (max-width: 992px) {    
+    #Slider-template--17849793249451__multicolumn_Jp79tV li 
+    .multicolumn-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+    #Slider-template--17849793249451__multicolumn_Jp79tV
+    li
+    .multicolumn-card
+    .multicolumn-card__image-wrapper .media{
+        margin-bottom: 10px;
+    }
+}
+#Slider-template--17849793249451__multicolumn_Jp79tV
+li
+.multicolumn-card
+.multicolumn-card__image-wrapper {
+    margin-right: 15px;
+}
+#Slider-template--17849793249451__multicolumn_Jp79tV
+li
+.multicolumn-card {
+    align-items: center;
+    justify-content: center;
+}
+
+  #Slider-template--17849793249451__multicolumn_Jp79tV
+    li
+    .multicolumn-card
+    .multicolumn-card__image-wrapper
+    img {
+    width: 50px;
+    height: 50px;
+  }
+  #Slider-template--17849793249451__multicolumn_Jp79tV
+    li
+    .multicolumn-card
+    .multicolumn-card__info
+    h3 {
+    color: #3f4948;
+    font-weight: 700;
+  }
+  #Slider-template--17849793249451__multicolumn_Jp79tV
+    li
+    .multicolumn-card
+    .multicolumn-card__info
+    p {
+    color: #3f4948;
+    font-size: 13px;
+    padding: 0;
+  }  
+  #Slider-template--17849793249451__multicolumn_Jp79tV
+    li
+    .multicolumn-card
+    .multicolumn-card__info *{
+    font-family: 'Montserrat';
+  } 
+  
+#shopify-section-template--17849793249451__multicolumn_Jp79tV 
+    .multicolumn-card__image-wrapper--third-width {
+    width: 50px;
+}
+@media screen and (min-width: 750px) {
+    #shopify-section-template--17849793249451__multicolumn_Jp79tV 
+    .background-none .multicolumn-card__image-wrapper {
+        margin: 0;
+    }
+}
+#Slider-template--17849793249451__multicolumn_Jp79tV li
+.multicolumn-card *{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Botão cards de produto */
+.quick-add button {
+    background: #c8fe6c;
+    box-shadow: none;
+    }
+.quick-add button:hover{
+    border: 1px solid #939393;
+}
+.button:after{
+    box-shadow: none;
+}
+.button:not([disabled]):hover:after, .shopify-challenge__button:hover:after, .customer button:hover:after, .shopify-payment-button__button--unbranded:hover:after {
+    --border-offset: 0;
+}
+
+/* Newsletter */  
+#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter {
+    background-image: url('https://cdn.shopify.com/s/files/1/0677/9168/3755/files/bg-newsletter.jpg?v=1737642935');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+}
+#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper {
+    background: none;
+}
+#NewsletterForm--sections--17849792626859__newsletter_tjbDmH{
+    background-color: white;
+    border-radius: 10px;
+}
+#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper
+.field__label
+{
+    color: #121212;
+}
+#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper
+.field__button
+{
+    color: #939393;
+}
+.footer .footer__content-top {
+    padding-bottom: 3rem;
+}
+.footer-block--newsletter.scroll-trigger.animate--slide-in{
+    display: none;
+}
+
+
+/* Card de Coleções */
+#shopify-section-template--17849793249451__collection_list_jkLExi  li > .collection-card-wrapper > .card > .card__content{
+    display: none;
+}
+#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information{
+    display: block;
+}
+#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
+    display: flex;
+    flex-direction: column;
+}
+#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
+    font-family: 'Assistant';
+    font-size: 65px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a > span{
+    font-family: 'Montserrat';
+    font-size: 20px;
+    color: #121212;
+    background: #C8FE6C;
+    font-weight: 500;
+    text-transform: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    margin: 10px auto;
+}
