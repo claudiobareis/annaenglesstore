@@ -39,7 +39,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-2",
         "full_width": true,
         "padding_top": 60,
         "padding_bottom": 52
@@ -57,22 +57,22 @@
         "link_list_zPYfxm": {
           "type": "link_list",
           "settings": {
-            "heading": "Departamentos",
-            "menu": "departamentos"
+            "heading": "Institucional",
+            "menu": "footer"
           }
         },
         "link_list_q6fB7X": {
           "type": "link_list",
           "settings": {
             "heading": "Coleções",
-            "menu": "footer"
+            "menu": "main-menu"
           }
         },
         "text_rETbpX": {
           "type": "text",
           "settings": {
             "heading": "Entre em contato",
-            "subtext": "<p>31 9999 8888<br/>contato@gymco.shop<br/>rua 99, Bairro X - 31 333 122</p>"
+            "subtext": "<p><a href=\"tel:(19) 3352-5159\">(19) 3352-5159</a></p><p><a href=\"mailto:contato@annaenglesstore.com.br\">contato@annaenglesstore.com.br</a></p><p>Rua Visconde do Rio Branco, 350 - Centro, Araras - SP, 13600-080</p><p>Seg. a Sexta 09 às 18 - Sáb. 09 às 14</p>"
           }
         }
       },

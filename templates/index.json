@@ -65,20 +65,12 @@
     "multicolumn_Jp79tV": {
       "type": "multicolumn",
       "blocks": {
-        "column_PkatJd": {
-          "type": "column",
-          "settings": {
-            "title": "Descontos",
-            "text": "<p>no pagamento por Pix</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
         "column_FVMCei": {
           "type": "column",
           "settings": {
-            "title": "<strong>Entrega rápida</strong>",
-            "text": "<p>para todo o Brasil</p>",
+            "image": "shopify://shop_images/svgexport-21.svg",
+            "title": "<strong>Frete Grátis</strong>",
+            "text": "<p>acima de R$399,00</p>",
             "link_label": "",
             "link": ""
           }
@@ -86,8 +78,19 @@
         "column_FePgca": {
           "type": "column",
           "settings": {
-            "title": "Parcelamento",
-            "text": "<p>sem juros no cartão</p>",
+            "image": "shopify://shop_images/svgexport-22.svg",
+            "title": "<strong>Há Mais de 10 Anos</strong>",
+            "text": "<p>2 lojas físicas em Araras-SP e Leme-SP</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_PkatJd": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/svgexport-23.svg",
+            "title": "<strong>5% Off </strong>",
+            "text": "<p>no Pix</p>",
             "link_label": "",
             "link": ""
           }
@@ -95,17 +98,18 @@
         "column_HzEFzK": {
           "type": "column",
           "settings": {
-            "title": "Atendimento",
-            "text": "<p>via whatsapp</p>",
+            "image": "shopify://shop_images/svgexport-24.svg",
+            "title": "<strong>6x Sem Juros</strong>",
+            "text": "<p>no Cartão Crédito</p>",
             "link_label": "",
             "link": ""
           }
         }
       },
       "block_order": [
-        "column_PkatJd",
         "column_FVMCei",
         "column_FePgca",
+        "column_PkatJd",
         "column_HzEFzK"
       ],
       "settings": {
@@ -167,9 +171,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
-      "custom_css": [
-        "h2,p {text-align: center;}"
-      ],
+      "custom_css": [],
       "settings": {
         "title": "Destaques",
         "heading_size": "h2",
@@ -199,10 +201,12 @@
     "image_banner_zPWzwX": {
       "type": "image-banner",
       "settings": {
+        "image": "shopify://shop_images/aes-113-b12489e5545c5309fe17290986374250-1024-1024.webp",
+        "image_2": "shopify://shop_images/aes-112-038cdf49ca12222f7e17290986381804-1024-1024.webp",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "desktop_content_position": "middle-center",
-        "show_text_box": true,
+        "show_text_box": false,
         "desktop_content_alignment": "center",
         "color_scheme": "",
         "image_behavior": "none",
@@ -213,9 +217,7 @@
     },
     "featured_collection_6XfBHm": {
       "type": "featured-collection",
-      "custom_css": [
-        "h2,p {text-align: center;}"
-      ],
+      "custom_css": [],
       "settings": {
         "title": "Destaques",
         "heading_size": "h2",
@@ -233,7 +235,7 @@
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
-        "show_vendor": true,
+        "show_vendor": false,
         "show_rating": true,
         "quick_add": "standard",
         "columns_mobile": "2",
