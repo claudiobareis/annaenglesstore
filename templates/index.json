@@ -15,7 +15,6 @@
         "slide_NNhjxM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/h1-port-3-1300x650.jpg",
             "heading": "10% OFF",
             "heading_size": "h1",
             "subheading": "Primeira Compra",
@@ -33,7 +32,6 @@
         "slide_D94CYB": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/h2-banner-img-1.jpg",
             "heading": "Peças mais vendidas",
             "heading_size": "h1",
             "subheading": "Moda fitness",
@@ -57,10 +55,10 @@
         "layout": "full_bleed",
         "slide_height": "medium",
         "slider_visual": "dots",
-        "auto_rotate": false,
+        "auto_rotate": true,
         "change_slides_speed": 5,
         "image_behavior": "none",
-        "show_text_below": true,
+        "show_text_below": false,
         "accessibility_info": "Slideshow about our brand"
       }
     },
@@ -70,7 +68,6 @@
         "column_PkatJd": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/desconto-circle_aad68299-f2cd-41d6-8264-ca8eb2cdfa01.svg",
             "title": "Descontos",
             "text": "<p>no pagamento por Pix</p>",
             "link_label": "",
@@ -80,7 +77,6 @@
         "column_FVMCei": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/rapido-circle.svg",
             "title": "<strong>Entrega rápida</strong>",
             "text": "<p>para todo o Brasil</p>",
             "link_label": "",
@@ -90,7 +86,6 @@
         "column_FePgca": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/credito-circle.svg",
             "title": "Parcelamento",
             "text": "<p>sem juros no cartão</p>",
             "link_label": "",
@@ -100,7 +95,6 @@
         "column_HzEFzK": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/chat-circle.svg",
             "title": "Atendimento",
             "text": "<p>via whatsapp</p>",
             "link_label": "",
@@ -205,7 +199,6 @@
     "image_banner_zPWzwX": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify://shop_images/banner2.jpg",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "desktop_content_position": "middle-center",
