@@ -200,15 +200,47 @@
     },
     "image_banner_zPWzwX": {
       "type": "image-banner",
+      "blocks": {
+        "heading_F3JexK": {
+          "type": "heading",
+          "settings": {
+            "heading": "Blusas",
+            "heading_size": "h1"
+          }
+        },
+        "text_kL6mJN": {
+          "type": "text",
+          "settings": {
+            "text": "Versatilidade em uma peça essencial",
+            "text_style": "body"
+          }
+        },
+        "buttons_wD7XeJ": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Ver Coleção",
+            "button_link_1": "shopify://collections/blusas",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "shopify://products/blusa-basica-manga-curta-crepe-premium-feminina-maite",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_F3JexK",
+        "text_kL6mJN",
+        "buttons_wD7XeJ"
+      ],
       "settings": {
         "image": "shopify://shop_images/aes-113-b12489e5545c5309fe17290986374250-1024-1024.webp",
         "image_2": "shopify://shop_images/aes-112-038cdf49ca12222f7e17290986381804-1024-1024.webp",
-        "image_overlay_opacity": 0,
+        "image_overlay_opacity": 20,
         "image_height": "medium",
         "desktop_content_position": "middle-center",
         "show_text_box": false,
         "desktop_content_alignment": "center",
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "image_behavior": "none",
         "mobile_content_alignment": "center",
         "stack_images_on_mobile": true,
