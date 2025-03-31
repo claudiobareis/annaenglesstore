@@ -48,7 +48,7 @@
     "card_color_scheme": "scheme-2",
     "card_border_thickness": 0,
     "card_border_opacity": 10,
-    "card_corner_radius": 10,
+    "card_corner_radius": 0,
     "card_shadow_opacity": 0,
     "card_shadow_horizontal_offset": 0,
     "card_shadow_vertical_offset": 4,
@@ -59,7 +59,7 @@
     "collection_card_color_scheme": "scheme-2",
     "collection_card_border_thickness": 0,
     "collection_card_border_opacity": 10,
-    "collection_card_corner_radius": 10,
+    "collection_card_corner_radius": 0,
     "collection_card_shadow_opacity": 0,
     "collection_card_shadow_horizontal_offset": 0,
     "collection_card_shadow_vertical_offset": 4,
@@ -106,8 +106,8 @@
     "badge_corner_radius": 40,
     "sale_badge_color_scheme": "scheme-4",
     "sold_out_badge_color_scheme": "scheme-3",
-    "brand_headline": "Gym CO",
-    "brand_description": "<p>Fitness Gym CO - Moda Fitness Feminina</p>",
+    "brand_headline": "Anna Engles Store",
+    "brand_description": "<p>Moda Feminina</p>",
     "brand_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-01-10_a_s_11.07.45_09442ab2_1.jpg",
     "brand_image_width": 215,
     "social_facebook_link": "https://facebook.com/gymco",
@@ -122,7 +122,7 @@
     "predictive_search_enabled": true,
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
-    "currency_code_enabled": true,
+    "currency_code_enabled": false,
     "cart_type": "notification",
     "show_vendor": false,
     "show_cart_note": false,
@@ -143,13 +143,6 @@
       }
     },
     "content_for_index": [],
-    "blocks": {
-      "13672250894428551832": {
-        "type": "shopify://apps/qikify-slide-cart/blocks/app-embed/39da5d6e-3e04-4687-bc69-e23fafb93294",
-        "disabled": false,
-        "settings": {}
-      }
-    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
