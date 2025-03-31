@@ -17,13 +17,21 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
+            "text": "CASHBACK | 10% EM TODAS AS COMPRAS",
+            "link": ""
+          }
+        },
+        "announcement_RqfCyw": {
+          "type": "announcement",
+          "settings": {
             "text": "Welcome to our store",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_RqfCyw"
       ],
       "settings": {
         "color_scheme": "scheme-4",
@@ -38,7 +46,7 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo_position": "middle-left",
+        "logo_position": "top-center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
