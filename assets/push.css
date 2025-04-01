@@ -1,44 +1,54 @@
+/* Layout */
+.page-width-desktop, .page-width{
+    max-width: 100vw;
+}
+
+
+
 /* Pitbar */ 
-#Slider-template--17849793249451__multicolumn_Jp79tV li 
+#Slider-template--17768572321852__multicolumn_Jp79tV li 
     .multicolumn-card {
     display: flex;
     }
 @media (max-width: 992px) {    
-    #Slider-template--17849793249451__multicolumn_Jp79tV li 
+    #Slider-template--17768572321852__multicolumn_Jp79tV li 
     .multicolumn-card {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-    #Slider-template--17849793249451__multicolumn_Jp79tV
+  #Slider-template--17768572321852__multicolumn_Jp79tV
     li
     .multicolumn-card
     .multicolumn-card__image-wrapper .media{
         margin-bottom: 10px;
     }
 }
-#Slider-template--17849793249451__multicolumn_Jp79tV
+#Slider-template--17768572321852__multicolumn_Jp79tV
 li
 .multicolumn-card
 .multicolumn-card__image-wrapper {
     margin-right: 15px;
+    width: 50px;
+    min-width: 50px;
 }
-#Slider-template--17849793249451__multicolumn_Jp79tV
+#Slider-template--17768572321852__multicolumn_Jp79tV
 li
 .multicolumn-card {
     align-items: center;
     justify-content: center;
 }
 
-  #Slider-template--17849793249451__multicolumn_Jp79tV
+#Slider-template--17768572321852__multicolumn_Jp79tV
     li
     .multicolumn-card
     .multicolumn-card__image-wrapper
-    img {
-    width: 50px;
-    height: 50px;
+    img {   
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
-  #Slider-template--17849793249451__multicolumn_Jp79tV
+  #Slider-template--17768572321852__multicolumn_Jp79tV
     li
     .multicolumn-card
     .multicolumn-card__info
@@ -46,7 +56,7 @@ li
     color: #3f4948;
     font-weight: 700;
   }
-  #Slider-template--17849793249451__multicolumn_Jp79tV
+  #Slider-template--17768572321852__multicolumn_Jp79tV
     li
     .multicolumn-card
     .multicolumn-card__info
@@ -55,24 +65,24 @@ li
     font-size: 13px;
     padding: 0;
   }  
-  #Slider-template--17849793249451__multicolumn_Jp79tV
+  #Slider-template--17768572321852__multicolumn_Jp79tV
     li
     .multicolumn-card
     .multicolumn-card__info *{
     font-family: 'Montserrat';
   } 
   
-#shopify-section-template--17849793249451__multicolumn_Jp79tV 
+#shopify-section-template--17768572321852__multicolumn_Jp79tV 
     .multicolumn-card__image-wrapper--third-width {
     width: 50px;
 }
 @media screen and (min-width: 750px) {
-    #shopify-section-template--17849793249451__multicolumn_Jp79tV 
+    #shopify-section-template--17768572321852__multicolumn_Jp79tV 
     .background-none .multicolumn-card__image-wrapper {
         margin: 0;
     }
 }
-#Slider-template--17849793249451__multicolumn_Jp79tV li
+#Slider-template--17768572321852__multicolumn_Jp79tV li
 .multicolumn-card *{
     margin: 0;
     padding: 0;
@@ -95,63 +105,29 @@ li
     --border-offset: 0;
 }
 
-/* Newsletter */  
-#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter {
-    background-image: url('https://cdn.shopify.com/s/files/1/0677/9168/3755/files/bg-newsletter.jpg?v=1737642935');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: auto;
-}
-#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper {
-    background: none;
-}
-#NewsletterForm--sections--17849792626859__newsletter_tjbDmH{
-    background-color: white;
-    border-radius: 10px;
-}
-#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper
-.field__label
-{
-    color: #121212;
-}
-#shopify-section-sections--17849792626859__newsletter_tjbDmH .newsletter .newsletter__wrapper
-.field__button
-{
-    color: #939393;
-}
-.footer .footer__content-top {
-    padding-bottom: 3rem;
-}
-.footer-block--newsletter.scroll-trigger.animate--slide-in{
-    display: none;
-}
 
 
 /* Card de Coleções */
-#shopify-section-template--17849793249451__collection_list_jkLExi  li > .collection-card-wrapper > .card > .card__content{
+#shopify-section-template--17768572321852__collection_list_jkLExi  li > .collection-card-wrapper > .card > .card__content{
     display: none;
 }
-#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information{
+#shopify-section-template--17768572321852__collection_list_jkLExi .card--standard.card--media .card__inner .card__information{
     display: block;
 }
-#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
+#shopify-section-template--17768572321852__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
     display: flex;
     flex-direction: column;
 }
-#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
-    font-family: 'Assistant';
+#shopify-section-template--17768572321852__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a{
     font-size: 65px;
     color: white;
     text-transform: uppercase;
     font-weight: 300;
 }
-#shopify-section-template--17849793249451__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a > span{
-    font-family: 'Montserrat';
+#shopify-section-template--17768572321852__collection_list_jkLExi .card--standard.card--media .card__inner .card__information .card__heading > a > span{
     font-size: 20px;
-    color: #121212;
-    background: #C8FE6C;
+    color: #fff;
+    background: #121212;
     font-weight: 500;
     text-transform: none;
     padding: 10px 30px;
