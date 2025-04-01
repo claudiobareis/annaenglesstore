@@ -15,12 +15,13 @@
         "slide_NNhjxM": {
           "type": "slide",
           "settings": {
-            "heading": "10% OFF",
+            "image": "shopify://shop_images/2-slide-1734198827925-5139600800-d62c8a864198c5c00f9624b0a2cd86431734198837-1920-1920.webp",
+            "heading": "",
             "heading_size": "h1",
-            "subheading": "Primeira Compra",
-            "button_label": "Cupom",
+            "subheading": "",
+            "button_label": "",
             "link": "",
-            "button_style_secondary": false,
+            "button_style_secondary": true,
             "box_align": "middle-center",
             "show_text_box": false,
             "text_alignment": "center",
@@ -32,10 +33,11 @@
         "slide_D94CYB": {
           "type": "slide",
           "settings": {
-            "heading": "Peças mais vendidas",
+            "image": "shopify://shop_images/2-slide-1734198827925-5745713412-785fb15ce0b2738fd3b79c70178da25d1734198838-1920-1920.webp",
+            "heading": "",
             "heading_size": "h1",
-            "subheading": "Moda fitness",
-            "button_label": "Confira",
+            "subheading": "",
+            "button_label": "",
             "link": "",
             "button_style_secondary": false,
             "box_align": "middle-center",
