@@ -141,20 +141,27 @@
         "featured_collection_9DGare": {
           "type": "featured_collection",
           "settings": {
-            "collection": "leggings"
+            "collection": "blusas"
           }
         },
         "featured_collection_LG3XET": {
           "type": "featured_collection",
           "settings": {
-            "collection": "macacao"
+            "collection": "blusas"
+          }
+        },
+        "featured_collection_8n3nNM": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "blusas"
           }
         }
       },
       "block_order": [
         "featured_collection_nR4Ka9",
         "featured_collection_9DGare",
-        "featured_collection_LG3XET"
+        "featured_collection_LG3XET",
+        "featured_collection_8n3nNM"
       ],
       "settings": {
         "title": "",
