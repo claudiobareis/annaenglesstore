@@ -154,3 +154,17 @@
         display: flex;
     }
 }
+
+header > div > div.header__action-item .header__wishlist{
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header > div > div.header__action-item .header__wishlist:hover{
+    transform: scale(1.07);
+}
+header > div > div.header__action-item .header__wishlist path{
+    fill: #444444;
+}
