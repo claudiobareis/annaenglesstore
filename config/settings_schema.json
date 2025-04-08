@@ -202,6 +202,23 @@
     ]
   },
   {
+    "name":"Wishlist",
+    "settings":[
+     {
+        "type":"checkbox",
+        "id":"enable-wishlist",
+        "label": "Enable Wishlist",
+        "default": false
+      },
+      {
+        "type":"checkbox",
+        "id":"wishlist-floating-button-position",
+        "label": "Enable Floating Button",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.animations.name",
     "settings": [
       {
