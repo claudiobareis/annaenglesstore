@@ -168,3 +168,19 @@ header > div > div.header__action-item .header__wishlist:hover{
 header > div > div.header__action-item .header__wishlist path{
     fill: #444444;
 }
+
+.card__content > .card__information .price .price__regular .price-item,
+.card__content > .card__information .price .price__sale .price-item{
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+.card__content > .card__information .price .price__regular .installments,
+.card__content > .card__information .price .price__sale .installments{
+    font-size: 1rem;
+    font-weight: 200;
+}
+.card__content > .card__information .price .old-price,
+.card__content > .card__information .price .installments{
+    color: #707070;
+}

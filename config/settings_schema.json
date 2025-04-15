@@ -635,7 +635,13 @@
         "unit": "px",
         "label": "t:settings_schema.global.settings.blur.label",
         "default": 0
-      }
+      },
+      {
+        "type": "checkbox",
+        "id": "show_installments",
+        "label": "Exibir parcelas sem juros",
+        "default": true
+      }      
     ]
   },
   {
