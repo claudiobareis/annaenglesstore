@@ -45,6 +45,18 @@
             "show_gift_card_recipient": true
           }
         },
+        "custom_liquid_FF9UXP": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"bandeiras-produto\">\n<img src=\"https://cdn.shopify.com/s/files/1/0654/4860/7804/files/bandeiras_800x800.svg\">\n</div>"
+          }
+        },
+        "custom_liquid_RNCPry": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<span class=\"message\">\n    <div class=\"card-message\">\n        <svg width=\"29\" height=\"28\" viewBox=\"0 0 29 28\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M14.5001 4.66666V1.16666L9.83342 5.83332L14.5001 10.5V6.99999C18.3617 6.99999 21.5001 10.1383 21.5001 14C21.5001 15.1783 21.2084 16.2983 20.6834 17.2667L22.3867 18.97C23.2967 17.535 23.8334 15.8317 23.8334 14C23.8334 8.84332 19.6567 4.66666 14.5001 4.66666ZM14.5001 21C10.6384 21 7.50008 17.8617 7.50008 14C7.50008 12.8217 7.79175 11.7017 8.31675 10.7333L6.61341 9.02999C5.70341 10.465 5.16675 12.1683 5.16675 14C5.16675 19.1567 9.34341 23.3333 14.5001 23.3333V26.8333L19.1667 22.1667L14.5001 17.5V21Z\" fill=\"#444747\"></path>\n        </svg>\n        <div class=\"card-desc\">\n            <h3>Troca fácil</h3>\n            <p>Compre no site e troque em até 7 dias</p>   \n        </div>                                 \n    </div>\n    <div class=\"card-message\">\n        <svg width=\"29\" height=\"28\" viewBox=\"0 0 29 28\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M25.4761 13.3146L15.1744 3.01291C14.7427 2.58124 14.1477 2.33624 13.5294 2.33624H5.16439C3.88105 2.33624 2.83105 3.38624 2.83105 4.66958V13.0346C2.83105 13.6529 3.07605 14.2479 3.51939 14.6796L13.8211 24.9812C14.7311 25.8912 16.2127 25.8912 17.1227 24.9812L25.4877 16.6162C26.3977 15.7062 26.3977 14.2362 25.4761 13.3146ZM15.4661 23.3362L5.16439 13.0346V4.66958H13.5294L23.8311 14.9712L15.4661 23.3362Z\" fill=\"#444747\"></path>\n            <path d=\"M8.08105 9.33624C9.04755 9.33624 9.83105 8.55274 9.83105 7.58624C9.83105 6.61974 9.04755 5.83624 8.08105 5.83624C7.11456 5.83624 6.33105 6.61974 6.33105 7.58624C6.33105 8.55274 7.11456 9.33624 8.08105 9.33624Z\" fill=\"#444747\"></path>\n        </svg>         \n        <div class=\"card-desc\">                           \n            <h3>10% OFF na primeira compra</h3>\n            <p>Usando o cupom BELEVE10</p>     \n        </div>                               \n    </div>\n    \n</span>"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {}
@@ -63,6 +75,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "custom_liquid_FF9UXP",
+        "custom_liquid_RNCPry",
         "description",
         "share"
       ],
