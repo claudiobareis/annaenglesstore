@@ -237,3 +237,120 @@ header > div > div.header__action-item .header__wishlist path{
     font-weight: 500;
     letter-spacing: normal;
 }
+
+.product__info-wrapper .bandeiras-produto{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.product__info-wrapper .bandeiras-produto img{
+    max-width: 44rem;
+    height: auto;
+}
+.product__info-wrapper .message {
+    display: flex;
+    gap: 3rem;
+    padding: 2rem 0;
+}
+.product__info-wrapper .message .card-message{
+    text-align: center;
+}
+.product__info-wrapper .message .card-message svg{
+    width: 23px;
+    height: 23px;
+}
+.product__info-wrapper .message .card-message h3{
+    margin: 0;
+    font-weight: 400;
+    font-size: .9em;
+    margin-bottom: .5rem;
+}
+.product__info-wrapper .message .card-message p{
+    margin: 0;
+    font-size: .7em;
+    line-height: normal;
+}
+.product__info-container .product__description{
+    font-size: .8em;
+}
+
+/* Elasticidade */
+.header-elastic {
+    margin-top: 30px;
+    margin-bottom: 0;
+    align-items: center;
+    
+  }
+  
+  .header-elastic a {
+    text-transform: initial;
+    font-size: 10px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    display: inline-block;
+    margin-left: 3px;
+  }
+  
+  .header-elastic .title {
+    font-size: .8em;
+    font-weight: 400;
+    text-transform: none;
+    padding-top: 15px;
+    padding-bottom: 0;
+  }
+  
+  .elastic-levelList {
+    display: flex;
+    font-size: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  
+  @media (min-width: 1024px){
+    .elastic-levelList {
+      font-size: .6em;
+    }
+  }
+  
+  hr.elastic-levelBar {
+      height: 12px;
+      width: 100%;
+      outline: 0;
+      border: 1px solid #212322;
+      background: transparent;
+      margin: 0;
+  }
+  
+  .elastic-levelContainer:last-child hr.elastic-levelBar {
+      border-right: 1px solid;
+  }
+  
+  .elastic-levelContainer:first-child hr.elastic-levelBar {
+      border-left: 1px solid;
+  }
+  
+  .elastic-levelContainer hr.elastic-levelBar {
+      border-left: none;
+      font-family: -webkit-body;
+  }
+  
+  .elastic-levelContainer .elastic-levelName{
+    font-size: .9em;
+    padding: 3px 0 0 0;
+  }
+
+  .elastic-levelContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .elastic-levelContainer--active hr.elastic-levelBar {
+      background: #767676;
+  }
+  
+  .elastic-levelContainer--active {
+      font-weight: 600;
+      color: #232323;
+  }

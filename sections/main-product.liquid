@@ -191,12 +191,44 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
+                
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
                     {{ product.description }}
                   </div>
-                {%- endif -%}
+                {%- endif -%} 
+                
+                {% if product.metafields.custom.habilita_elasticidade %}
+                  <div class="product-elasticidade">
+                    <div class="header-elastic">
+                      <span class="title">Elasticidade</span>                   
+                    </div>
+                    <div class="elastic-levelList">
+                      <div class="elastic-levelContainer{% if product.metafields.custom.elasticidade == 1 %} elastic-levelContainer--active{% endif %}">
+                        <hr class="elastic-levelBar">
+                        <span class="elastic-levelName">Comfort</span>
+                      </div>
+                      <div class="elastic-levelContainer{% if product.metafields.custom.elasticidade == 2 %} elastic-levelContainer--active{% endif %}">
+                        <hr class="elastic-levelBar">
+                        <span class="elastic-levelName">Elástico</span>
+                      </div>
+                      <div class="elastic-levelContainer{% if product.metafields.custom.elasticidade == 3 %} elastic-levelContainer--active{% endif %}">
+                        <hr class="elastic-levelBar">
+                        <span class="elastic-levelName">Super Elástico</span>
+                      </div>
+                      <div class="elastic-levelContainer{% if product.metafields.custom.elasticidade == 4 %} elastic-levelContainer--active{% endif %}">
+                        <hr class="elastic-levelBar">
+                        <span class="elastic-levelName">Hiper Elástico</span>
+                      </div>
+                      <div class="elastic-levelContainer{% if product.metafields.custom.elasticidade == 5 %} elastic-levelContainer--active{% endif %}">
+                        <hr class="elastic-levelBar">
+                        <span class="elastic-levelName">Always Fits</span>
+                      </div>
+                    </div>
+                  </div>
+              {%- endif -%}
+
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"

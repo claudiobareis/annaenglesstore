@@ -13,7 +13,6 @@ shopify login
 
 shopify theme pull - se quiser baixar o tema
 shopify pull --store pushecommerce.myshopify.com
-senha: push
 
-shopify theme dev --live-reload full-page --store=pushecommerce.myshopify.com
-shopify theme dev --live-reload full-page --store=lojabeleve.com.br
+shopify theme dev --live-reload full-page --store=annaenglesstore.myshopify.com
+senha: 1234
