@@ -11,8 +11,8 @@
   "current": {
     "optionName": "Cor",
     "swatchType": "variantImage",
-    "swatchStyle": "square",
-    "swatchSize": 70,
+    "swatchStyle": "square-round-corners",
+    "swatchSize": 82,
     "logo": "shopify://shop_images/logo-1297367632-1615922523-6b9d0a3f263f5f5d351eff649e8a43251615922524.png",
     "logo_width": 200,
     "type_header_font": "assistant_n4",
