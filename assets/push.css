@@ -274,6 +274,14 @@ header > div > div.header__action-item .header__wishlist path{
     font-size: .8em;
 }
 
+.product__info-container .product-form__submit{
+    background-color: #03a079;
+    border-radius: 0;
+}
+.product__info-container .product-form__submit:hover{
+    background-color: #121212;
+}
+
 /* Elasticidade */
 .header-elastic {
     margin-top: 30px;
