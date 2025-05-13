@@ -10,12 +10,25 @@
 
 @media screen and (min-width: 750px) {
   .collection-hero.collection-hero--with-image {
-    padding: calc(4rem + var(--page-width-margin)) 0 calc(4rem + var(--page-width-margin));
+    padding: 0;
     overflow: hidden;
   }
 
   .collection-hero--with-image .collection-hero__inner {
     padding-bottom: 0;
+    width: 100%;
+    min-width: 100%;
+    padding: 0;
+  }
+  .collection-hero--with-image .collection-hero__inner img{
+    width: 100%;
+    object-fit: cover;
+  }
+  .collection-hero__inner .collection-hero__image-container{
+    margin-left: 0;
+  }
+  .collection-hero__inner .collection-hero__image-container {
+    min-height: 30rem;
   }
 }
 
