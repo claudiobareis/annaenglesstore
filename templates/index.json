@@ -131,6 +131,96 @@
         "padding_bottom": 36
       }
     },
+    "multicolumn_3hWmcM": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_6Ypknm": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_GRUPO_VIP.png",
+            "title": "Grupo Vip",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_MkrU7a": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_CALCA.png",
+            "title": "Calça",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_KnUfwM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_MAIS_VENDIDOS_a512cb78-a09f-4994-b6f8-79e501db9a15.png",
+            "title": "Best Sellers",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_FCFGjT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_CAMISA.png",
+            "title": "Camisas",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_4zTn6i": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_NOVIDADES_7df0b279-fa50-4932-889e-67d0800f3302.png",
+            "title": "Descontos",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_qtFbhi": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Stories_site_DESCONTOS_2a4744ce-0e8e-46b4-bf91-e78496ddd1f8.png",
+            "title": "Leve 3 Pague 2",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_6Ypknm",
+        "column_MkrU7a",
+        "column_KnUfwM",
+        "column_FCFGjT",
+        "column_4zTn6i",
+        "column_qtFbhi"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 6,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "collection_list_jkLExi": {
       "type": "collection-list",
       "blocks": {
@@ -292,6 +382,7 @@
     "collection_list_jkLExi",
     "featured_collection",
     "image_banner_zPWzwX",
+    "multicolumn_3hWmcM",
     "featured_collection_6XfBHm"
   ]
 }
