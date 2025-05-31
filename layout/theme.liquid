@@ -296,12 +296,44 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-    <link href="https://pushecommerce.com.br/styles.css" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ 'push.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+
+{%- liquid
+  #comment 'Definir classe da página atual'
+  case template
+    when 'index'
+      assign page_class = 'page-home'
+    when 'product'
+      assign page_class = 'page-product'
+    when 'collection'
+      assign page_class = 'page-collection'
+    when 'page'
+      assign page_class = 'page-page'
+    when 'blog'
+      assign page_class = 'page-blog'
+    when 'article'
+      assign page_class = 'page-article'
+    when 'cart'
+      assign page_class = 'page-cart'
+    when 'search'
+      assign page_class = 'page-search'
+    else
+      if template contains 'customers'
+        assign page_class = 'page-account'
+      else
+        assign page_class = 'page-' | append: template | replace: '.', '-'
+      endif
+  endcase
+  
+  #comment 'Adicionar sufixo do template se existir'
+  if template.suffix
+    assign template_suffix = 'template-' | append: template.suffix
+  endif
+-%}
+
+<body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} {{ page_class }}{% if template_suffix %} {{ template_suffix }}{% endif %}">    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 

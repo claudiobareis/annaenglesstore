@@ -431,7 +431,11 @@
 .card--card.card--media .card__inner .card__information,
 .card--card.card--text .card__inner,
 .card--card.card--media > .card__content .card__badge {
-  display: none;
+  display: block;
+}
+
+.card--card.card--media .card__inner .card__information a{
+  color: transparent;
 }
 
 .card--horizontal .card__badge,
