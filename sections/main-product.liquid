@@ -702,6 +702,59 @@
       </div>
     </div>
 
+    <div class="products-extra-fileds">
+      {% if product.metafields.custom.habilitar_descricao_extra %}
+        <div class="extra-descricao-produto">
+          <div class="extra-bloco extra-bloco-1">
+            {% if product.metafields.custom.imagem_extra_01 %}
+              <img src="{{ product.metafields.custom.imagem_extra_01 | img_url: '600x' }}" alt="Imagem extra 01">
+            {% endif %}
+            {% if product.metafields.custom.descricao_extra_01 %}
+              <div class="extra-descricao">
+                {{ product.metafields.custom.descricao_extra_01 | metafield_tag }}
+              </div>
+            {% endif %}
+          </div>
+          <div class="extra-bloco extra-bloco-2">
+            {% if product.metafields.custom.imagem_extra_02 %}
+              <img src="{{ product.metafields.custom.imagem_extra_02 | img_url: '600x' }}" alt="Imagem extra 02">
+            {% endif %}
+            {% if product.metafields.custom.descricao_extra_02 %}
+              <div class="extra-descricao">
+                {{ product.metafields.custom.descricao_extra_02 | metafield_tag }}
+              </div>
+            {% endif %}
+          </div>
+         
+          {% assign tabela = product.metafields.custom.tabela_de_medidas.value %}
+          {% if tabela %}
+            <div class="extra-tabela-medidas"> 
+              <table class="tabela-medidas">
+                <thead>
+                  <tr>
+                    <th>Tamanho</th>
+                    <th>Busto</th>
+                    <th>Cintura</th>
+                    <th>Quadril</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for linha in tabela.linhas.value %}
+                    <tr>
+                      <td>{{ linha.tamanho.value }}</td>
+                      <td>{{ linha.busto.value }}</td>
+                      <td>{{ linha.cintura.value }}</td>
+                      <td>{{ linha.quadril.value }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
     {% render 'product-media-modal', variant_images: variant_images %}
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}

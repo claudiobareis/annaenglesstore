@@ -453,3 +453,84 @@ footer .footer-block__details-content ul li {
 #shopify-section-sections--18112544571452__custom_liquid_QUKPRV .section-sections--18112544571452__custom_liquid_QUKPRV-padding{
     background-color: #f1f1f1;
 }
+
+.extra-descricao-produto {
+  margin: 40px 0 0 0;
+}
+
+.extra-bloco {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.extra-bloco-1 {
+  flex-direction: row;
+}
+
+.extra-bloco-2 {
+  flex-direction: row-reverse;
+}
+
+.extra-bloco img {
+  max-width: 50%;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.extra-descricao {
+  flex: 1;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.extra-descricao h3{
+    font-size: 3rem;
+    color: #222;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.extra-descricao ul{
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+
+.extra-descricao p{
+    font-size: 1.5rem;
+    color: #222;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.extra-descricao ul li{
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    color: #222;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.extra-tabela-medidas {
+  margin-top: 32px;
+  background: #fafafa;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+@media (max-width: 900px) {
+  .extra-bloco,
+  .extra-bloco-1,
+  .extra-bloco-2 {
+    flex-direction: column !important;
+    gap: 16px;
+    text-align: center;
+  }
+  .extra-bloco img {
+    max-width: 100%;
+  }
+}
