@@ -51,8 +51,8 @@
       "settings": {
         "custom_liquid": "<div class=\"garantia\">\n    <div class=\"garantia-container\">\n        <div class=\"garantia-container-img\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0654/4860/7804/files/selo.png?v=1750803895\" alt=\"Selo de Garantia\">\n        </div>\n        <div class=\"garantia-container-text\">\n            <p>Garantia <strong>Anna Engles Store</strong> de satisfação</p>\n            <p>se você não ficar 100% satisfeita com a sua compra, devolvemos o seu dinheiro</p>\n            <p>se o tamanho da sua peça não for ideal, realizamos a troca sem custo adicional</p>\n        </div>\n    </div>\n</div>",
         "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "footer": {
