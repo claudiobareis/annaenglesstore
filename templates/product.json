@@ -46,6 +46,12 @@
             "show_gift_card_recipient": false
           }
         },
+        "custom_liquid_7tzNnX": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"essential-upsell-frequently-bought-together-block\"></div>"
+          }
+        },
         "custom_liquid_FF9UXP": {
           "type": "custom_liquid",
           "settings": {
@@ -76,6 +82,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "custom_liquid_7tzNnX",
         "custom_liquid_FF9UXP",
         "custom_liquid_RNCPry",
         "description",
