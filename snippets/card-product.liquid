@@ -141,6 +141,20 @@
               </span>
             {%- endif -%}
           </div>
+
+          {% comment %}
+            extra tags
+          {% endcomment %}
+          {% if card_product.tags.size > 0 %}
+            <div class="product-tags">
+              {% for tag in card_product.tags %}
+                <a href="{{ routes.search_url }}?q={{ tag | url_encode }}&type=product" class="product-tag-link product-tag-{{ tag | handleize }}">
+                  <span class="product-tag">{{ tag }}</span>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
         </div>
       </div>
       <div class="card__content">

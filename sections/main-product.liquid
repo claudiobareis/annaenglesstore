@@ -96,6 +96,15 @@
                 >
                   {{- block.settings.text -}}
                 </p>
+                {% if product.tags.size > 0 %}
+                  <div class="product-tags-product-page">
+                    {% for tag in product.tags %}
+                      <a href="{{ routes.search_url }}?q={{ tag | url_encode }}&type=product" class="product-tag-link product-tag-{{ tag | handleize }}">
+                        <span class="product-tag-product">{{ tag }}</span>
+                      </a>
+                    {% endfor %}
+                  </div>
+                {% endif %}
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
