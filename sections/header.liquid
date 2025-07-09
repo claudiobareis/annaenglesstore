@@ -85,7 +85,7 @@
     transition: color 0.2s;
   }
   .header__special-link:hover {
-    color: var(--color-accent, #d72660);
+    color: #000;
   }
   .header__special-link-icon {
     display: inline-flex;
@@ -93,6 +93,11 @@
     margin-right: 0.4em;
     width: 1.2em;
     height: 1.2em;
+  }
+  @media screen and (max-width: 750px) {
+    .header__special-links {
+      display: none;
+    }
   }
 </style>
 

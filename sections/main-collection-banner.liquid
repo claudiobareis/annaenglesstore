@@ -4,12 +4,23 @@
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 1rem);
     }
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+{%- comment -%} Verificar metacampos personalizados para banners {%- endcomment -%}
+{%- assign banner_mobile = collection.metafields.custom.banner_mobile -%}
+{%- assign banner_desktop = collection.metafields.custom.banner_desktop -%}
+{%- assign has_custom_banners = false -%}
+{%- if banner_mobile != blank or banner_desktop != blank -%}
+  {%- assign has_custom_banners = true -%}
+{%- endif -%}
+
+{%- comment -%} Debug temporário - remover depois {%- endcomment -%}
+<!-- DEBUG: banner_mobile={{ banner_mobile | json }}, banner_desktop={{ banner_desktop | json }}, has_custom_banners={{ has_custom_banners }} -->
+
+<div class="collection-hero{% if section.settings.show_collection_image and collection.image or has_custom_banners %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
@@ -22,7 +33,63 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_collection_image and collection.image -%}
+    {%- comment -%} Exibir banners personalizados baseado nos campos específicos {%- endcomment -%}
+    {%- if has_custom_banners -%}
+      {%- comment -%} Determinar classes de fallback {%- endcomment -%}
+      {%- assign container_classes = "collection-hero__image-container media gradient" -%}
+      {%- if banner_mobile != blank and banner_desktop == blank -%}
+        {%- assign container_classes = container_classes | append: " collection-hero__image-container--mobile-only" -%}
+      {%- elsif banner_desktop != blank and banner_mobile == blank -%}
+        {%- assign container_classes = container_classes | append: " collection-hero__image-container--desktop-only" -%}
+      {%- endif -%}
+      <div class="{{ container_classes }}">
+        {%- comment -%} Banner Mobile - sempre exibido se o campo estiver preenchido {%- endcomment -%}
+        {%- if banner_mobile != blank -%}
+          <!-- DEBUG: Renderizando banner mobile -->
+          <img
+            class="collection-hero__image collection-hero__image--mobile"
+            srcset="
+              {%- if banner_mobile.width >= 165 -%}{{ banner_mobile | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if banner_mobile.width >= 360 -%}{{ banner_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if banner_mobile.width >= 535 -%}{{ banner_mobile | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if banner_mobile.width >= 750 -%}{{ banner_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+              {{ banner_mobile | image_url }} {{ banner_mobile.width }}w
+            "
+            src="{{ banner_mobile | image_url: width: 750 }}"
+            sizes="(max-width: 749px) 100vw, 0vw"
+            alt="{{ banner_mobile.alt | escape | default: collection.title | escape }}"
+            width="{{ banner_mobile.width }}"
+            height="{{ banner_mobile.height }}"
+            loading="lazy"            
+          >
+        {%- else -%}
+          <!-- DEBUG: banner_mobile está vazio -->
+        {%- endif -%}
+        
+        {%- comment -%} Banner Desktop - sempre exibido se o campo estiver preenchido {%- endcomment -%}
+        {%- if banner_desktop != blank -%}
+          <!-- DEBUG: Renderizando banner desktop -->
+          <img
+            class="collection-hero__image collection-hero__image--desktop"
+            srcset="
+              {%- if banner_desktop.width >= 1070 -%}{{ banner_desktop | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if banner_desktop.width >= 1500 -%}{{ banner_desktop | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if banner_desktop.width >= 2000 -%}{{ banner_desktop | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {{ banner_desktop | image_url }} {{ banner_desktop.width }}w
+            "
+            src="{{ banner_desktop | image_url: width: 1500 }}"
+            sizes="(min-width: 750px) 100vw, 0vw"
+            alt="{{ banner_desktop.alt | escape | default: collection.title | escape }}"
+            width="{{ banner_desktop.width }}"
+            height="{{ banner_desktop.height }}"
+            loading="lazy"           
+          >
+        {%- else -%}
+          <!-- DEBUG: banner_desktop está vazio -->
+        {%- endif -%}
+      </div>
+    {%- comment -%} Fallback para imagem da coleção original {%- endcomment -%}
+    {%- elsif section.settings.show_collection_image and collection.image -%}
       <div class="collection-hero__image-container media gradient">
         <img
           srcset="

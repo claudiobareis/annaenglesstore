@@ -659,3 +659,8 @@ footer .footer-block__details-content ul li {
     line-height: 1.2;
     transition: all var(--duration-short) ease;
   }
+
+  .essential-upsell-frequently-bought-together-block div[data-essential-upsell-element="header"]{
+    padding-left: 0 !important;
+    font-weight: 300 !important;
+  }
