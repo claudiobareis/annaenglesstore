@@ -156,7 +156,11 @@
           <a href="{{ link_url }}" class="header__special-link">
             {% if link_icon != blank %}
               <span class="header__special-link-icon">
-                {{ link_icon | inline_asset_content }}
+                {% if link_icon contains '.svg' and link_icon contains 'http' %}
+                  <img src="{{ link_icon }}" alt="" style="width: 100%; height: 100%;" loading="lazy">
+                {% else %}
+                  {{ link_icon | inline_asset_content }}
+                {% endif %}
               </span>
             {% endif %}
             {{ link_text }}
