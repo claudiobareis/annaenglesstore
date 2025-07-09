@@ -87,6 +87,13 @@
   .header__special-link:hover {
     color: var(--color-accent, #d72660);
   }
+  .header__special-link-icon {
+    display: inline-flex;
+    vertical-align: middle;
+    margin-right: 0.4em;
+    width: 1.2em;
+    height: 1.2em;
+  }
 </style>
 
 {%- style -%}
@@ -138,12 +145,24 @@
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     <div class="header__special-links">
-      {% if section.settings.vip_group_url != blank %}
-        <a href="{{ section.settings.vip_group_url }}" class="header__special-link">{{ section.settings.vip_group_text }}</a>
-      {% endif %}
-      {% if section.settings.contact_url != blank %}
-        <a href="{{ section.settings.contact_url }}" class="header__special-link">{{ section.settings.contact_text }}</a>
-      {% endif %}
+      {% for i in (1..3) %}
+        {% capture link_text_key %}special_link_{{ i }}_text{% endcapture %}
+        {% capture link_url_key %}special_link_{{ i }}_url{% endcapture %}
+        {% capture link_icon_key %}special_link_{{ i }}_icon{% endcapture %}
+        {% assign link_text = section.settings[link_text_key] %}
+        {% assign link_url = section.settings[link_url_key] %}
+        {% assign link_icon = section.settings[link_icon_key] %}
+        {% if link_url != blank and link_text != blank %}
+          <a href="{{ link_url }}" class="header__special-link">
+            {% if link_icon != blank %}
+              <span class="header__special-link-icon">
+                {{ link_icon | inline_asset_content }}
+              </span>
+            {% endif %}
+            {{ link_text }}
+          </a>
+        {% endif %}
+      {% endfor %}
     </div>
     {%- liquid
       if section.settings.menu != blank
@@ -679,25 +698,54 @@
     },
     {
       "type": "text",
-      "id": "vip_group_text",
-      "label": "Texto do link Grupo VIP",
-      "default": "Grupo VIP"
+      "id": "special_link_1_text",
+      "label": "Texto do link especial 01",
+      "default": "Link Especial 01"
     },
     {
       "type": "url",
-      "id": "vip_group_url",
-      "label": "URL do Grupo VIP"
+      "id": "special_link_1_url",
+      "label": "URL do link especial 01"
     },
     {
       "type": "text",
-      "id": "contact_text",
-      "label": "Texto do link Fale Conosco",
-      "default": "Fale Conosco"
+      "id": "special_link_1_icon",
+      "label": "Ícone SVG ou nome do asset (opcional) do link 01",
+      "default": "icon-star.svg"
+    },
+    {
+      "type": "text",
+      "id": "special_link_2_text",
+      "label": "Texto do link especial 02",
+      "default": "Link Especial 02"
     },
     {
       "type": "url",
-      "id": "contact_url",
-      "label": "URL do Fale Conosco"
+      "id": "special_link_2_url",
+      "label": "URL do link especial 02"
+    },
+    {
+      "type": "text",
+      "id": "special_link_2_icon",
+      "label": "Ícone SVG ou nome do asset (opcional) do link 02",
+      "default": "icon-heart.svg"
+    },
+    {
+      "type": "text",
+      "id": "special_link_3_text",
+      "label": "Texto do link especial 03",
+      "default": "Link Especial 03"
+    },
+    {
+      "type": "url",
+      "id": "special_link_3_url",
+      "label": "URL do link especial 03"
+    },
+    {
+      "type": "text",
+      "id": "special_link_3_icon",
+      "label": "Ícone SVG ou nome do asset (opcional) do link 03",
+      "default": "icon-info.svg"
     }
   ],
   "blocks": [
