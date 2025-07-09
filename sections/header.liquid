@@ -70,6 +70,23 @@
       padding-top: 0.5rem;
     }
   }
+
+  .header__special-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-right: 2rem;
+  }
+  .header__special-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .header__special-link:hover {
+    color: var(--color-accent, #d72660);
+  }
 </style>
 
 {%- style -%}
@@ -120,6 +137,14 @@
     endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+    <div class="header__special-links">
+      {% if section.settings.vip_group_url != blank %}
+        <a href="{{ section.settings.vip_group_url }}" class="header__special-link">{{ section.settings.vip_group_text }}</a>
+      {% endif %}
+      {% if section.settings.contact_url != blank %}
+        <a href="{{ section.settings.contact_url }}" class="header__special-link">{{ section.settings.contact_text }}</a>
+      {% endif %}
+    </div>
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
@@ -647,6 +672,32 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Links Especiais"
+    },
+    {
+      "type": "text",
+      "id": "vip_group_text",
+      "label": "Texto do link Grupo VIP",
+      "default": "Grupo VIP"
+    },
+    {
+      "type": "url",
+      "id": "vip_group_url",
+      "label": "URL do Grupo VIP"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Texto do link Fale Conosco",
+      "default": "Fale Conosco"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "URL do Fale Conosco"
     }
   ],
   "blocks": [
