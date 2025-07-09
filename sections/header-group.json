@@ -60,10 +60,15 @@
         "margin_bottom": 0,
         "padding_top": 20,
         "padding_bottom": 20,
-        "vip_group_text": "Grupo VIP",
-        "vip_group_url": "shopify://pages/contact",
-        "contact_text": "Fale Conosco",
-        "contact_url": "shopify://pages/fale-conosco"
+        "special_link_1_text": "Grupo Vip",
+        "special_link_1_url": "shopify://pages/cupom-primeira-compra",
+        "special_link_1_icon": "https://cdn.shopify.com/s/files/1/0654/4860/7804/files/grupovip.svg",
+        "special_link_2_text": "Fale Conosco",
+        "special_link_2_url": "shopify://pages/fale-conosco",
+        "special_link_2_icon": "https://cdn.shopify.com/s/files/1/0654/4860/7804/files/faleconosco.svg",
+        "special_link_3_text": "Link Especial 03",
+        "special_link_3_url": "",
+        "special_link_3_icon": "icon-info.svg"
       }
     }
   },
