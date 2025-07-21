@@ -113,7 +113,9 @@
               show_rating: section.settings.show_rating,
               skip_styles: skip_card_product_styles,
               section_id: section.id,
-              quick_add: section.settings.quick_add
+              quick_add: section.settings.quick_add,
+              show_videos: section.settings.show_videos,
+              video_autoplay: section.settings.video_autoplay
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
@@ -140,7 +142,9 @@
                 show_vendor: section.settings.show_vendor,
                 media_aspect_ratio: section.settings.image_ratio,
                 image_shape: section.settings.image_shape,
-                placeholder_image: placeholder_image
+                placeholder_image: placeholder_image,
+                show_videos: section.settings.show_videos,
+                video_autoplay: section.settings.video_autoplay
               %}
             </li>
           {%- endfor -%}
@@ -422,6 +426,22 @@
       "default": false,
       "label": "t:sections.featured-collection.settings.show_rating.label",
       "info": "t:sections.featured-collection.settings.show_rating.info"
+    },
+    {
+      "type": "header",
+      "content": "Configurações de Vídeo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_videos",
+      "default": true,
+      "label": "Exibir vídeos nos cards de produtos"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "default": false,
+      "label": "Habilitar autoplay para vídeos"
     },
     {
       "type": "select",

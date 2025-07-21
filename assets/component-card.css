@@ -104,6 +104,10 @@
   width: 100%;
 }
 
+.card .media .video-media{
+  z-index: 99;
+}
+
 .card__media {
   margin: var(--image-padding);
   width: calc(100% - 2 * var(--image-padding));

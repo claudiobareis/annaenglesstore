@@ -45,7 +45,9 @@
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
               show_rating: section.settings.show_rating,
-              skip_styles: skip_card_product_styles
+              skip_styles: skip_card_product_styles,
+              show_videos: section.settings.show_videos,
+              video_autoplay: section.settings.video_autoplay
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
@@ -210,6 +212,22 @@
       "default": false,
       "label": "t:sections.related-products.settings.show_rating.label",
       "info": "t:sections.related-products.settings.show_rating.info"
+    },
+    {
+      "type": "header",
+      "content": "Configurações de Vídeo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_videos",
+      "default": true,
+      "label": "Exibir vídeos nos cards de produtos"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "default": false,
+      "label": "Habilitar autoplay para vídeos"
     },
     {
       "type": "header",
