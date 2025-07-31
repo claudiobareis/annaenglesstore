@@ -695,7 +695,13 @@ class DeferredMedia extends HTMLElement {
     super();
     const poster = this.querySelector('[id^="Deferred-Poster-"]');
     if (!poster) return;
-    poster.addEventListener('click', this.loadContent.bind(this));
+    
+    // Se for um card com vídeo, carregar automaticamente
+    if (this.closest('.card') && this.classList.contains('video-media')) {
+      this.loadContent(false);
+    } else {
+      poster.addEventListener('click', this.loadContent.bind(this));
+    }
   }
 
   loadContent(focus = true) {
@@ -706,6 +712,29 @@ class DeferredMedia extends HTMLElement {
 
       this.setAttribute('loaded', true);
       const deferredElement = this.appendChild(content.querySelector('video, model-viewer, iframe'));
+      
+      // Se for um card com vídeo, forçar autoplay e loop
+      if (this.closest('.card') && this.classList.contains('video-media') && deferredElement.nodeName == 'VIDEO') {
+        deferredElement.setAttribute('autoplay', '');
+        deferredElement.setAttribute('loop', ''); 
+        deferredElement.setAttribute('muted', '');
+        deferredElement.setAttribute('playsinline', '');
+        // Forçar o vídeo a ser exibido
+        deferredElement.style.display = 'block';
+        deferredElement.style.opacity = '1';
+        deferredElement.style.visibility = 'visible';
+        deferredElement.style.zIndex = '10';
+        
+        // Esconder o poster
+        const poster = this.querySelector('.deferred-media__poster');
+        if (poster) {
+          poster.style.display = 'none';
+          poster.style.opacity = '0';
+          poster.style.visibility = 'hidden';
+          poster.style.pointerEvents = 'none';
+        }
+      }
+      
       if (focus) deferredElement.focus();
       if (deferredElement.nodeName == 'VIDEO' && deferredElement.getAttribute('autoplay')) {
         // force autoplay for safari

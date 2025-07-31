@@ -63,13 +63,14 @@
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
             <div class="media media--transparent media--hover-effect">
+              <!-- DEBUG: show_videos={{ show_videos }}, video_autoplay={{ video_autoplay }}, media_type={{ card_product.featured_media.media_type }} -->
               {%- if show_videos -%}
                 {%- if card_product.featured_media.media_type == 'video' or card_product.featured_media.media_type == 'external_video' -%}
                   <deferred-media
                     class="deferred-media media media--transparent video-media"
                     data-media-id="{{ card_product.featured_media.id }}"
                   >
-                    <button id="Deferred-Poster-Card-{{ card_product.featured_media.id }}" class="deferred-media__poster" type="button" onclick="event.preventDefault(); event.stopPropagation();">
+                    <button id="Deferred-Poster-Card-{{ card_product.featured_media.id }}" class="deferred-media__poster" type="button">
                       <span class="deferred-media__poster-button motion-reduce">
                         <span class="svg-wrapper">{{ 'icon-play.svg' | inline_asset_content }}</span>
                       </span>
@@ -114,7 +115,7 @@
                             }}
                           {%- endif -%}
                         {%- when 'video' -%}
-                          {{ card_product.featured_media | media_tag: image_size: '2048x', autoplay: video_autoplay, loop: false, controls: true, preload: 'none' }}
+                          {{ card_product.featured_media | media_tag: image_size: '2048x', autoplay: true, loop: true, controls: false, preload: 'metadata' }}
                       {%- endcase -%}
                     </template>
                   </deferred-media>
@@ -168,13 +169,14 @@
               {%- endif -%}
 
               {%- if card_product.media[1] != null and show_secondary_image -%}
+                <!-- DEBUG: show_videos={{ show_videos }}, video_autoplay={{ video_autoplay }}, media_type={{ card_product.media[1].media_type }} -->
                 {%- if show_videos -%}
                   {%- if card_product.media[1].media_type == 'video' or card_product.media[1].media_type == 'external_video' -%}
                     <deferred-media
                       class="deferred-media media media--transparent"
                       data-media-id="{{ card_product.media[1].id }}"
                     >
-                      <button id="Deferred-Poster-Card-Secondary-{{ card_product.media[1].id }}" class="deferred-media__poster" type="button" onclick="event.preventDefault(); event.stopPropagation();">
+                      <button id="Deferred-Poster-Card-Secondary-{{ card_product.media[1].id }}" class="deferred-media__poster" type="button">
                         <span class="deferred-media__poster-button motion-reduce">
                           <span class="svg-wrapper">{{ 'icon-play.svg' | inline_asset_content }}</span>
                         </span>
@@ -215,7 +217,7 @@
                               }}
                             {%- endif -%}
                           {%- when 'video' -%}
-                            {{ card_product.media[1] | media_tag: image_size: '2048x', autoplay: video_autoplay, loop: false, controls: true, preload: 'none' }}
+                            {{ card_product.media[1] | media_tag: image_size: '2048x', autoplay: true, loop: true, controls: false, preload: 'metadata' }}
                         {%- endcase -%}
                       </template>
                     </deferred-media>
