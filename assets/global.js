@@ -705,7 +705,11 @@ class DeferredMedia extends HTMLElement {
   }
 
   loadContent(focus = true) {
-    window.pauseAllMedia();
+    // Só pausar outros vídeos se NÃO for um vídeo de card
+    if (!(this.closest('.card') && this.classList.contains('video-media'))) {
+      window.pauseAllMedia();
+    }
+    
     if (!this.getAttribute('loaded')) {
       const content = document.createElement('div');
       content.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
