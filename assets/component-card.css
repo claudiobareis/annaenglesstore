@@ -661,3 +661,35 @@
     clip-path: polygon(var(--shape--blob-5));
   }
 }
+
+/* Garante que imagens normais dos cards fiquem sempre visíveis */
+.card .media img {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+/* Força a primeira imagem a aparecer SEMPRE */
+.card .media.media--hover-effect > img:first-child {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2 !important;
+  display: block !important;
+}
+
+/* Garante que a segunda imagem só aparece no hover */
+.card .media.media--hover-effect > img + img {
+  opacity: 0;
+  z-index: 1;
+  display: block;
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+.card:hover .media.media--hover-effect > img + img,
+.card-wrapper:hover .media.media--hover-effect > img + img {
+  opacity: 1;
+  z-index: 3;
+}
