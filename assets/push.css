@@ -450,6 +450,11 @@ footer .footer-block__details-content ul li {
 .page-home .collection-list-wrapper{
     background-color: #f1f1f1;
 }
+
+.page-home .collection-list-wrapper .collection-list .card__caption{
+    color: #fff;
+}
+
 #shopify-section-sections--18112544571452__custom_liquid_QUKPRV .section-sections--18112544571452__custom_liquid_QUKPRV-padding{
     background-color: #f1f1f1;
 }
@@ -664,3 +669,66 @@ footer .footer-block__details-content ul li {
     padding-left: 0 !important;
     font-weight: 300 !important;
   }
+
+  .page-home .multicolumn slider-component .slider-buttons .slider-button--prev{
+    position: absolute;
+    left: 0;
+    top: 30%;  
+  }
+
+  .page-home .multicolumn slider-component .slider-buttons .slider-button--next{
+    position: absolute;
+    right: 0;
+    top: 30%;  
+  }
+
+  .page-home .multicolumn slider-component .slider-buttons .slider-counter.caption{
+    display: none;
+  }
+
+
+.page-home .collection-list-wrapper slider-component .slider-buttons .slider-button--prev{
+    position: absolute;
+    left: 0;
+    top: 50%;  
+    background-color: #000;
+    color: #fff;
+}
+.page-home .collection-list-wrapper slider-component .slider-buttons .slider-button--next{
+    position: absolute;
+    right: 0;
+    top: 50%;  
+    background-color: #000;
+    color: #fff;
+}   
+.page-home .collection-list-wrapper slider-component .slider-buttons .slider-counter.caption{
+    display: none;
+}
+.page-home .collection-list-wrapper slider-component .slider-button[disabled] .icon{
+    color: #fff;
+    opacity: .5;
+}
+
+.page-home .collection slider-component .slider-buttons .slider-button--prev{
+    position: absolute;
+    left: 0;
+    top: 35%;  
+    background-color: #000;
+    color: #fff;
+}
+.page-home .collection slider-component .slider-buttons .slider-button--next{
+    position: absolute;
+    right: 0;
+    top: 35%;  
+    background-color: #000;
+    color: #fff;
+}
+.page-home .collection slider-component .slider-buttons .slider-counter.caption{
+    display: none;
+}
+.page-home .collection slider-component .slider-button[disabled] .icon{
+    color: #fff;
+    opacity: .5;
+}
+
+

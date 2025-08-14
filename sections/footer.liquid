@@ -76,19 +76,19 @@
                 {% endif %}
               >
                 {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
+                  <h2 class="footer-block__heading inline-richtext footer-accordion-trigger" data-block-id="{{ block.id }}">{{- block.settings.heading -}}</h2>
                 {%- endif -%}
 
                 {%- case block.type -%}
                   {%- when '@app' -%}
                     {% render block %}
                   {%- when 'text' -%}
-                    <div class="footer-block__details-content rte">
+                    <div class="footer-block__details-content rte footer-accordion-content" data-block-id="{{ block.id }}">
                       {{ block.settings.subtext }}
                     </div>
                   {%- when 'link_list' -%}
                     {%- if block.settings.menu != blank -%}
-                      <ul class="footer-block__details-content list-unstyled">
+                      <ul class="footer-block__details-content list-unstyled footer-accordion-content" data-block-id="{{ block.id }}">
                         {%- for link in block.settings.menu.links -%}
                           <li>
                             <a
@@ -102,7 +102,7 @@
                       </ul>
                     {%- endif -%}
                   {%- when 'brand_information' -%}
-                    <div class="footer-block__brand-info">
+                    <div class="footer-block__details-content footer-block__brand-info footer-accordion-content" data-block-id="{{ block.id }}">
                       {%- if settings.brand_image != blank -%}
                         {%- assign brand_image_height = settings.brand_image_width
                           | divided_by: settings.brand_image.aspect_ratio
@@ -133,7 +133,7 @@
                       {%- endif -%}
                     </div>
                   {%- when 'image' -%}
-                    <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
+                    <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }} footer-accordion-content" data-block-id="{{ block.id }}">
                       {%- if block.settings.image != blank -%}
                         {%- assign image_size_2x = block.settings.image_width | times: 2 | at_most: 5760 -%}
                         <div
@@ -320,6 +320,8 @@
     </div>
   </div>
 </footer>
+
+<script src="{{ 'footer-accordion.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

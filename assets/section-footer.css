@@ -18,7 +18,7 @@
 
   .footer-block.grid__item {
     padding: 0;
-    margin: 4rem 0;
+    margin: .5rem 0;
     width: 100%;
   }
 
@@ -28,8 +28,8 @@
 
   .footer__content-top {
     padding-bottom: 3rem;
-    padding-left: calc(4rem / var(--font-body-scale));
-    padding-right: calc(4rem / var(--font-body-scale));
+    padding-left: calc(1.5rem / var(--font-body-scale));
+    padding-right: calc(1.5rem / var(--font-body-scale));
   }
 }
 
@@ -504,5 +504,105 @@
     .footer__content-top .grid__item {
       padding-left: 3rem;
     }
+  }
+}
+
+/* Estilos do acordeão do footer para mobile */
+@media screen and (max-width: 749px) {
+  .footer-accordion-trigger {
+    cursor: pointer;
+    position: relative;
+    padding-right: 3rem;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-accordion-trigger:hover {
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .footer-accordion-trigger::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    color: rgba(var(--color-foreground), 0.75);
+    line-height: 1;
+    width: 2rem;
+    text-align: center;
+  }
+
+  .footer-accordion-trigger.accordion-open::after {
+    content: '−';
+    transform: translateY(-50%);
+  }
+
+  .footer-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s ease, 
+                margin-bottom 0.3s ease;
+    opacity: 0;
+    margin-bottom: 0;
+  }
+
+  .footer-accordion-content.accordion-open {
+    max-height: 1000px;
+    opacity: 1;
+    margin-bottom: 2rem;
+  }
+
+  /* Newsletter sempre visível no mobile */
+  .footer-block--newsletter .footer-block__heading {
+    cursor: default;
+    padding-right: 0;
+  }
+
+  .footer-block--newsletter .footer-block__heading::after {
+    display: none;
+  }
+
+  .footer-block--newsletter .footer-accordion-content {
+    max-height: none;
+    opacity: 1;
+    margin-bottom: 2rem;
+  }
+
+  /* Melhorar espaçamento dos itens do menu */
+  .footer-accordion-content.list-unstyled li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .footer-accordion-content.list-unstyled li:last-child {
+    border-bottom: none;
+  }
+
+  /* Animações suaves */
+  .footer-accordion-trigger:focus {
+    outline: 2px solid rgba(var(--color-foreground), 0.3);
+    outline-offset: 2px;
+  }
+
+  .footer-accordion-trigger:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* Desktop: remover estilos do acordeão */
+@media screen and (min-width: 750px) {
+  .footer-accordion-trigger::after {
+    display: none;
+  }
+  
+  .footer-accordion-content {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-bottom: 0 !important;
   }
 }
