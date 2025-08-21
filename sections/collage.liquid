@@ -16,6 +16,16 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .collage-image-link {
+    display: block;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .collage-image-link:hover {
+    opacity: 0.9;
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient isolate">
@@ -40,6 +50,9 @@
           {%- case block.type -%}
             {%- when 'image' -%}
               <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}card-wrapper {{ section.settings.card_styles }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+                {%- if block.settings.image_link != blank -%}
+                  <a href="{{ block.settings.image_link }}" class="collage-image-link">
+                {%- endif -%}
                 <div
                   class="media media--transparent ratio"
                   {% if block.settings.image != blank %}
@@ -90,6 +103,9 @@
                     {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
                 </div>
+                {%- if block.settings.image_link != blank -%}
+                  </a>
+                {%- endif -%}
               </div>
             {%- when 'product' -%}
               {%- assign placeholder_image = 'product-apparel-' | append: placeholder_image_index -%}
@@ -348,6 +364,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.collage.blocks.image.settings.image.label"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Link da imagem",
+          "info": "Adicione um link para que a imagem seja clicável"
         }
       ]
     },

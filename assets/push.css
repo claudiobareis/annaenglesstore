@@ -453,6 +453,7 @@ footer .footer-block__details-content ul li {
 
 .page-home .collection-list-wrapper .collection-list .card__caption{
     color: #fff;
+    display: none;
 }
 
 #shopify-section-sections--18112544571452__custom_liquid_QUKPRV .section-sections--18112544571452__custom_liquid_QUKPRV-padding{
