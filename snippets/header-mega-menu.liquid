@@ -68,23 +68,50 @@
                   {%- endfor -%}
                 </ul>
                 
-                {%- comment -%} Banner do Mega Menu {%- endcomment -%}
-                {%- if section.settings.show_mega_menu_banner and section.settings.mega_menu_banner_image != blank -%}
+                {%- comment -%} Banner do Mega Menu usando metafields das collections {%- endcomment -%}
+                {%- liquid
+                  assign banner_image = null
+                  assign banner_url = null
+                  
+                  # Tenta encontrar uma collection entre os links para pegar os metafields
+                  for childlink in link.links
+                    if childlink.type == 'collection_link' or childlink.url contains '/collections/'
+                      assign collection_handle = childlink.url | split: '/collections/' | last | split: '?' | first
+                      assign collection = collections[collection_handle]
+                      if collection != blank
+                        assign banner_image = collection.metafields.custom.banner_menu
+                        assign banner_url = collection.metafields.custom.banner_menu_link
+                        break
+                      endif
+                    endif
+                  endfor
+                  
+                  # Se não encontrou collection, tenta usar o primeiro link que tenha metafields
+                  if banner_image == null
+                    for childlink in link.links
+                      if childlink.type == 'collection_link' or childlink.url contains '/collections/'
+                        assign collection_handle = childlink.url | split: '/collections/' | last | split: '?' | first
+                        assign collection = collections[collection_handle]
+                        if collection != blank and collection.metafields.custom.banner_menu != blank
+                          assign banner_image = collection.metafields.custom.banner_menu
+                          assign banner_url = collection.metafields.custom.banner_menu_link
+                          break
+                        endif
+                      endif
+                    endfor
+                  endif
+                -%}
+                
+                {%- if banner_image != blank -%}
                   <div class="mega-menu__banner">
                     <div class="mega-menu__banner-image">
-                      {%- assign banner_image = section.settings.mega_menu_banner_image -%}
-                      {%- assign banner_alt = section.settings.mega_menu_banner_alt | default: link.title | escape -%}
-                      {%- assign banner_url = section.settings.mega_menu_banner_url -%}
-                      
                       {%- if banner_url != blank -%}
                         <a href="{{ banner_url }}" class="mega-menu__banner-link">
                       {%- endif -%}
                       
                       <img
-                        src="{{ banner_image | image_url: width: 400 }}"
-                        alt="{{ banner_alt }}"
-                        width="{{ banner_image.width }}"
-                        height="{{ banner_image.height }}"
+                        src="{{ banner_image }}"
+                        alt="{{ link.title | escape }} - Banner"
                         loading="lazy"
                         class="mega-menu__banner-img"
                       >
@@ -94,21 +121,12 @@
                       {%- endif -%}
                     </div>
                     
-                    {%- if section.settings.mega_menu_banner_title != blank or section.settings.mega_menu_banner_text != blank -%}
-                      <div class="mega-menu__banner-content">
-                        {%- if section.settings.mega_menu_banner_title != blank -%}
-                          <h3 class="mega-menu__banner-title">{{ section.settings.mega_menu_banner_title }}</h3>
-                        {%- endif -%}
-                        
-                        {%- if section.settings.mega_menu_banner_text != blank -%}
-                          <p class="mega-menu__banner-text">{{ section.settings.mega_menu_banner_text }}</p>
-                        {%- endif -%}
-                        
-                        {%- if section.settings.mega_menu_banner_button_text != blank and banner_url != blank -%}
-                          <span class="mega-menu__banner-button">{{ section.settings.mega_menu_banner_button_text }}</span>
-                        {%- endif -%}
-                      </div>
-                    {%- endif -%}
+                    <div class="mega-menu__banner-content">
+                      <h3 class="mega-menu__banner-title">{{ link.title | escape }}</h3>
+                      {%- if banner_url != blank -%}
+                        <span class="mega-menu__banner-button">Ver Mais</span>
+                      {%- endif -%}
+                    </div>
                   </div>
                 {%- endif -%}
               </div>
