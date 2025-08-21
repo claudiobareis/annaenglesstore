@@ -19,8 +19,8 @@
         "video": "shopify://files/videos/fdeab41c3a25418cb2d22a7009b60d45.HD-720p-2.1Mbps-54764489.mp4",
         "video_url": "",
         "description": "Vídeo teste",
-        "show_controls": false,
         "full_width": true,
+        "show_controls": false,
         "color_scheme": "scheme-2",
         "padding_top": 0,
         "padding_bottom": 0
@@ -168,6 +168,45 @@
         "columns_mobile": "2",
         "swipe_on_mobile": true,
         "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "collage_DQmaja": {
+      "type": "collage",
+      "blocks": {
+        "image_3weGLq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Familia-com-cinto_196e8027-9a27-4e04-89bb-68dd5e2ada52.webp"
+          }
+        },
+        "image_RTDE6r": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2_-_CALCAS_85705311-7aaa-488c-847a-88c0f19a8e2e.jpg"
+          }
+        },
+        "image_acGBNW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1_-_GLAM_2cc0272f-c5ed-440a-bc65-37c94c382517.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_3weGLq",
+        "image_RTDE6r",
+        "image_acGBNW"
+      ],
+      "name": "t:sections.collage.presets.name",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "desktop_layout": "left",
+        "mobile_layout": "column",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "",
+        "padding_top": 36,
         "padding_bottom": 36
       }
     },
@@ -347,6 +386,7 @@
     "multicolumn_Jp79tV",
     "collection_list_jkLExi",
     "featured_collection",
+    "collage_DQmaja",
     "image_banner_zPWzwX",
     "multicolumn_3hWmcM",
     "featured_collection_6XfBHm"
