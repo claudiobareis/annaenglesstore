@@ -67,6 +67,50 @@
                     </li>
                   {%- endfor -%}
                 </ul>
+                
+                {%- comment -%} Banner do Mega Menu {%- endcomment -%}
+                {%- if section.settings.show_mega_menu_banner and section.settings.mega_menu_banner_image != blank -%}
+                  <div class="mega-menu__banner">
+                    <div class="mega-menu__banner-image">
+                      {%- assign banner_image = section.settings.mega_menu_banner_image -%}
+                      {%- assign banner_alt = section.settings.mega_menu_banner_alt | default: link.title | escape -%}
+                      {%- assign banner_url = section.settings.mega_menu_banner_url -%}
+                      
+                      {%- if banner_url != blank -%}
+                        <a href="{{ banner_url }}" class="mega-menu__banner-link">
+                      {%- endif -%}
+                      
+                      <img
+                        src="{{ banner_image | image_url: width: 400 }}"
+                        alt="{{ banner_alt }}"
+                        width="{{ banner_image.width }}"
+                        height="{{ banner_image.height }}"
+                        loading="lazy"
+                        class="mega-menu__banner-img"
+                      >
+                      
+                      {%- if banner_url != blank -%}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    
+                    {%- if section.settings.mega_menu_banner_title != blank or section.settings.mega_menu_banner_text != blank -%}
+                      <div class="mega-menu__banner-content">
+                        {%- if section.settings.mega_menu_banner_title != blank -%}
+                          <h3 class="mega-menu__banner-title">{{ section.settings.mega_menu_banner_title }}</h3>
+                        {%- endif -%}
+                        
+                        {%- if section.settings.mega_menu_banner_text != blank -%}
+                          <p class="mega-menu__banner-text">{{ section.settings.mega_menu_banner_text }}</p>
+                        {%- endif -%}
+                        
+                        {%- if section.settings.mega_menu_banner_button_text != blank and banner_url != blank -%}
+                          <span class="mega-menu__banner-button">{{ section.settings.mega_menu_banner_button_text }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
               </div>
             </details>
           </header-menu>

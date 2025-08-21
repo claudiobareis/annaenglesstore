@@ -455,6 +455,16 @@ footer .footer-block__details-content ul li {
     color: #fff;
     display: none;
 }
+@media (min-width: 768px) {
+    .page-home .video-mobile{
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .page-home .video-desktop{
+        display: none;
+    }
+}
 
 #shopify-section-sections--18112544571452__custom_liquid_QUKPRV .section-sections--18112544571452__custom_liquid_QUKPRV-padding{
     background-color: #f1f1f1;
@@ -586,7 +596,7 @@ footer .footer-block__details-content ul li {
 }
 
 .footer-block__heading{
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .page-page .main-page-title{
