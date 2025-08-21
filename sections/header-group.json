@@ -68,7 +68,13 @@
         "special_link_2_icon": "https://cdn.shopify.com/s/files/1/0654/4860/7804/files/faleconosco.svg",
         "special_link_3_text": "Link Especial 03",
         "special_link_3_url": "",
-        "special_link_3_icon": "icon-info.svg"
+        "special_link_3_icon": "icon-info.svg",
+        "show_mega_menu_banner": false,
+        "mega_menu_banner_alt": "",
+        "mega_menu_banner_url": "",
+        "mega_menu_banner_title": "",
+        "mega_menu_banner_text": "",
+        "mega_menu_banner_button_text": ""
       }
     }
   },
