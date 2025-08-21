@@ -3032,6 +3032,11 @@
         },
         "full_width": {
           "label": "Make section full width"
+        },
+        "custom_class": {
+          "header": "Custom CSS Class",
+          "label": "Custom CSS class",
+          "info": "Add a custom CSS class to apply additional styling to this section"
         }
       },
       "presets": {

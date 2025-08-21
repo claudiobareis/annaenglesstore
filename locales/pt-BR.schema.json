@@ -2513,6 +2513,11 @@
         "full_width": {
           "label": "Definir seção com largura total"
         },
+        "custom_class": {
+          "header": "Classe CSS Personalizada",
+          "label": "Classe CSS personalizada",
+          "info": "Adicione uma classe CSS personalizada para aplicar estilos adicionais a esta seção"
+        },
         "video": {
           "label": "Vídeo"
         },
