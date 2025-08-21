@@ -2063,7 +2063,7 @@
           "info": "Saiba mais sobre [tipos de mídia.](https://help.shopify.com/manual/products/product-media)"
         },
         "enable_video_looping": {
-          "label": "Habilitar loop de vídeo"
+          "label": "Reproduzir vídeo em loop"
         },
         "enable_sticky_info": {
           "label": "Habilitar conteúdo persistente no desktop"
@@ -2145,6 +2145,13 @@
           "options__2": {
             "label": "Preenchimento"
           }
+        },
+        "show_controls": {
+          "label": "Mostrar controles do vídeo",
+          "info": "Exibir controles de reprodução (play, pause, volume, etc.)"
+        },
+        "header__1": {
+          "content": "Vídeo hospedado na Shopify"
         }
       },
       "name": "Informações do produto"
@@ -2654,7 +2661,7 @@
           "info": "Saiba mais sobre os [tipos de mídia](https://help.shopify.com/manual/products/product-media)"
         },
         "enable_video_looping": {
-          "label": "Habilitar loop de vídeo"
+          "label": "Reproduzir vídeo em loop"
         },
         "hide_variants": {
           "label": "Ocultar mídia das variantes não selecionadas na área de trabalho"

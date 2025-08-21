@@ -46,3 +46,37 @@
 .video-section__media.media-fit-cover video {
   object-fit: cover;
 }
+
+/* Estilos específicos para vídeos diretos */
+.video-section__video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000000;
+  object-fit: cover;
+}
+
+.video-section__iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 0;
+}
+
+/* Garantir que o vídeo seja visível */
+.video-section__media:has(video),
+.video-section__media:has(iframe) {
+  overflow: hidden;
+}
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 749px) {
+  .video-section__video,
+  .video-section__iframe {
+    object-fit: cover;
+  }
+}

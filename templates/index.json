@@ -19,6 +19,7 @@
         "video": "shopify://files/videos/fdeab41c3a25418cb2d22a7009b60d45.HD-720p-2.1Mbps-54764489.mp4",
         "video_url": "",
         "description": "Vídeo teste",
+        "show_controls": false,
         "full_width": true,
         "color_scheme": "scheme-2",
         "padding_top": 0,
