@@ -196,21 +196,21 @@
         "image_3weGLq": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/model-in-sunglasses-and-summer-clothes.jpg",
+            "image": "shopify://shop_images/CAMISAS.jpg",
             "image_link": "shopify://collections"
           }
         },
         "image_RTDE6r": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/minimalist-retail-clothing-display.jpg",
+            "image": "shopify://shop_images/DETALHES.jpg",
             "image_link": "shopify://collections"
           }
         },
         "image_acGBNW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/model-laughs-barefoot.jpg",
+            "image": "shopify://shop_images/CALCA_3.jpg",
             "image_link": ""
           }
         }
