@@ -136,6 +136,9 @@ variant-selects {
 .product-form__input--swatch {
   display: flex;
   flex-wrap: wrap;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .product-form__input--swatch .swatch-input__input + .swatch-input__label {
