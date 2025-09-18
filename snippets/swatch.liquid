@@ -3,30 +3,40 @@
   Accepts:
   - swatch: {Object} a swatch object
   - shape: {String} swatch shape. Accepts 'square', defaults to circle.
+  - value: {String} the color name/value for text display (optional)
 
   Usage:
   {% render 'swatch',
-    swatch: value.swatch
-    shape: 'square'
+    swatch: value.swatch,
+    shape: 'square',
+    value: value
   %}
 {% endcomment %}
 
 {%- liquid
   assign swatch_value = null
+  assign has_visual_swatch = false
+  
   if swatch.image
     assign image_url = swatch.image | image_url: width: 50
     assign swatch_value = 'url(' | append: image_url | append: ')'
     assign swatch_focal_point = swatch.image.presentation.focal_point
+    assign has_visual_swatch = true
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+    assign has_visual_swatch = true
   endif
 -%}
 
 <span
   {% if swatch_value %}
-    class="swatch{% if shape == 'square' %} swatch--square{% endif %}"
+    class="swatch{% if shape == 'square' %} swatch--square{% endif %}{% unless has_visual_swatch %} swatch--text{% endunless %}"
     style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
   {% else %}
-    class="swatch swatch--unavailable{% if shape == 'square' %} swatch--square{% endif %}"
+    class="swatch swatch--text{% if shape == 'square' %} swatch--square{% endif %}"
   {% endif %}
-></span>
+>
+  {%- unless has_visual_swatch -%}
+    <span class="swatch__text">{{ value | default: swatch.name | default: 'N/A' }}</span>
+  {%- endunless -%}
+</span>

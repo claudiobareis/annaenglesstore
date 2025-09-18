@@ -23,3 +23,37 @@
   border-style: dashed;
   border-color: rgba(var(--color-foreground), 0.5);
 }
+
+/* Text swatch styles for when no image or color is available */
+.swatch--text {
+  background: rgba(var(--color-foreground), 0.05);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.swatch__text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+  text-align: center;
+  line-height: 1.2;
+  padding: 0.2rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Adjust text size for smaller swatches */
+.swatch--text .swatch__text {
+  font-size: max(calc(var(--swatch--size) * 0.2), 0.8rem);
+}
+
+/* Square text swatches can accommodate more text */
+.swatch--square.swatch--text .swatch__text {
+  font-size: calc(var(--swatch--size) * 0.22);
+}
