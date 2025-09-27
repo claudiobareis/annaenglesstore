@@ -352,6 +352,78 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "collapsible_content_iLhwYF": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_Cwrq8x": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quais são as formas de pagamento aceitas pela Anna Engles Store?",
+            "icon": "check_mark",
+            "row_content": "<p>Aceitamos cartões de crédito, Pix, boleto bancário e outras opções disponíveis no checkout. Todas as transações são realizadas em ambiente seguro para garantir a proteção dos seus dados.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_YP6tqU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como funciona o envio e qual o prazo de entrega dos pedidos?",
+            "icon": "check_mark",
+            "row_content": "<p>Enviamos para todo o Brasil. O prazo de entrega depende da sua localização e do método de envio escolhido, sendo informado no momento da compra. Após a postagem, você recebe um código de rastreamento para acompanhar o pedido.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_N4bma8": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Posso trocar ou devolver uma peça comprada na Anna Engles Store?",
+            "icon": "check_mark",
+            "row_content": "<p>Sim! Você pode solicitar a troca ou devolução em até 7 dias corridos após o recebimento, desde que a peça esteja sem uso, com etiqueta e na embalagem original. Basta entrar em contato com nosso atendimento para receber as orientações.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_KGpNzP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como faço para saber o tamanho ideal das peças?",
+            "icon": "check_mark",
+            "row_content": "<p>Disponibilizamos uma tabela de medidas em cada página de produto para ajudar na escolha do tamanho ideal. Se ainda tiver dúvidas, nossa equipe está disponível para ajudar pelo WhatsApp ou e-mail.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_3CqX96": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Como posso entrar em contato com a Anna Engles Store?",
+            "icon": "check_mark",
+            "row_content": "<p>Você pode falar conosco pelo WhatsApp, e-mail ou pelo formulário de contato no site. Nosso atendimento está pronto para tirar dúvidas, ajudar com pedidos e oferecer suporte sempre que precisar.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_Cwrq8x",
+        "collapsible_row_YP6tqU",
+        "collapsible_row_N4bma8",
+        "collapsible_row_KGpNzP",
+        "collapsible_row_3CqX96"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "Perguntas Frequentes",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -362,6 +434,7 @@
     "featured_collection",
     "collage_DQmaja",
     "multicolumn_3hWmcM",
-    "featured_collection_6XfBHm"
+    "featured_collection_6XfBHm",
+    "collapsible_content_iLhwYF"
   ]
 }
