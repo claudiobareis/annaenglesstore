@@ -94,6 +94,20 @@
     width: 1.2em;
     height: 1.2em;
   }
+  
+  /* Controle dos ícones do carrinho */
+  #cart-icon-bubble.cart-empty .svg-wrapper {
+    display: none;
+  }
+  #cart-icon-bubble.cart-empty .svg-wrapper:first-child {
+    display: inline-block;
+  }
+  #cart-icon-bubble.cart-filled .svg-wrapper:first-child {
+    display: none;
+  }
+  #cart-icon-bubble.cart-filled .svg-wrapper:last-child {
+    display: inline-block;
+  }
   @media screen and (max-width: 750px) {
     .header__special-links {
       display: none;
@@ -329,12 +343,9 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-          {% if cart == empty %}
-            <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
-          {% else %}
-            <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
-          {% endif %}
+      <button type="button" class="header__icon header__icon--cart link focus-inset{% if cart == empty %} cart-empty{% else %} cart-filled{% endif %}" id="cart-icon-bubble" onclick="openCartNotification()">
+          <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
+          <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
@@ -344,7 +355,7 @@
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
           </div>
         {%- endif -%}
-      </a>
+      </button>
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -352,6 +363,290 @@
 {%- if settings.cart_type == "notification" -%}
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
 {%- endif -%}
+
+{%- render 'mini-cart' -%}
+
+<script>
+async function openCartNotification() {
+  const miniCart = document.getElementById('mini-cart');
+  if (!miniCart) {
+    // Fallback: se não houver mini-cart, vai para a página do carrinho
+    window.location.href = '{{ routes.cart_url }}';
+    return;
+  }
+
+  // Sempre abrir o mini-cart primeiro
+  miniCart.style.display = 'block';
+  setTimeout(() => miniCart.classList.add('active'), 10);
+
+  try {
+    // Buscar dados atuais do carrinho
+    console.log('Buscando dados do carrinho...');
+    const response = await fetch(`${window.routes.cart_url}?section_id=main-cart-items`);
+    const responseText = await response.text();
+    console.log('Response recebida, tamanho:', responseText.length);
+    console.log('Primeiros 500 chars da response:', responseText.substring(0, 500));
+    
+    const html = new DOMParser().parseFromString(responseText, 'text/html');
+    const cartItems = html.querySelector('.js-contents');
+    console.log('Elemento .js-contents encontrado:', !!cartItems);
+    
+    if (!cartItems) {
+      // Se não conseguir carregar, mostrar mensagem de carrinho vazio
+      updateMiniCart('<div class="cart__warnings"><p>Não foi possível carregar o carrinho</p></div>');
+      return;
+    }
+
+    // Verificar se o carrinho está vazio
+    const isEmpty = cartItems.querySelector('.cart__warnings') || cartItems.querySelector('.cart__empty-text');
+    if (isEmpty) {
+      // Mostrar carrinho vazio no mini-cart
+      updateMiniCart('<div class="cart__warnings"><p>Carrinho vazio</p></div>');
+      return;
+    }
+
+    // Atualizar o mini-cart com os dados atuais
+    updateMiniCart(cartItems.innerHTML);
+    
+  } catch (error) {
+    console.error('Erro ao carregar dados do carrinho:', error);
+    // Mostrar erro no mini-cart em vez de redirecionar
+    updateMiniCart('<div class="cart__warnings"><p>Erro ao carregar carrinho</p></div>');
+  }
+}
+
+function closeMiniCart() {
+  const miniCart = document.getElementById('mini-cart');
+  if (miniCart) {
+    miniCart.classList.remove('active');
+    setTimeout(() => miniCart.style.display = 'none', 300);
+  }
+}
+
+function updateMiniCart(cartContent) {
+  const miniCartItems = document.getElementById('mini-cart-items');
+  
+  // Se cartContent é uma string simples (caso de erro), tratar diretamente
+  if (typeof cartContent === 'string' && cartContent.includes('cart__warnings')) {
+    console.log('Detectado cart__warnings, mostrando carrinho vazio');
+    miniCartItems.innerHTML = `
+      <div class="mini-cart__empty">
+        <div class="mini-cart__empty-icon">🛒</div>
+        <p>Seu carrinho está vazio</p>
+      </div>
+    `;
+    // Atualizar total para zero
+    const totalElement = document.getElementById('mini-cart-total');
+    if (totalElement) {
+      totalElement.textContent = 'R$ 0,00';
+    }
+    return;
+  }
+  
+  const cartItems = new DOMParser().parseFromString(cartContent, 'text/html');
+  
+  // Verificar se há avisos de carrinho vazio
+  const emptyWarning = cartItems.querySelector('.cart__warnings');
+  
+  if (emptyWarning) {
+    miniCartItems.innerHTML = `
+      <div class="mini-cart__empty">
+        <div class="mini-cart__empty-icon">🛒</div>
+        <p>Seu carrinho está vazio</p>
+      </div>
+    `;
+    // Atualizar total para zero
+    const totalElement = document.getElementById('mini-cart-total');
+    if (totalElement) {
+      totalElement.textContent = 'R$ 0,00';
+    }
+    return;
+  }
+  
+  const items = cartItems.querySelectorAll('tr.cart-item');
+  
+  // Debug: verificar quantos itens foram encontrados
+  console.log('Número de itens encontrados:', items.length);
+  console.log('HTML do carrinho:', cartItems.body ? cartItems.body.innerHTML.substring(0, 1000) : 'sem innerHTML');
+  
+  if (items.length === 0) {
+    miniCartItems.innerHTML = `
+      <div class="mini-cart__empty">
+        <div class="mini-cart__empty-icon">🛒</div>
+        <p>Seu carrinho está vazio ou não foi possível carregar os itens</p>
+        <p><small>Debug: Verifique o console para mais detalhes</small></p>
+      </div>
+    `;
+    // Atualizar total para zero
+    const totalElement = document.getElementById('mini-cart-total');
+    if (totalElement) {
+      totalElement.textContent = 'R$ 0,00';
+    }
+    return;
+  }
+
+  let html = '';
+  let total = 0;
+  
+  items.forEach((item, index) => {
+    // Extrair imagem
+    const imageEl = item.querySelector('.cart-item__image');
+    const image = imageEl ? imageEl.src : null;
+    const imageAlt = imageEl ? imageEl.alt : '';
+    
+    // Extrair nome do produto
+    const nameEl = item.querySelector('.cart-item__name');
+    const name = nameEl ? nameEl.textContent.trim() : '';
+    
+    // Debug: log apenas se não encontrar dados essenciais
+    if (!name) {
+      console.log('ERRO: Nome não encontrado. Item HTML:', item.outerHTML.substring(0, 500));
+    }
+    
+    // Extrair variantes/opções
+    const options = item.querySelectorAll('.product-option');
+    let variantText = '';
+    options.forEach(option => {
+      const text = option.textContent.trim();
+      if (text && !text.includes('R$') && !text.includes('$')) {
+        variantText += text + ' ';
+      }
+    });
+    
+    // Extrair quantidade primeiro
+    const quantityEl = item.querySelector('.quantity__input') || item.querySelector('input[name="updates[]"]');
+    const quantity = quantityEl ? parseInt(quantityEl.value) : 1;
+    
+    // Verificar se há desconto no item
+    const discountedPricesEl = item.querySelector('.cart-item__discounted-prices');
+    let priceText = '';
+    let originalPriceText = '';
+    let hasDiscount = false;
+    
+    if (discountedPricesEl) {
+      // Item tem desconto
+      hasDiscount = true;
+      const originalPriceEl = discountedPricesEl.querySelector('.cart-item__old-price');
+      const finalPriceEl = discountedPricesEl.querySelector('.cart-item__final-price');
+      
+      if (originalPriceEl && finalPriceEl) {
+        originalPriceText = originalPriceEl.textContent.trim();
+        priceText = finalPriceEl.textContent.trim();
+      }
+    } else {
+      // Item sem desconto - buscar na div .product-option
+      const priceEl = item.querySelector('.product-option');
+      if (priceEl) {
+        priceText = priceEl.textContent.trim();
+      }
+    }
+    
+    // Extrair preço total da linha (já calculado pelo Shopify)
+    const linePriceEl = item.querySelector('.cart-item__totals .price--end:not(.cart-item__old-price)') || 
+                       item.querySelector('.cart-item__totals .cart-item__discounted-prices .price--end:not(.cart-item__old-price)') ||
+                       item.querySelector('.cart-item__totals span.price--end') ||
+                       item.querySelector('.cart-item__totals .cart-item__discounted-prices dd.price--end');
+    
+    let itemTotal = 0;
+    let linePriceText = '';
+    
+    if (linePriceEl) {
+      linePriceText = linePriceEl.textContent.trim();
+      // Extrair valor numérico do preço total da linha (formato brasileiro: R$ 1.600,00)
+      const priceMatch = linePriceText.match(/[\d.]+,\d{2}/);
+      if (priceMatch) {
+        // Converter formato brasileiro para formato americano: 1.600,00 → 1600.00
+        const brazilianPrice = priceMatch[0];
+        const americanPrice = brazilianPrice.replace(/\./g, '').replace(',', '.');
+        itemTotal = parseFloat(americanPrice);
+      }
+    } else {
+      // Fallback: calcular manualmente se não encontrar o preço da linha
+      const unitPriceMatch = priceText.match(/[\d.]+,\d{2}/);
+      if (unitPriceMatch) {
+        const brazilianPrice = unitPriceMatch[0];
+        const americanPrice = brazilianPrice.replace(/\./g, '').replace(',', '.');
+        const unitPrice = parseFloat(americanPrice);
+        itemTotal = unitPrice * quantity;
+      }
+    }
+    
+    total += itemTotal;
+    
+    // Extrair line number para remoção
+    const lineNumber = index + 1;
+    
+    // Debug: verificar dados finais apenas se houver problema
+    if (!name || !priceText) {
+      console.log('ERRO: Dados incompletos:', { name, priceText, hasDiscount, originalPriceText, quantity, linePriceText });
+    }
+    
+    if (name && priceText) {
+      // Construir HTML do preço baseado se há desconto ou não
+      let priceHtml = '';
+      if (hasDiscount && originalPriceText) {
+        priceHtml = `
+          <div class="mini-cart-item__price-wrapper">
+            <p class="mini-cart-item__price-original"><s>${originalPriceText}</s></p>
+            <p class="mini-cart-item__price">${priceText}</p>
+          </div>
+        `;
+      } else {
+        priceHtml = `<p class="mini-cart-item__price">${priceText}</p>`;
+      }
+      
+      html += `
+        <div class="mini-cart-item" data-line="${lineNumber}">
+          ${image ? `<img src="${image}" alt="${imageAlt}" class="mini-cart-item__image">` : ''}
+          <div class="mini-cart-item__details">
+            <h3 class="mini-cart-item__name">${name}</h3>
+            ${variantText ? `<p class="mini-cart-item__variant">${variantText.trim()}</p>` : ''}
+            ${priceHtml}
+            <p class="mini-cart-item__quantity">Qtd: ${quantity}</p>
+            <p class="mini-cart-item__total">Total: ${linePriceText || `R$ ${itemTotal.toFixed(2).replace('.', ',')}`}</p>
+          </div>
+          <button class="mini-cart-item__remove" onclick="removeCartItem(${lineNumber})" title="Remover item">
+            ×
+          </button>
+        </div>
+      `;
+    }
+  });
+  
+  miniCartItems.innerHTML = html;
+  
+  // Atualizar total
+  const totalElement = document.getElementById('mini-cart-total');
+  if (totalElement) {
+    totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+  }
+}
+
+async function removeCartItem(lineNumber) {
+  try {
+    const response = await fetch(`${window.routes.cart_change_url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({
+        line: lineNumber,
+        quantity: 0
+      })
+    });
+
+    if (response.ok) {
+      // Recarregar o mini-cart após remoção
+      await openCartNotification();
+    } else {
+      console.error('Erro ao remover item do carrinho');
+    }
+  } catch (error) {
+    console.error('Erro ao remover item:', error);
+  }
+}
+</script>
 
 {% javascript %}
   class StickyHeader extends HTMLElement {
@@ -463,7 +758,134 @@
   }
 
   customElements.define('sticky-header', StickyHeader);
+
+  // Função global para abrir o mini-cart com o conteúdo atual
+  window.openCartNotification = function() {
+    // Verificar se existe mini-cart customizado
+    const miniCart = document.getElementById('mini-cart');
+    if (miniCart) {
+      // Abrir mini-cart customizado
+      miniCart.style.display = 'block';
+      setTimeout(() => miniCart.classList.add('active'), 10);
+      
+      // Carregar conteúdo do carrinho
+      fetch(window.cartData.cartUrl + '.js')
+        .then(response => response.json())
+        .then(cartData => {
+          // Atualizar contador do carrinho
+          const cartCountBubble = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
+          if (cartCountBubble) {
+            cartCountBubble.textContent = cartData.item_count;
+          }
+          
+          // Atualizar ícone do carrinho baseado na quantidade
+          const cartIcon = document.querySelector('#cart-icon-bubble');
+          if (cartIcon) {
+            if (cartData.item_count === 0) {
+              cartIcon.classList.add('cart-empty');
+              cartIcon.classList.remove('cart-filled');
+            } else {
+              cartIcon.classList.add('cart-filled');
+              cartIcon.classList.remove('cart-empty');
+            }
+          }
+          
+          // Atualizar conteúdo do mini-cart
+          updateMiniCartContent(cartData);
+        })
+        .catch(error => {
+          console.error('Erro ao carregar carrinho:', error);
+        });
+      return;
+    }
+    
+    // Fallback: usar cart-notification se mini-cart não existir
+    const cartNotification = document.querySelector('cart-notification');
+    if (cartNotification) {
+      if (window.cartData.itemCount === 0) {
+        window.location.href = window.cartData.cartUrl;
+        return;
+      }
+      cartNotification.open();
+    } else {
+      window.location.href = window.cartData.cartUrl;
+    }
+  };
+
+  // Função para atualizar o conteúdo do mini-cart
+  function updateMiniCartContent(cartData) {
+    const miniCartItems = document.getElementById('mini-cart-items');
+    const totalElement = document.getElementById('mini-cart-total');
+    
+    if (!miniCartItems) return;
+    
+    if (cartData.item_count === 0) {
+      miniCartItems.innerHTML = `
+        <div class="mini-cart__empty">
+          <div class="mini-cart__empty-icon">🛒</div>
+          <p>Seu carrinho está vazio</p>
+        </div>
+      `;
+      if (totalElement) {
+        totalElement.textContent = 'R$ 0,00';
+      }
+      return;
+    }
+    
+    let html = '';
+    let total = 0;
+    
+    cartData.items.forEach((item, index) => {
+      const lineNumber = index + 1;
+      const image = item.image;
+      const imageAlt = item.image_alt || item.product_title;
+      const name = item.product_title;
+      const variantText = item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : '';
+      const quantity = item.quantity;
+      const price = item.price / 100;
+      const itemTotal = price * quantity;
+      total += itemTotal;
+      
+      const priceText = `R$ ${price.toFixed(2).replace('.', ',')}`;
+      const linePriceText = `R$ ${itemTotal.toFixed(2).replace('.', ',')}`;
+      
+      html += `
+        <div class="mini-cart-item" data-line="${lineNumber}">
+          ${image ? `<img src="${image}" alt="${imageAlt}" class="mini-cart-item__image">` : ''}
+          <div class="mini-cart-item__details">
+            <h3 class="mini-cart-item__name">${name}</h3>
+            ${variantText ? `<p class="mini-cart-item__variant">${variantText}</p>` : ''}
+            <p class="mini-cart-item__price">${priceText}</p>
+            <p class="mini-cart-item__quantity">Qtd: ${quantity}</p>
+            <p class="mini-cart-item__total">Total: ${linePriceText}</p>
+          </div>
+          <button class="mini-cart-item__remove" onclick="removeCartItem(${lineNumber})" title="Remover item">
+            ×
+          </button>
+        </div>
+      `;
+    });
+    
+    miniCartItems.innerHTML = html;
+    
+    if (totalElement) {
+      totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+  }
 {% endjavascript %}
+
+<script>
+  // Variáveis globais para o carrinho
+  window.cartData = {
+    itemCount: {{ cart.item_count }},
+    cartUrl: '{{ routes.cart_url }}'
+  };
+
+  // Função para atualizar as variáveis do carrinho
+  window.updateCartData = function(itemCount) {
+    window.cartData.itemCount = itemCount;
+  };
+</script>
 
 <script type="application/ld+json">
   {
@@ -755,12 +1177,16 @@
       "id": "special_link_3_icon",
       "label": "Ícone SVG ou nome do asset (opcional) do link 03",
       "default": "icon-info.svg"
-    },
-
+    }
   ],
   "blocks": [
     {
       "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.header.presets.name"
     }
   ]
 }

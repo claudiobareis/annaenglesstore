@@ -86,7 +86,16 @@ if (!customElements.get('product-form')) {
               );
               quickAddModal.hide(true);
             } else {
-              this.cart.renderContents(response);
+              // Atualizar contador do carrinho
+              this.updateCartCount(response.item_count);
+              
+              // Sempre tentar abrir o mini-cart customizado primeiro
+              if (typeof window.openCartNotification === 'function') {
+                window.openCartNotification();
+              } else {
+                // Fallback para cart-notification original
+                this.cart.renderContents(response);
+              }
             }
           })
           .catch((e) => {
@@ -97,6 +106,8 @@ if (!customElements.get('product-form')) {
             if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
             this.querySelector('.loading__spinner').classList.add('hidden');
+
+            // Medição de performance removida para evitar erro
           });
       }
 
@@ -127,6 +138,41 @@ if (!customElements.get('product-form')) {
 
       get variantIdInput() {
         return this.form.querySelector('[name=id]');
+      }
+
+      updateCartCount(itemCount) {
+        // Atualizar variáveis globais do carrinho
+        if (typeof window.updateCartData === 'function') {
+          window.updateCartData(itemCount);
+        }
+        
+        // Atualizar contador do carrinho no header
+        const cartCountBubble = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
+        if (cartCountBubble) {
+          cartCountBubble.textContent = itemCount;
+        }
+        
+        // Atualizar ícone do carrinho (vazio/cheio) - usar classes CSS
+        const cartIcon = document.querySelector('#cart-icon-bubble');
+        if (cartIcon) {
+          if (itemCount === 0) {
+            cartIcon.classList.add('cart-empty');
+            cartIcon.classList.remove('cart-filled');
+            // Esconder o contador quando vazio
+            const cartCountDiv = cartIcon.querySelector('.cart-count-bubble');
+            if (cartCountDiv) {
+              cartCountDiv.style.display = 'none';
+            }
+          } else {
+            cartIcon.classList.add('cart-filled');
+            cartIcon.classList.remove('cart-empty');
+            // Mostrar o contador quando tem itens
+            const cartCountDiv = cartIcon.querySelector('.cart-count-bubble');
+            if (cartCountDiv) {
+              cartCountDiv.style.display = 'block';
+            }
+          }
+        }
       }
     }
   );
