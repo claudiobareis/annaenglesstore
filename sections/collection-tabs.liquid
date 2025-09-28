@@ -238,10 +238,21 @@
         this.classList.add('collection-tabs__nav-button--active');
         this.setAttribute('aria-selected', 'true');
         
-        const targetPanel = document.querySelector(`[id*="${targetId}"]`);
+        const targetPanel = document.querySelector(`#tab-{{ section.id }}-${targetId}`);
         if (targetPanel) {
           targetPanel.classList.add('collection-tabs__panel--active');
           targetPanel.removeAttribute('hidden');
+          
+          // Reinicializar o carrossel se existir
+          const sliderComponent = targetPanel.querySelector('slider-component');
+          if (sliderComponent) {
+            // Forçar reinicialização do slider
+            setTimeout(() => {
+              if (sliderComponent.initSlider) {
+                sliderComponent.initSlider();
+              }
+            }, 50);
+          }
         }
       });
     });
