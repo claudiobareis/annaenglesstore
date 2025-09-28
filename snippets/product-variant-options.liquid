@@ -74,7 +74,11 @@
       visually_disabled: option_disabled,
       shape: block.settings.swatch_shape,
       help_text: help_text,
-      additional_props: input_dataset
+      additional_props: input_dataset,
+      variant_image: true,
+      product: product,
+      option_position: option.position,
+      option_name: option.name
     %}
   {%- elsif picker_type == 'button' -%}
     <input

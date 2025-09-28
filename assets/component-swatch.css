@@ -4,7 +4,7 @@
   --swatch--border-radius: var(--swatch-input--border-radius, 50%);
 
   display: block;
-  width: var(--swatch--size);
+  width: 32px;
   max-width: 100%;
   aspect-ratio: 1 / 1;
   background: var(--swatch--background);
@@ -58,7 +58,7 @@
 
 /* Adjust text size for different swatch sizes */
 .swatch--text .swatch__text {
-  font-size: max(calc(var(--swatch--size) * 0.18), 0.7rem);
+  font-size: max(calc(var(--swatch--size) * 0.18), 0.8rem);
 }
 
 /* Square text swatches can accommodate more text */
@@ -69,7 +69,7 @@
 /* Larger swatches get better typography */
 @media (min-width: 750px) {
   .swatch--text .swatch__text {
-    font-size: max(calc(var(--swatch--size) * 0.2), 0.8rem);
+    font-size: max(calc(var(--swatch--size) * 0.2), 0.9rem);
   }
   
   .swatch--square.swatch--text .swatch__text {

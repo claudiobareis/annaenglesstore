@@ -13,6 +13,10 @@
   - shape: {String} swatch shape. Accepts 'square', defaults to circle (optional)
   - help_text: {String} additional content to render inside the label (optional)
   - additional_props: {String} (optional) additional properties to attach to the input
+  - variant_image: {Boolean} whether to use variant images when available (optional)
+  - product: {Object} product object (required when variant_image is true)
+  - option_position: {Number} position of the option (required when variant_image is true)
+  - option_name: {String} name of the option (required when variant_image is true)
 
   Usage:
    {% render 'swatch-input',
@@ -21,7 +25,11 @@
       value: input_value,
       swatch: swatch,
       product_form_id: product_form_id,
-      checked: checked
+      checked: checked,
+      variant_image: true,
+      product: product,
+      option_position: option.position,
+      option_name: option.name
     %}
 {% endcomment %}
 
@@ -47,6 +55,6 @@
   title="{{ value }}"
   class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %}"
 >
-  {% render 'swatch', swatch: swatch, shape: shape, value: value %}
+  {% render 'swatch', swatch: swatch, shape: shape, value: value, variant_image: variant_image, product: product, option_position: option_position, option_name: option_name %}
   {{ help_text }}
 </label>

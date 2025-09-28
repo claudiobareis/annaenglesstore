@@ -4,12 +4,20 @@
   - swatch: {Object} a swatch object
   - shape: {String} swatch shape. Accepts 'square', defaults to circle.
   - value: {String} the color name/value for text display (optional)
+  - variant_image: {Boolean} whether to use variant images when available (optional)
+  - product: {Object} product object (required when variant_image is true)
+  - option_position: {Number} position of the option (required when variant_image is true)
+  - option_name: {String} name of the option (required when variant_image is true)
 
   Usage:
   {% render 'swatch',
     swatch: value.swatch,
     shape: 'square',
-    value: value
+    value: value,
+    variant_image: true,
+    product: product,
+    option_position: option.position,
+    option_name: option.name
   %}
 {% endcomment %}
 
@@ -24,11 +32,33 @@
     assign swatch_value = 'url(' | append: image_url | append: ')'
     assign swatch_focal_point = swatch.image.presentation.focal_point
     assign has_visual_swatch = true
-  # Prioridade 2: Cor do swatch nativo  
+  # Prioridade 2: Imagem da variante (apenas para opções de COR)
+  elsif variant_image and value and option_name
+    # Verificar se é uma opção de cor (case insensitive)
+    assign option_name_lower = option_name | downcase
+    if option_name_lower contains 'cor' or option_name_lower contains 'color'
+      # Buscar diretamente a variante que tem este valor de cor
+      for variant in product.variants
+        # Verificar se esta variante tem o valor atual em qualquer uma de suas opções
+        for variant_option in variant.options
+          if variant_option == value and variant.image
+            assign image_url = variant.image | image_url: width: 50
+            assign swatch_value = 'url(' | append: image_url | append: ')'
+            assign swatch_focal_point = variant.image.presentation.focal_point
+            assign has_visual_swatch = true
+            break
+          endif
+        endfor
+        if has_visual_swatch
+          break
+        endif
+      endfor
+    endif
+  # Prioridade 3: Cor do swatch nativo  
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
     assign has_visual_swatch = true
-  # Prioridade 3: Buscar arquivo de imagem por nome da cor
+  # Prioridade 4: Buscar arquivo de imagem por nome da cor
   elsif value
     assign color_name = value | downcase | replace: ' ', '-' | replace: 'ã', 'a' | replace: 'á', 'a' | replace: 'é', 'e' | replace: 'í', 'i' | replace: 'ó', 'o' | replace: 'ú', 'u' | replace: 'ç', 'c'
     assign swatch_file_url = color_name | append: '.png' | file_url
@@ -43,7 +73,7 @@
         assign has_visual_swatch = true
       endif
     endif
-  # Prioridade 4: Buscar cores pré-definidas no tema
+  # Prioridade 5: Buscar cores pré-definidas no tema
   elsif value and settings.swatchColors contains value
     assign swatchColors = settings.swatchColors | newline_to_br | split: '<br />'
     for colorData in swatchColors
