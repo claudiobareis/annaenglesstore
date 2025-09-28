@@ -190,6 +190,68 @@
         "padding_bottom": 4
       }
     },
+    "collection_tabs_eLtjkB": {
+      "type": "collection-tabs",
+      "blocks": {
+        "tab_collection_NdWkht": {
+          "type": "tab_collection",
+          "settings": {
+            "collection": "novidades",
+            "products_to_show": 4,
+            "columns_desktop": 4,
+            "show_view_all": true,
+            "view_all_style": "solid",
+            "enable_desktop_slider": false,
+            "image_ratio": "adapt",
+            "image_shape": "default",
+            "show_secondary_image": false,
+            "show_vendor": false,
+            "show_rating": false,
+            "show_videos": true,
+            "video_autoplay": false,
+            "quick_add": "none",
+            "columns_mobile": "2",
+            "swipe_on_mobile": false
+          }
+        },
+        "tab_collection_eWqz9i": {
+          "type": "tab_collection",
+          "settings": {
+            "collection": "blusa-e-regata",
+            "products_to_show": 4,
+            "columns_desktop": 4,
+            "show_view_all": true,
+            "view_all_style": "solid",
+            "enable_desktop_slider": false,
+            "image_ratio": "adapt",
+            "image_shape": "default",
+            "show_secondary_image": false,
+            "show_vendor": false,
+            "show_rating": false,
+            "show_videos": true,
+            "video_autoplay": false,
+            "quick_add": "none",
+            "columns_mobile": "2",
+            "swipe_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "tab_collection_NdWkht",
+        "tab_collection_eWqz9i"
+      ],
+      "name": "Coleções em Abas",
+      "settings": {
+        "title": "Nossas Coleções",
+        "heading_size": "h1",
+        "description": "",
+        "description_style": "body",
+        "full_width": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "collage_DQmaja": {
       "type": "collage",
       "blocks": {
@@ -432,6 +494,7 @@
     "multicolumn_Jp79tV",
     "collection_list_jkLExi",
     "featured_collection",
+    "collection_tabs_eLtjkB",
     "collage_DQmaja",
     "multicolumn_3hWmcM",
     "featured_collection_6XfBHm",
