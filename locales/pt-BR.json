@@ -283,6 +283,10 @@
     }
   },
   "sections": {
+    "collection_tabs": {
+      "name": "Coleções em Abas",
+      "no_collections": "Nenhuma coleção configurada. Adicione coleções nas configurações da seção."
+    },
     "header": {
       "announcement": "Comunicado",
       "menu": "Menu",

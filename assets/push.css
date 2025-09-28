@@ -455,6 +455,21 @@ footer .footer-block__details-content ul li {
     color: #fff;
     display: none;
 }
+.page-home .collection-list-wrapper .collection-list .card__nome{
+    font-size: 1.6rem;    
+    font-weight: 500;
+    padding: 10px 0 0;
+}
+.page-home .collection-list-wrapper .collection-list .card__call-to-action{
+    padding: 0;    
+}
+.page-home .collection-list-wrapper .collection-list .card__call-to-action a{
+    color: #757575;
+    text-decoration: none;
+    font-size: .7em;
+    font-weight: 400;
+}
+
 @media (min-width: 768px) {
     .page-home .video-mobile{
         display: none;
