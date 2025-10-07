@@ -55,6 +55,7 @@
       endfor
     endif
   # Prioridade 3: Cor do swatch nativo  
+  
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
     assign has_visual_swatch = true
