@@ -35,7 +35,7 @@ variant-selects {
 }
 
 .product-form__input input[type='radio']:not(.disabled):not(.visually-disabled) + label > .label-unavailable {
-  display: none;
+  display: none; 
 }
 
 .product-form__input--dropdown {

@@ -7,7 +7,7 @@ product-info {
 }
 
 .product.grid {
-  gap: 0;
+  gap: 0; 
 }
 
 .product--no-media {
