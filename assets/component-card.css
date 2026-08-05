@@ -445,14 +445,9 @@
 }
 
 @media screen and (min-width: 990px) {
-  .card .media.media--hover-effect > img:only-child,
-  .card-wrapper .media.media--hover-effect > img:only-child {
-    transition: transform var(--duration-long) ease;
-  }
-
-  .card:hover .media.media--hover-effect > img:first-child:only-child,
-  .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
-    transform: scale(1.03);
+  .card .media.media--hover-effect > img,
+  .card-wrapper .media.media--hover-effect > img {
+    transition: opacity 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
@@ -461,8 +456,6 @@
 
   .card-wrapper:hover .media.media--hover-effect > img + img {
     opacity: 1;
-    transition: transform var(--duration-long) ease;
-    transform: scale(1.03);
   }
 
   .underline-links-hover:hover a {
@@ -662,34 +655,26 @@
   }
 }
 
-/* Garante que imagens normais dos cards fiquem sempre visíveis */
-.card .media img {
-  position: relative;
-  z-index: 1;
-  opacity: 1;
-  visibility: visible;
-  display: block;
-}
-
-/* Força a primeira imagem a aparecer SEMPRE */
+/* Crossfade sutil entre imagem principal e hover */
 .card .media.media--hover-effect > img:first-child {
-  opacity: 1 !important;
-  visibility: visible !important;
-  z-index: 2 !important;
-  display: block !important;
+  opacity: 1;
+  z-index: 1;
 }
 
-/* Garante que a segunda imagem só aparece no hover */
 .card .media.media--hover-effect > img + img {
   opacity: 0;
-  z-index: 1;
-  display: block;
-  position: relative;
-  transition: opacity 0.3s;
+  z-index: 2;
+  transition: opacity 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.card:hover .media.media--hover-effect > img + img,
-.card-wrapper:hover .media.media--hover-effect > img + img {
-  opacity: 1;
-  z-index: 3;
+@media screen and (min-width: 990px) {
+  .card:hover .media.media--hover-effect > img:first-child:not(:only-child),
+  .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
+    opacity: 0;
+  }
+
+  .card:hover .media.media--hover-effect > img + img,
+  .card-wrapper:hover .media.media--hover-effect > img + img {
+    opacity: 1;
+  }
 }
