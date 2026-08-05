@@ -93,22 +93,29 @@
       </div>
 
       <div class="price__sale">
-        {%- unless product.price_varies == false and product.compare_at_price_varies %}
+        {%- if compare_at_price > price -%}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span>
-            <span class="price-item price-item--regular old-price">
+          <span class="price-item price-item--regular old-price">
+            <span class="price-label">De</span>
+            <s class="price-amount">
               {% if settings.currency_code_enabled %}
                 {{ compare_at_price | money_with_currency }}
               {% else %}
                 {{ compare_at_price | money }}
               {% endif %}
-            </span>
+            </s>
           </span>
-        {%- endunless -%}
-        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-        <span class="price-item price-item--sale price-item--last">
-          {{ money_price }}
-        </span>
+          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
+          <span class="price-item price-item--sale price-item--last">
+            <span class="price-label">Por</span>
+            <span class="price-amount">{{ money_price }}</span>
+          </span>
+        {%- else -%}
+          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
+          <span class="price-item price-item--sale price-item--last">
+            <span class="price-amount">{{ money_price }}</span>
+          </span>
+        {%- endif -%}
 
         {%- if available and price > 0 -%}
           <span class="installments caption">

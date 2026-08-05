@@ -189,22 +189,102 @@ header>div>div.header__action-item .header__wishlist path {
     fill: #444444;
 }
 
-.card__content>.card__information .price .price__regular .price-item,
-.card__content>.card__information .price .price__sale .price-item {
+/* Card de produto — título, preços e parcelamento */
+.card__content > .card__information > .card__heading {
+    margin: 0 0 0.4rem;
     font-size: 1.3rem;
+    line-height: 1.35;
+    letter-spacing: 0.01rem;
     font-weight: 600;
+}
+
+.card__content > .card__information > .card-information {
+    margin-top: 0;
+}
+
+.card__content > .card__information .card-information > .price {
+    margin-top: 0;
+}
+
+.card__content > .card__information .price {
+    font-size: 1.3rem;
     letter-spacing: 0;
+    line-height: 1.35;
 }
 
-.card__content>.card__information .price .price__regular .installments,
-.card__content>.card__information .price .price__sale .installments {
-    font-size: 1rem;
-    font-weight: 200;
-    letter-spacing: normal;
+.card__content > .card__information .price__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
-.card__content>.card__information .price .old-price,
-.card__content>.card__information .price .installments {
+.card__content > .card__information .price__regular {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.card__content > .card__information .price__sale {
+    display: none;
+}
+
+.card__content > .card__information .price--on-sale .price__regular {
+    display: none;
+}
+
+.card__content > .card__information .price--on-sale .price__sale {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.card__content > .card__information .price .price-item {
+    display: block;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.35;
+}
+
+.card__content > .card__information .price .price-label {
+    font-weight: 400;
+    margin-right: 0.25rem;
+}
+
+.card__content > .card__information .price .old-price,
+.card__content > .card__information .price .price-item--regular.old-price {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #707070;
+    text-decoration: none;
+}
+
+.card__content > .card__information .price .old-price .price-amount,
+.card__content > .card__information .price--on-sale .price__sale .old-price .price-amount {
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.card__content > .card__information .price .price-item--sale,
+.card__content > .card__information .price .price-item--sale .price-amount {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: rgb(var(--color-foreground));
+}
+
+.card__content > .card__information .price .installments {
+    display: block;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.35;
     color: #707070;
 }
 
@@ -212,8 +292,18 @@ header>div>div.header__action-item .header__wishlist path {
     padding-left: 0 !important;
 }
 
-.card__content>.card__information .price .price-item {
-    margin-right: .5rem;
+/* De/Por: riscar só o valor, não o label */
+.price .price-item.old-price,
+.price--on-sale .price-item--regular.old-price {
+    text-decoration: none;
+}
+
+.price .old-price .price-amount {
+    text-decoration: line-through;
+}
+
+.price .price-label {
+    margin-right: 0.25rem;
 }
 
 /* Página do produto */
