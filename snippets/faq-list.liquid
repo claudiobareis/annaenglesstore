@@ -1,0 +1,96 @@
+{%- comment -%}
+  Accordion editorial + JSON-LD FAQPage.
+  Params: faq_items, heading, eyebrow, section_id, heading_size, open_first
+{%- endcomment -%}
+
+{%- liquid
+  assign faq_valid_count = 0
+  if faq_items != blank
+    for item in faq_items
+      if item.question != blank
+        assign faq_valid_count = faq_valid_count | plus: 1
+      endif
+    endfor
+  endif
+-%}
+
+{%- if faq_valid_count > 0 -%}
+  <div class="faq-editorial page-width section-{{ section_id }}-padding">
+    <div class="faq-editorial__inner{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="faq-editorial__intro">
+        {%- if eyebrow != blank -%}
+          <p class="faq-editorial__eyebrow">{{ eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if heading != blank -%}
+          <h2 class="faq-editorial__title {{ heading_size }}">{{ heading | escape }}</h2>
+        {%- else -%}
+          <h2 class="visually-hidden">{{ 'accessibility.collapsible_content_title' | t }}</h2>
+        {%- endif -%}
+        <span class="faq-editorial__rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="faq-editorial__list">
+        {%- assign faq_index = 0 -%}
+        {%- for item in faq_items -%}
+          {%- if item.question != blank -%}
+            {%- assign faq_index = faq_index | plus: 1 -%}
+            {%- liquid
+              assign index_label = faq_index
+              if faq_index < 10
+                assign index_label = faq_index | prepend: '0'
+              endif
+            -%}
+            <details
+              class="faq-editorial__item"
+              id="Details-FAQ-{{ section_id }}-{{ faq_index }}"
+              {% if open_first and faq_index == 1 %}open{% endif %}
+            >
+              <summary
+                class="faq-editorial__summary"
+                id="Summary-FAQ-{{ section_id }}-{{ faq_index }}"
+              >
+                <span class="faq-editorial__index">{{ index_label }}</span>
+                <h3 class="faq-editorial__question">{{ item.question | escape }}</h3>
+                <span class="faq-editorial__caret" aria-hidden="true">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              </summary>
+              <div
+                class="faq-editorial__answer rte"
+                id="FAQContent-{{ section_id }}-{{ faq_index }}"
+                role="region"
+                aria-labelledby="Summary-FAQ-{{ section_id }}-{{ faq_index }}"
+              >
+                {{ item.answer }}
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign first_entity = true -%}
+        {%- for item in faq_items -%}
+          {%- if item.question != blank -%}
+            {%- unless first_entity -%},{%- endunless -%}
+            {%- assign first_entity = false -%}
+            {
+              "@type": "Question",
+              "name": {{ item.question | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ item.answer | strip_html | json }}
+              }
+            }
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
