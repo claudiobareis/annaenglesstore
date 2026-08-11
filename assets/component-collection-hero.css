@@ -24,16 +24,13 @@
   }
   .collection-hero--with-image .collection-hero__inner img{
     width: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: unset;
   }
   .collection-hero__inner .collection-hero__image-container{
     margin-left: 0;
-  }
-  .collection-hero__inner .collection-hero__image-container {
-    min-height: 28rem;
-  }
-  .collection-hero__inner .collection-hero__image-container img{
-    object-fit: cover;
+    min-height: 0;
+    height: auto;
   }
 }
 
@@ -101,6 +98,10 @@
 }
 
 @media screen and (max-width: 749px) {
+  .collection-hero--with-image .collection-hero__inner {
+    flex-direction: column-reverse;
+  }
+
   .collection-hero--with-image .collection-hero__text-wrapper {
     padding: 1.5rem 1.5rem;
   }
@@ -115,11 +116,8 @@
 
 @media screen and (max-width: 749px) {
   .collection-hero__image-container {
-    height: max-content;
-    min-height: 500px;
-  }
-  .collection-hero__image-container img{
-    object-fit: cover;
+    height: auto;
+    min-height: 0;
   }
 }
 
@@ -136,7 +134,8 @@
     flex: none;
     width: 100%;
     margin-left: 0;
-    min-height: 28rem;
+    min-height: 0;
+    height: auto;
   }
 }
 
@@ -145,44 +144,46 @@
   position: relative;
 }
 
-.collection-hero__image {
+.collection-hero--with-image .collection-hero__image-container.media > img,
+.collection-hero--with-image .collection-hero__image {
+  position: static;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: auto;
+  object-fit: unset;
+  top: auto;
+  left: auto;
 }
 
 
-@media screen and (max-width: 750px) {
-  .collection-hero__image--mobile {
-    display: block !important;
+@media screen and (max-width: 749px) {
+  .collection-hero--with-image .collection-hero__image-container.media > img.collection-hero__image--mobile,
+  .collection-hero--with-image .collection-hero__image--mobile {
+    display: block;
   }
-  
-  .collection-hero__image--desktop {
-    display: none !important; 
-  }
-}
 
-/* Banner desktop - visível apenas em telas grandes */
-@media screen and (min-width: 750px) {
-  .collection-hero__image--mobile {
+  .collection-hero--with-image .collection-hero__image-container.media > img.collection-hero__image--desktop,
+  .collection-hero--with-image .collection-hero__image--desktop {
     display: none;
   }
-  
-  .collection-hero__image--desktop {
+
+  .collection-hero--with-image .collection-hero__image-container--desktop-only.media > img.collection-hero__image--desktop {
     display: block;
   }
 }
 
+@media screen and (min-width: 750px) {
+  .collection-hero--with-image .collection-hero__image-container.media > img.collection-hero__image--mobile,
+  .collection-hero--with-image .collection-hero__image--mobile {
+    display: none;
+  }
 
-/* Classes para fallback quando apenas um banner está disponível */
-.collection-hero__image-container--mobile-only .collection-hero__image--mobile {
-  display: block;
-}
+  .collection-hero--with-image .collection-hero__image-container.media > img.collection-hero__image--desktop,
+  .collection-hero--with-image .collection-hero__image--desktop {
+    display: block;
+  }
 
-.collection-hero__image-container--desktop-only .collection-hero__image--desktop {
-  display: block;
+  .collection-hero--with-image .collection-hero__image-container--mobile-only.media > img.collection-hero__image--mobile {
+    display: block;
+  }
 }
 
