@@ -13,6 +13,7 @@
       "type": "main-collection-banner",
       "settings": {
         "show_collection_description": true,
+        "show_collection_image": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -22,13 +23,11 @@
         "products_per_page": 16,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
+        "image_ratio": "adapt",
         "image_shape": "default",
-        "show_secondary_image": true,
+        "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
-        "show_videos": true,
-        "video_autoplay": true,
         "quick_add": "none",
         "enable_filtering": true,
         "filter_type": "horizontal",
@@ -37,23 +36,10 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "collection-faq": {
-      "type": "collection-faq",
-      "settings": {
-        "eyebrow": "Dúvidas",
-        "heading": "Perguntas frequentes",
-        "heading_size": "h1",
-        "open_first": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
     }
   },
   "order": [
     "banner",
-    "product-grid",
-    "collection-faq"
+    "product-grid"
   ]
 }

@@ -135,10 +135,8 @@
                     {% endif %}
                   >
                     {{- block.settings.link_label | escape -}}
-                    <span class="svg-wrapper"
-                      ><span class="icon-wrap">&nbsp;{{ 'icon-arrow.svg' | inline_asset_content }}</span></span
-                    >
-                  </a>
+                    <span class="icon-wrap">&nbsp;{% render 'icon-arrow' %}</span></a
+                  >
                 {%- endif -%}
               </div>
             </div>
@@ -154,7 +152,7 @@
             name="previous"
             aria-label="{{ 'general.slider.previous_slide' | t }}"
           >
-            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+            {% render 'icon-caret' %}
           </button>
           <div class="slider-counter caption">
             <span class="slider-counter--current">1</span>
@@ -168,7 +166,7 @@
             name="next"
             aria-label="{{ 'general.slider.next_slide' | t }}"
           >
-            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+            {% render 'icon-caret' %}
           </button>
         </div>
       {%- endif -%}
@@ -202,7 +200,7 @@
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "t:sections.multicolumn.settings.title.default",
+      "default": "Multicolumn",
       "label": "t:sections.multicolumn.settings.title.label"
     },
     {
@@ -220,14 +218,6 @@
         {
           "value": "h0",
           "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
       "default": "h1",
@@ -321,7 +311,7 @@
     {
       "type": "text",
       "id": "button_label",
-      "default": "t:sections.multicolumn.settings.button_label.default",
+      "default": "Button label",
       "label": "t:sections.multicolumn.settings.button_label.label"
     },
     {
@@ -399,13 +389,13 @@
         {
           "type": "inline_richtext",
           "id": "title",
-          "default": "t:sections.multicolumn.blocks.column.settings.title.default",
+          "default": "Column",
           "label": "t:sections.multicolumn.blocks.column.settings.title.label"
         },
         {
           "type": "richtext",
           "id": "text",
-          "default": "t:sections.multicolumn.blocks.column.settings.text.default",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
           "label": "t:sections.multicolumn.blocks.column.settings.text.label"
         },
         {

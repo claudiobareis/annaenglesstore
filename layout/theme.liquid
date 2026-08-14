@@ -31,10 +31,6 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
-
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
@@ -256,15 +252,6 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
-
-    {%- if settings.cart_type == 'drawer' -%}
-      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
-      {{ 'component-price.css' | asset_url | stylesheet_tag }}
-      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
 
     {%- unless settings.type_body_font.system? -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}
@@ -296,44 +283,10 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-    <link href="{{ 'push.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
   </head>
 
-
-{%- liquid
-  #comment 'Definir classe da página atual'
-  case template
-    when 'index'
-      assign page_class = 'page-home'
-    when 'product'
-      assign page_class = 'page-product'
-    when 'collection'
-      assign page_class = 'page-collection'
-    when 'page'
-      assign page_class = 'page-page'
-    when 'blog'
-      assign page_class = 'page-blog'
-    when 'article'
-      assign page_class = 'page-article'
-    when 'cart'
-      assign page_class = 'page-cart'
-    when 'search'
-      assign page_class = 'page-search'
-    else
-      if template contains 'customers'
-        assign page_class = 'page-account'
-      else
-        assign page_class = 'page-' | append: template | replace: '.', '-'
-      endif
-  endcase
-  
-  #comment 'Adicionar sufixo do template se existir'
-  if template.suffix
-    assign template_suffix = 'template-' | append: template.suffix
-  endif
--%}
-
-<body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} {{ page_class }}{% if template_suffix %} {{ template_suffix }}{% endif %}">    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
@@ -401,10 +354,6 @@
 
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-
-    {%- if settings.cart_type == 'drawer' -%}
-      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   </body>
 </html>

@@ -2,15 +2,21 @@
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
-
+<link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
-
 {%- if section.settings.menu_type_desktop == 'mega' -%}
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
+{%- if settings.cart_type == "drawer" -%}
+  {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+  {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+  {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
 <style>
   header-drawer {
@@ -70,49 +76,6 @@
       padding-top: 0.5rem;
     }
   }
-
-  .header__special-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-right: 2rem;
-  }
-  .header__special-link {
-    color: inherit;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .header__special-link:hover {
-    color: #000;
-  }
-  .header__special-link-icon {
-    display: inline-flex;
-    vertical-align: middle;
-    margin-right: 0.4em;
-    width: 1.2em;
-    height: 1.2em;
-  }
-  
-  /* Controle dos ícones do carrinho */
-  #cart-icon-bubble.cart-empty .svg-wrapper {
-    display: none;
-  }
-  #cart-icon-bubble.cart-empty .svg-wrapper:first-child {
-    display: inline-block;
-  }
-  #cart-icon-bubble.cart-filled .svg-wrapper:first-child {
-    display: none;
-  }
-  #cart-icon-bubble.cart-filled .svg-wrapper:last-child {
-    display: inline-block;
-  }
-  @media screen and (max-width: 750px) {
-    .header__special-links {
-      display: none;
-    }
-  }
 </style>
 
 {%- style -%}
@@ -139,7 +102,29 @@
   }
 {%- endstyle -%}
 
+<script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+{%- if settings.cart_type == "drawer" -%}
+  <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+  <symbol id="icon-search" viewbox="0 0 18 19" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-reset" class="icon icon-close"  fill="none" viewBox="0 0 18 18" stroke="currentColor">
+    <circle r="8.5" cy="9" cx="9" stroke-opacity="0.2"/>
+    <path d="M6.82972 6.82915L1.17193 1.17097" stroke-linecap="round" stroke-linejoin="round" transform="translate(5 5)"/>
+    <path d="M1.22896 6.88502L6.77288 1.11523" stroke-linecap="round" stroke-linejoin="round" transform="translate(5 5)"/>
+  </symbol>
+
+  <symbol id="icon-close" class="icon icon-close" fill="none" viewBox="0 0 18 17">
+    <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+  </symbol>
+</svg>
 
 {%- liquid
   for block in section.blocks
@@ -163,38 +148,14 @@
     endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
-    <div class="header__special-links">
-      {% for i in (1..3) %}
-        {% capture link_text_key %}special_link_{{ i }}_text{% endcapture %}
-        {% capture link_url_key %}special_link_{{ i }}_url{% endcapture %}
-        {% capture link_icon_key %}special_link_{{ i }}_icon{% endcapture %}
-        {% assign link_text = section.settings[link_text_key] %}
-        {% assign link_url = section.settings[link_url_key] %}
-        {% assign link_icon = section.settings[link_icon_key] %}
-        {% if link_url != blank and link_text != blank %}
-          <a href="{{ link_url }}" class="header__special-link">
-            {% if link_icon != blank %}
-              <span class="header__special-link-icon">
-                {% if link_icon contains '.svg' and link_icon contains 'http' %}
-                  <img src="{{ link_icon }}" alt="" style="width: 100%; height: 100%;" loading="lazy">
-                {% else %}
-                  {{ link_icon | inline_asset_content }}
-                {% endif %}
-              </span>
-            {% endif %}
-            {{ link_text }}
-          </a>
-        {% endif %}
-      {% endfor %}
-    </div>
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
       endif
 
-      # if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-      #   render 'header-search', input_id: 'Search-In-Modal-1'
-      # endif
+      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
+        render 'header-search', input_id: 'Search-In-Modal-1'
+      endif
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
@@ -291,39 +252,17 @@
           </localization-form>
         {%- endif -%}
       </div>
-      
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {% if settings.enable-wishlist %}
-        <div class="header__action-item" style="position: relative; height: 23px;">
-          <a class="header__action-item-link header__wishlist" href="/pages/wishlist">
-            <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0" fill="none" width="24" height="24"/>      
-                  
-              <path d="M16.5 4.5c2.206 0 4 1.794 4 4 0 4.67-5.543 8.94-8.5 11.023C9.043 17.44 3.5 13.17 3.5 8.5c0-2.206 1.794-4 4-4 1.298 0 2.522.638 3.273 1.706L12 7.953l1.227-1.746c.75-1.07 1.975-1.707 3.273-1.707m0-1.5c-1.862 0-3.505.928-4.5 2.344C11.005 3.928 9.362 3 7.5 3 4.462 3 2 5.462 2 8.5c0 5.72 6.5 10.438 10 12.85 3.5-2.412 10-7.13 10-12.85C22 5.462 19.538 3 16.5 3z"/>
-  
-            </svg>
-          </a>
-        </div>
-      {% endif %}
-
       {%- if shop.customer_accounts_enabled -%}
-        <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
-          rel="nofollow"
-        >
-          {%- if section.settings.enable_customer_avatar -%}
-            <account-icon>
-              {%- if customer and customer.has_avatar? -%}
-                {{ customer | avatar }}
-              {%- else -%}
-                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              {%- endif -%}
-            </account-icon>
-          {%- else -%}
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          {%- endif -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}">
+          <account-icon>
+            {%- if customer and customer.has_avatar? -%}
+              {{ customer | avatar }}
+            {%- else -%}
+              {% render 'icon-account' %}
+            {%- endif -%}
+          </account-icon>
           <span class="visually-hidden">
             {%- liquid
               if customer
@@ -343,9 +282,14 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <button type="button" class="header__icon header__icon--cart link focus-inset{% if cart == empty %} cart-empty{% else %} cart-filled{% endif %}" id="cart-icon-bubble" onclick="openCartNotification()">
-          <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
-          <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        {%- liquid
+          if cart == empty
+            render 'icon-cart-empty'
+          else
+            render 'icon-cart'
+          endif
+        -%}
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
@@ -355,7 +299,7 @@
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
           </div>
         {%- endif -%}
-      </button>
+      </a>
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -363,290 +307,6 @@
 {%- if settings.cart_type == "notification" -%}
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
 {%- endif -%}
-
-{%- render 'mini-cart' -%}
-
-<script>
-async function openCartNotification() {
-  const miniCart = document.getElementById('mini-cart');
-  if (!miniCart) {
-    // Fallback: se não houver mini-cart, vai para a página do carrinho
-    window.location.href = '{{ routes.cart_url }}';
-    return;
-  }
-
-  // Sempre abrir o mini-cart primeiro
-  miniCart.style.display = 'block';
-  setTimeout(() => miniCart.classList.add('active'), 10);
-
-  try {
-    // Buscar dados atuais do carrinho
-    console.log('Buscando dados do carrinho...');
-    const response = await fetch(`${window.routes.cart_url}?section_id=main-cart-items`);
-    const responseText = await response.text();
-    console.log('Response recebida, tamanho:', responseText.length);
-    console.log('Primeiros 500 chars da response:', responseText.substring(0, 500));
-    
-    const html = new DOMParser().parseFromString(responseText, 'text/html');
-    const cartItems = html.querySelector('.js-contents');
-    console.log('Elemento .js-contents encontrado:', !!cartItems);
-    
-    if (!cartItems) {
-      // Se não conseguir carregar, mostrar mensagem de carrinho vazio
-      updateMiniCart('<div class="cart__warnings"><p>Não foi possível carregar o carrinho</p></div>');
-      return;
-    }
-
-    // Verificar se o carrinho está vazio
-    const isEmpty = cartItems.querySelector('.cart__warnings') || cartItems.querySelector('.cart__empty-text');
-    if (isEmpty) {
-      // Mostrar carrinho vazio no mini-cart
-      updateMiniCart('<div class="cart__warnings"><p>Carrinho vazio</p></div>');
-      return;
-    }
-
-    // Atualizar o mini-cart com os dados atuais
-    updateMiniCart(cartItems.innerHTML);
-    
-  } catch (error) {
-    console.error('Erro ao carregar dados do carrinho:', error);
-    // Mostrar erro no mini-cart em vez de redirecionar
-    updateMiniCart('<div class="cart__warnings"><p>Erro ao carregar carrinho</p></div>');
-  }
-}
-
-function closeMiniCart() {
-  const miniCart = document.getElementById('mini-cart');
-  if (miniCart) {
-    miniCart.classList.remove('active');
-    setTimeout(() => miniCart.style.display = 'none', 300);
-  }
-}
-
-function updateMiniCart(cartContent) {
-  const miniCartItems = document.getElementById('mini-cart-items');
-  
-  // Se cartContent é uma string simples (caso de erro), tratar diretamente
-  if (typeof cartContent === 'string' && cartContent.includes('cart__warnings')) {
-    console.log('Detectado cart__warnings, mostrando carrinho vazio');
-    miniCartItems.innerHTML = `
-      <div class="mini-cart__empty">
-        <div class="mini-cart__empty-icon">🛒</div>
-        <p>Seu carrinho está vazio</p>
-      </div>
-    `;
-    // Atualizar total para zero
-    const totalElement = document.getElementById('mini-cart-total');
-    if (totalElement) {
-      totalElement.textContent = 'R$ 0,00';
-    }
-    return;
-  }
-  
-  const cartItems = new DOMParser().parseFromString(cartContent, 'text/html');
-  
-  // Verificar se há avisos de carrinho vazio
-  const emptyWarning = cartItems.querySelector('.cart__warnings');
-  
-  if (emptyWarning) {
-    miniCartItems.innerHTML = `
-      <div class="mini-cart__empty">
-        <div class="mini-cart__empty-icon">🛒</div>
-        <p>Seu carrinho está vazio</p>
-      </div>
-    `;
-    // Atualizar total para zero
-    const totalElement = document.getElementById('mini-cart-total');
-    if (totalElement) {
-      totalElement.textContent = 'R$ 0,00';
-    }
-    return;
-  }
-  
-  const items = cartItems.querySelectorAll('tr.cart-item');
-  
-  // Debug: verificar quantos itens foram encontrados
-  console.log('Número de itens encontrados:', items.length);
-  console.log('HTML do carrinho:', cartItems.body ? cartItems.body.innerHTML.substring(0, 1000) : 'sem innerHTML');
-  
-  if (items.length === 0) {
-    miniCartItems.innerHTML = `
-      <div class="mini-cart__empty">
-        <div class="mini-cart__empty-icon">🛒</div>
-        <p>Seu carrinho está vazio ou não foi possível carregar os itens</p>
-        <p><small>Debug: Verifique o console para mais detalhes</small></p>
-      </div>
-    `;
-    // Atualizar total para zero
-    const totalElement = document.getElementById('mini-cart-total');
-    if (totalElement) {
-      totalElement.textContent = 'R$ 0,00';
-    }
-    return;
-  }
-
-  let html = '';
-  let total = 0;
-  
-  items.forEach((item, index) => {
-    // Extrair imagem
-    const imageEl = item.querySelector('.cart-item__image');
-    const image = imageEl ? imageEl.src : null;
-    const imageAlt = imageEl ? imageEl.alt : '';
-    
-    // Extrair nome do produto
-    const nameEl = item.querySelector('.cart-item__name');
-    const name = nameEl ? nameEl.textContent.trim() : '';
-    
-    // Debug: log apenas se não encontrar dados essenciais
-    if (!name) {
-      console.log('ERRO: Nome não encontrado. Item HTML:', item.outerHTML.substring(0, 500));
-    }
-    
-    // Extrair variantes/opções
-    const options = item.querySelectorAll('.product-option');
-    let variantText = '';
-    options.forEach(option => {
-      const text = option.textContent.trim();
-      if (text && !text.includes('R$') && !text.includes('$')) {
-        variantText += text + ' ';
-      }
-    });
-    
-    // Extrair quantidade primeiro
-    const quantityEl = item.querySelector('.quantity__input') || item.querySelector('input[name="updates[]"]');
-    const quantity = quantityEl ? parseInt(quantityEl.value) : 1;
-    
-    // Verificar se há desconto no item
-    const discountedPricesEl = item.querySelector('.cart-item__discounted-prices');
-    let priceText = '';
-    let originalPriceText = '';
-    let hasDiscount = false;
-    
-    if (discountedPricesEl) {
-      // Item tem desconto
-      hasDiscount = true;
-      const originalPriceEl = discountedPricesEl.querySelector('.cart-item__old-price');
-      const finalPriceEl = discountedPricesEl.querySelector('.cart-item__final-price');
-      
-      if (originalPriceEl && finalPriceEl) {
-        originalPriceText = originalPriceEl.textContent.trim();
-        priceText = finalPriceEl.textContent.trim();
-      }
-    } else {
-      // Item sem desconto - buscar na div .product-option
-      const priceEl = item.querySelector('.product-option');
-      if (priceEl) {
-        priceText = priceEl.textContent.trim();
-      }
-    }
-    
-    // Extrair preço total da linha (já calculado pelo Shopify)
-    const linePriceEl = item.querySelector('.cart-item__totals .price--end:not(.cart-item__old-price)') || 
-                       item.querySelector('.cart-item__totals .cart-item__discounted-prices .price--end:not(.cart-item__old-price)') ||
-                       item.querySelector('.cart-item__totals span.price--end') ||
-                       item.querySelector('.cart-item__totals .cart-item__discounted-prices dd.price--end');
-    
-    let itemTotal = 0;
-    let linePriceText = '';
-    
-    if (linePriceEl) {
-      linePriceText = linePriceEl.textContent.trim();
-      // Extrair valor numérico do preço total da linha (formato brasileiro: R$ 1.600,00)
-      const priceMatch = linePriceText.match(/[\d.]+,\d{2}/);
-      if (priceMatch) {
-        // Converter formato brasileiro para formato americano: 1.600,00 → 1600.00
-        const brazilianPrice = priceMatch[0];
-        const americanPrice = brazilianPrice.replace(/\./g, '').replace(',', '.');
-        itemTotal = parseFloat(americanPrice);
-      }
-    } else {
-      // Fallback: calcular manualmente se não encontrar o preço da linha
-      const unitPriceMatch = priceText.match(/[\d.]+,\d{2}/);
-      if (unitPriceMatch) {
-        const brazilianPrice = unitPriceMatch[0];
-        const americanPrice = brazilianPrice.replace(/\./g, '').replace(',', '.');
-        const unitPrice = parseFloat(americanPrice);
-        itemTotal = unitPrice * quantity;
-      }
-    }
-    
-    total += itemTotal;
-    
-    // Extrair line number para remoção
-    const lineNumber = index + 1;
-    
-    // Debug: verificar dados finais apenas se houver problema
-    if (!name || !priceText) {
-      console.log('ERRO: Dados incompletos:', { name, priceText, hasDiscount, originalPriceText, quantity, linePriceText });
-    }
-    
-    if (name && priceText) {
-      // Construir HTML do preço baseado se há desconto ou não
-      let priceHtml = '';
-      if (hasDiscount && originalPriceText) {
-        priceHtml = `
-          <div class="mini-cart-item__price-wrapper">
-            <p class="mini-cart-item__price-original"><s>${originalPriceText}</s></p>
-            <p class="mini-cart-item__price">${priceText}</p>
-          </div>
-        `;
-      } else {
-        priceHtml = `<p class="mini-cart-item__price">${priceText}</p>`;
-      }
-      
-      html += `
-        <div class="mini-cart-item" data-line="${lineNumber}">
-          ${image ? `<img src="${image}" alt="${imageAlt}" class="mini-cart-item__image">` : ''}
-          <div class="mini-cart-item__details">
-            <h3 class="mini-cart-item__name">${name}</h3>
-            ${variantText ? `<p class="mini-cart-item__variant">${variantText.trim()}</p>` : ''}
-            ${priceHtml}
-            <p class="mini-cart-item__quantity">Qtd: ${quantity}</p>
-            <p class="mini-cart-item__total">Total: ${linePriceText || `R$ ${itemTotal.toFixed(2).replace('.', ',')}`}</p>
-          </div>
-          <button class="mini-cart-item__remove" onclick="removeCartItem(${lineNumber})" title="Remover item">
-            ×
-          </button>
-        </div>
-      `;
-    }
-  });
-  
-  miniCartItems.innerHTML = html;
-  
-  // Atualizar total
-  const totalElement = document.getElementById('mini-cart-total');
-  if (totalElement) {
-    totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-  }
-}
-
-async function removeCartItem(lineNumber) {
-  try {
-    const response = await fetch(`${window.routes.cart_change_url}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      body: JSON.stringify({
-        line: lineNumber,
-        quantity: 0
-      })
-    });
-
-    if (response.ok) {
-      // Recarregar o mini-cart após remoção
-      await openCartNotification();
-    } else {
-      console.error('Erro ao remover item do carrinho');
-    }
-  } catch (error) {
-    console.error('Erro ao remover item:', error);
-  }
-}
-</script>
 
 {% javascript %}
   class StickyHeader extends HTMLElement {
@@ -758,134 +418,7 @@ async function removeCartItem(lineNumber) {
   }
 
   customElements.define('sticky-header', StickyHeader);
-
-  // Função global para abrir o mini-cart com o conteúdo atual
-  window.openCartNotification = function() {
-    // Verificar se existe mini-cart customizado
-    const miniCart = document.getElementById('mini-cart');
-    if (miniCart) {
-      // Abrir mini-cart customizado
-      miniCart.style.display = 'block';
-      setTimeout(() => miniCart.classList.add('active'), 10);
-      
-      // Carregar conteúdo do carrinho
-      fetch(window.cartData.cartUrl + '.js')
-        .then(response => response.json())
-        .then(cartData => {
-          // Atualizar contador do carrinho
-          const cartCountBubble = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
-          if (cartCountBubble) {
-            cartCountBubble.textContent = cartData.item_count;
-          }
-          
-          // Atualizar ícone do carrinho baseado na quantidade
-          const cartIcon = document.querySelector('#cart-icon-bubble');
-          if (cartIcon) {
-            if (cartData.item_count === 0) {
-              cartIcon.classList.add('cart-empty');
-              cartIcon.classList.remove('cart-filled');
-            } else {
-              cartIcon.classList.add('cart-filled');
-              cartIcon.classList.remove('cart-empty');
-            }
-          }
-          
-          // Atualizar conteúdo do mini-cart
-          updateMiniCartContent(cartData);
-        })
-        .catch(error => {
-          console.error('Erro ao carregar carrinho:', error);
-        });
-      return;
-    }
-    
-    // Fallback: usar cart-notification se mini-cart não existir
-    const cartNotification = document.querySelector('cart-notification');
-    if (cartNotification) {
-      if (window.cartData.itemCount === 0) {
-        window.location.href = window.cartData.cartUrl;
-        return;
-      }
-      cartNotification.open();
-    } else {
-      window.location.href = window.cartData.cartUrl;
-    }
-  };
-
-  // Função para atualizar o conteúdo do mini-cart
-  function updateMiniCartContent(cartData) {
-    const miniCartItems = document.getElementById('mini-cart-items');
-    const totalElement = document.getElementById('mini-cart-total');
-    
-    if (!miniCartItems) return;
-    
-    if (cartData.item_count === 0) {
-      miniCartItems.innerHTML = `
-        <div class="mini-cart__empty">
-          <div class="mini-cart__empty-icon">🛒</div>
-          <p>Seu carrinho está vazio</p>
-        </div>
-      `;
-      if (totalElement) {
-        totalElement.textContent = 'R$ 0,00';
-      }
-      return;
-    }
-    
-    let html = '';
-    let total = 0;
-    
-    cartData.items.forEach((item, index) => {
-      const lineNumber = index + 1;
-      const image = item.image;
-      const imageAlt = item.image_alt || item.product_title;
-      const name = item.product_title;
-      const variantText = item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : '';
-      const quantity = item.quantity;
-      const price = item.price / 100;
-      const itemTotal = price * quantity;
-      total += itemTotal;
-      
-      const priceText = `R$ ${price.toFixed(2).replace('.', ',')}`;
-      const linePriceText = `R$ ${itemTotal.toFixed(2).replace('.', ',')}`;
-      
-      html += `
-        <div class="mini-cart-item" data-line="${lineNumber}">
-          ${image ? `<img src="${image}" alt="${imageAlt}" class="mini-cart-item__image">` : ''}
-          <div class="mini-cart-item__details">
-            <h3 class="mini-cart-item__name">${name}</h3>
-            ${variantText ? `<p class="mini-cart-item__variant">${variantText}</p>` : ''}
-            <p class="mini-cart-item__price">${priceText}</p>
-            <p class="mini-cart-item__quantity">Qtd: ${quantity}</p>
-            <p class="mini-cart-item__total">Total: ${linePriceText}</p>
-          </div>
-          <button class="mini-cart-item__remove" onclick="removeCartItem(${lineNumber})" title="Remover item">
-            ×
-          </button>
-        </div>
-      `;
-    });
-    
-    miniCartItems.innerHTML = html;
-    
-    if (totalElement) {
-      totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    }
-  }
 {% endjavascript %}
-
-<script>
-  // Variáveis globais para o carrinho
-  window.cartData = {
-    itemCount: {{ cart.item_count }},
-    cartUrl: '{{ routes.cart_url }}'
-  };
-
-  // Função para atualizar as variáveis do carrinho
-  window.updateCartData = function(itemCount) {
-    window.cartData.itemCount = itemCount;
-  };
-</script>
 
 <script type="application/ld+json">
   {
@@ -1055,18 +588,6 @@ async function removeCartItem(lineNumber) {
     },
     {
       "type": "header",
-      "content": "t:sections.header.settings.header__7.content",
-      "info": "t:sections.header.settings.header__7.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_customer_avatar",
-      "default": true,
-      "label": "t:sections.header.settings.enable_customer_avatar.label",
-      "info": "t:sections.header.settings.enable_customer_avatar.info"
-    },
-    {
-      "type": "header",
       "content": "t:sections.header.settings.mobile_layout.content"
     },
     {
@@ -1122,71 +643,11 @@ async function removeCartItem(lineNumber) {
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
-    },
-    {
-      "type": "header",
-      "content": "Links Especiais"
-    },
-    {
-      "type": "text",
-      "id": "special_link_1_text",
-      "label": "Texto do link especial 01",
-      "default": "Link Especial 01"
-    },
-    {
-      "type": "url",
-      "id": "special_link_1_url",
-      "label": "URL do link especial 01"
-    },
-    {
-      "type": "text",
-      "id": "special_link_1_icon",
-      "label": "Ícone SVG ou nome do asset (opcional) do link 01",
-      "default": "icon-star.svg"
-    },
-    {
-      "type": "text",
-      "id": "special_link_2_text",
-      "label": "Texto do link especial 02",
-      "default": "Link Especial 02"
-    },
-    {
-      "type": "url",
-      "id": "special_link_2_url",
-      "label": "URL do link especial 02"
-    },
-    {
-      "type": "text",
-      "id": "special_link_2_icon",
-      "label": "Ícone SVG ou nome do asset (opcional) do link 02",
-      "default": "icon-heart.svg"
-    },
-    {
-      "type": "text",
-      "id": "special_link_3_text",
-      "label": "Texto do link especial 03",
-      "default": "Link Especial 03"
-    },
-    {
-      "type": "url",
-      "id": "special_link_3_url",
-      "label": "URL do link especial 03"
-    },
-    {
-      "type": "text",
-      "id": "special_link_3_icon",
-      "label": "Ícone SVG ou nome do asset (opcional) do link 03",
-      "default": "icon-info.svg"
     }
   ],
   "blocks": [
     {
       "type": "@app"
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.header.presets.name"
     }
   ]
 }

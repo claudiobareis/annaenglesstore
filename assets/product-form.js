@@ -6,11 +6,10 @@ if (!customElements.get('product-form')) {
         super();
 
         this.form = this.querySelector('form');
-        this.variantIdInput.disabled = false;
+        this.form.querySelector('[name=id]').disabled = false;
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
-        this.submitButtonText = this.submitButton.querySelector('span');
 
         if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
 
@@ -57,7 +56,7 @@ if (!customElements.get('product-form')) {
               const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
               if (!soldOutMessage) return;
               this.submitButton.setAttribute('aria-disabled', true);
-              this.submitButtonText.classList.add('hidden');
+              this.submitButton.querySelector('span').classList.add('hidden');
               soldOutMessage.classList.remove('hidden');
               this.error = true;
               return;
@@ -86,16 +85,7 @@ if (!customElements.get('product-form')) {
               );
               quickAddModal.hide(true);
             } else {
-              // Atualizar contador do carrinho
-              this.updateCartCount(response.item_count);
-              
-              // Sempre tentar abrir o mini-cart customizado primeiro
-              if (typeof window.openCartNotification === 'function') {
-                window.openCartNotification();
-              } else {
-                // Fallback para cart-notification original
-                this.cart.renderContents(response);
-              }
+              this.cart.renderContents(response);
             }
           })
           .catch((e) => {
@@ -106,8 +96,6 @@ if (!customElements.get('product-form')) {
             if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
             this.querySelector('.loading__spinner').classList.add('hidden');
-
-            // Medição de performance removida para evitar erro
           });
       }
 
@@ -123,55 +111,6 @@ if (!customElements.get('product-form')) {
 
         if (errorMessage) {
           this.errorMessage.textContent = errorMessage;
-        }
-      }
-
-      toggleSubmitButton(disable = true, text) {
-        if (disable) {
-          this.submitButton.setAttribute('disabled', 'disabled');
-          if (text) this.submitButtonText.textContent = text;
-        } else {
-          this.submitButton.removeAttribute('disabled');
-          this.submitButtonText.textContent = window.variantStrings.addToCart;
-        }
-      }
-
-      get variantIdInput() {
-        return this.form.querySelector('[name=id]');
-      }
-
-      updateCartCount(itemCount) {
-        // Atualizar variáveis globais do carrinho
-        if (typeof window.updateCartData === 'function') {
-          window.updateCartData(itemCount);
-        }
-        
-        // Atualizar contador do carrinho no header
-        const cartCountBubble = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
-        if (cartCountBubble) {
-          cartCountBubble.textContent = itemCount;
-        }
-        
-        // Atualizar ícone do carrinho (vazio/cheio) - usar classes CSS
-        const cartIcon = document.querySelector('#cart-icon-bubble');
-        if (cartIcon) {
-          if (itemCount === 0) {
-            cartIcon.classList.add('cart-empty');
-            cartIcon.classList.remove('cart-filled');
-            // Esconder o contador quando vazio
-            const cartCountDiv = cartIcon.querySelector('.cart-count-bubble');
-            if (cartCountDiv) {
-              cartCountDiv.style.display = 'none';
-            }
-          } else {
-            cartIcon.classList.add('cart-filled');
-            cartIcon.classList.remove('cart-empty');
-            // Mostrar o contador quando tem itens
-            const cartCountDiv = cartIcon.querySelector('.cart-count-bubble');
-            if (cartCountDiv) {
-              cartCountDiv.style.display = 'block';
-            }
-          }
         }
       }
     }

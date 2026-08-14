@@ -8,40 +8,6 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
-      {%- liquid
-        assign banner_image = null
-        assign banner_url = null
-        
-        # Tenta encontrar uma collection entre os links para pegar os metafields
-        if link.links != blank
-          for childlink in link.links
-            if childlink.type == 'collection_link' or childlink.url contains '/collections/'
-              assign collection_handle = childlink.url | split: '/collections/' | last | split: '?' | first
-              assign collection = collections[collection_handle]
-              if collection != blank
-                assign banner_image = collection.metafields.custom.banner_menu
-                assign banner_url = collection.metafields.custom.banner_menu_link
-                break
-              endif
-            endif
-          endfor
-          
-          # Se não encontrou collection, tenta usar o primeiro link que tenha metafields
-          if banner_image == null
-            for childlink in link.links
-              if childlink.type == 'collection_link' or childlink.url contains '/collections/'
-                assign collection_handle = childlink.url | split: '/collections/' | last | split: '?' | first
-                assign collection = collections[collection_handle]
-                if collection != blank and collection.metafields.custom.banner_menu != blank
-                  assign banner_image = collection.metafields.custom.banner_menu
-                  assign banner_url = collection.metafields.custom.banner_menu_link
-                  break
-                endif
-              endif
-            endfor
-          endif
-        endif
-      -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -57,11 +23,11 @@
                 >
                   {{- link.title | escape -}}
                 </span>
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+                {% render 'icon-caret' %}
               </summary>
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
-                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup{% if banner_image != blank %} mega-menu__content--with-banner{% endif %}" 
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
                 <ul
@@ -101,36 +67,6 @@
                     </li>
                   {%- endfor -%}
                 </ul>
-                
-                {%- comment -%} Banner do Mega Menu usando metafields das collections {%- endcomment -%}
-                
-                {%- if banner_image != blank -%}
-                  <div class="mega-menu__banner">
-                    <div class="mega-menu__banner-image">
-                      {%- if banner_url != blank -%}
-                        <a href="{{ banner_url }}" class="mega-menu__banner-link">
-                      {%- endif -%}
-                      
-                      <img
-                        src="{{ banner_image | image_url: width: 280 }}"
-                        alt="{{ link.title | escape }} - Banner"
-                        loading="lazy"
-                        class="mega-menu__banner-img"
-                      >
-                      
-                      {%- if banner_url != blank -%}
-                        </a>
-                      {%- endif -%}
-                    </div>
-                    
-                    <div class="mega-menu__banner-content">
-                      <h3 class="mega-menu__banner-title">{{ link.title | escape }}</h3>
-                      {%- if banner_url != blank -%}
-                        <span class="mega-menu__banner-button">Ver Mais</span>
-                      {%- endif -%}
-                    </div>
-                  </div>
-                {%- endif -%}
               </div>
             </details>
           </header-menu>

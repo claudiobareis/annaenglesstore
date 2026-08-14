@@ -19,9 +19,9 @@
 
 {%- if section.settings.quick_add == 'bulk' -%}
   <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
 {%- style -%}
@@ -94,7 +94,6 @@
         role="list"
         aria-label="{{ 'general.slider.name' | t }}"
       >
-        {% assign skip_card_product_styles = false %}
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
@@ -111,14 +110,10 @@
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
               show_rating: section.settings.show_rating,
-              skip_styles: skip_card_product_styles,
               section_id: section.id,
-              quick_add: section.settings.quick_add,
-              show_videos: section.settings.show_videos,
-              video_autoplay: section.settings.video_autoplay
+              quick_add: section.settings.quick_add
             %}
           </li>
-          {%- assign skip_card_product_styles = true -%}
         {%- else -%}
           {%- for i in (1..section.settings.columns_desktop) -%}
             <li
@@ -142,9 +137,7 @@
                 show_vendor: section.settings.show_vendor,
                 media_aspect_ratio: section.settings.image_ratio,
                 image_shape: section.settings.image_shape,
-                placeholder_image: placeholder_image,
-                show_videos: section.settings.show_videos,
-                video_autoplay: section.settings.video_autoplay
+                placeholder_image: placeholder_image
               %}
             </li>
           {%- endfor -%}
@@ -159,9 +152,7 @@
             aria-label="{{ 'general.slider.previous_slide' | t }}"
             aria-controls="Slider-{{ section.id }}"
           >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+            {% render 'icon-caret' %}
           </button>
           <div class="slider-counter caption">
             <span class="slider-counter--current">1</span>
@@ -176,9 +167,7 @@
             aria-label="{{ 'general.slider.next_slide' | t }}"
             aria-controls="Slider-{{ section.id }}"
           >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+            {% render 'icon-caret' %}
           </button>
         </div>
       {%- endif -%}
@@ -196,7 +185,7 @@
       </div>
     {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
-      {{ 'mask-arch.svg' | inline_asset_content }}
+      {% render 'mask-arch' %}
     {%- endif -%}
   </div>
 </div>
@@ -213,7 +202,7 @@
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "t:sections.featured-collection.settings.title.default",
+      "default": "Featured collection",
       "label": "t:sections.featured-collection.settings.title.label"
     },
     {
@@ -231,14 +220,6 @@
         {
           "value": "h0",
           "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
       "default": "h1",
@@ -426,22 +407,6 @@
       "default": false,
       "label": "t:sections.featured-collection.settings.show_rating.label",
       "info": "t:sections.featured-collection.settings.show_rating.info"
-    },
-    {
-      "type": "header",
-      "content": "Configurações de Vídeo"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_videos",
-      "default": true,
-      "label": "Exibir vídeos nos cards de produtos"
-    },
-    {
-      "type": "checkbox",
-      "id": "video_autoplay",
-      "default": false,
-      "label": "Habilitar autoplay para vídeos"
     },
     {
       "type": "select",

@@ -40,9 +40,7 @@
         aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
         aria-controls="Slider-{{ section.id }}"
       >
-        <span class="svg-wrapper">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
+        {% render 'icon-caret' %}
       </button>
       <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
         {%- if section.settings.slider_visual == 'counter' -%}
@@ -75,9 +73,7 @@
         aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
         aria-controls="Slider-{{ section.id }}"
       >
-        <span class="svg-wrapper">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
+        {% render 'icon-caret' %}
       </button>
 
       {%- if section.settings.auto_rotate -%}
@@ -86,12 +82,8 @@
           class="slideshow__autoplay slider-button{% if section.settings.auto_rotate == false %} slideshow__autoplay--paused{% endif %}"
           aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
         >
-          <span class="svg-wrapper">
-            {{- 'icon-pause.svg' | inline_asset_content -}}
-          </span>
-          <span class="svg-wrapper">
-            {{- 'icon-play.svg' | inline_asset_content -}}
-          </span>
+          {%- render 'icon-pause' -%}
+          {%- render 'icon-play' -%}
         </button>
       {%- endif -%}
     </div>
@@ -199,9 +191,7 @@
         aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
         aria-controls="Slider-{{ section.id }}"
       >
-        <span class="svg-wrapper">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
+        {% render 'icon-caret' %}
       </button>
       <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
         {%- if section.settings.slider_visual == 'counter' -%}
@@ -234,9 +224,7 @@
         aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
         aria-controls="Slider-{{ section.id }}"
       >
-        <span class="svg-wrapper">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
+        {% render 'icon-caret' %}
       </button>
 
       {%- if section.settings.auto_rotate -%}
@@ -245,12 +233,8 @@
           class="slideshow__autoplay slider-button{% if section.settings.auto_rotate == false %} slideshow__autoplay--paused{% endif %}"
           aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
         >
-          <span class="svg-wrapper">
-            {{- 'icon-pause.svg' | inline_asset_content -}}
-          </span>
-          <span class="svg-wrapper">
-            {{- 'icon-play.svg' | inline_asset_content -}}
-          </span>
+          {%- render 'icon-pause' -%}
+          {%- render 'icon-play' -%}
         </button>
       {%- endif -%}
     </div>
@@ -385,7 +369,7 @@
       "id": "accessibility_info",
       "label": "t:sections.slideshow.settings.accessibility.label",
       "info": "t:sections.slideshow.settings.accessibility.info",
-      "default": "t:sections.slideshow.settings.accessibility.default"
+      "default": "Slideshow about our brand"
     }
   ],
   "blocks": [
@@ -402,7 +386,7 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.slideshow.blocks.slide.settings.heading.default",
+          "default": "Image slide",
           "label": "t:sections.slideshow.blocks.slide.settings.heading.label"
         },
         {
@@ -420,14 +404,6 @@
             {
               "value": "h0",
               "label": "t:sections.all.heading_size.options__3.label"
-            },
-            {
-              "value": "hxl",
-              "label": "t:sections.all.heading_size.options__4.label"
-            },
-            {
-              "value": "hxxl",
-              "label": "t:sections.all.heading_size.options__5.label"
             }
           ],
           "default": "h1",
@@ -436,13 +412,13 @@
         {
           "type": "inline_richtext",
           "id": "subheading",
-          "default": "t:sections.slideshow.blocks.slide.settings.subheading.default",
+          "default": "Tell your brand's story through images",
           "label": "t:sections.slideshow.blocks.slide.settings.subheading.label"
         },
         {
           "type": "text",
           "id": "button_label",
-          "default": "t:sections.slideshow.blocks.slide.settings.button_label.default",
+          "default": "Button label",
           "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
           "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
         },
