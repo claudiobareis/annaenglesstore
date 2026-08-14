@@ -4,12 +4,19 @@
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 1rem);
     }
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+{%- assign banner_mobile = collection.metafields.custom.banner_mobile -%}
+{%- assign banner_desktop = collection.metafields.custom.banner_desktop -%}
+{%- assign has_custom_banners = false -%}
+{%- if banner_mobile != blank or banner_desktop != blank -%}
+  {%- assign has_custom_banners = true -%}
+{%- endif -%}
+
+<div class="collection-hero{% if has_custom_banners %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
@@ -22,24 +29,50 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
+    {%- if has_custom_banners -%}
+      {%- assign container_classes = "collection-hero__image-container media gradient" -%}
+      {%- if banner_mobile != blank and banner_desktop == blank -%}
+        {%- assign container_classes = container_classes | append: " collection-hero__image-container--mobile-only" -%}
+      {%- elsif banner_desktop != blank and banner_mobile == blank -%}
+        {%- assign container_classes = container_classes | append: " collection-hero__image-container--desktop-only" -%}
+      {%- endif -%}
+      <div class="{{ container_classes }}">
+        {%- if banner_mobile != blank -%}
+          <img
+            class="collection-hero__image collection-hero__image--mobile"
+            srcset="
+              {%- if banner_mobile.width >= 165 -%}{{ banner_mobile | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if banner_mobile.width >= 360 -%}{{ banner_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if banner_mobile.width >= 535 -%}{{ banner_mobile | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if banner_mobile.width >= 750 -%}{{ banner_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+              {{ banner_mobile | image_url }} {{ banner_mobile.width }}w
+            "
+            src="{{ banner_mobile | image_url: width: 750 }}"
+            sizes="(max-width: 749px) 100vw, 0vw"
+            alt="{{ banner_mobile.alt | escape | default: collection.title | escape }}"
+            width="{{ banner_mobile.width }}"
+            height="{{ banner_mobile.height }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+
+        {%- if banner_desktop != blank -%}
+          <img
+            class="collection-hero__image collection-hero__image--desktop"
+            srcset="
+              {%- if banner_desktop.width >= 1070 -%}{{ banner_desktop | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if banner_desktop.width >= 1500 -%}{{ banner_desktop | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if banner_desktop.width >= 2000 -%}{{ banner_desktop | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {{ banner_desktop | image_url }} {{ banner_desktop.width }}w
+            "
+            src="{{ banner_desktop | image_url: width: 1500 }}"
+            sizes="(min-width: 750px) 100vw, 0vw"
+            alt="{{ banner_desktop.alt | escape | default: collection.title | escape }}"
+            width="{{ banner_desktop.width }}"
+            height="{{ banner_desktop.height }}"
+            loading="lazy"
+          >
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -59,13 +92,6 @@
       "id": "show_collection_description",
       "default": true,
       "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_image",
-      "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
-      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
     },
     {
       "type": "color_scheme",

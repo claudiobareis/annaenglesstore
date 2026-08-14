@@ -1,0 +1,111 @@
+{%- liquid
+  assign faq_items = collection.metafields.custom.faq.value
+  assign faq_count = 0
+  if faq_items != blank
+    assign faq_count = faq_items.size
+  endif
+-%}
+
+{%- if faq_count > 0 -%}
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    {% render 'faq-list',
+      faq_items: faq_items,
+      heading: section.settings.heading,
+      eyebrow: section.settings.eyebrow,
+      section_id: section.id,
+      heading_size: section.settings.heading_size,
+      open_first: section.settings.open_first
+    %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FAQ da coleção",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto pequeno acima do título",
+      "default": "Dúvidas"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título da seção",
+      "default": "Perguntas frequentes"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Pequeno" },
+        { "value": "h1", "label": "Médio" },
+        { "value": "h0", "label": "Grande" }
+      ],
+      "default": "h1",
+      "label": "Tamanho do título"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Abrir o primeiro item",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cores",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento superior",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento inferior",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ da coleção"
+    }
+  ]
+}
+{% endschema %}

@@ -17,19 +17,27 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "CASHBACK | 10% EM TODAS AS COMPRAS",
+            "link": ""
+          }
+        },
+        "announcement_RqfCyw": {
+          "type": "announcement",
+          "settings": {
+            "text": "PARCELE EM ATÉ 10X NO CARTÃO",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_RqfCyw"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
         "show_line_separator": true,
         "show_social": false,
-        "auto_rotate": false,
+        "auto_rotate": true,
         "change_slides_speed": 5,
         "enable_country_selector": false,
         "enable_language_selector": false
@@ -38,19 +46,29 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo_position": "middle-left",
+        "logo_position": "top-center",
         "menu": "main-menu",
-        "menu_type_desktop": "dropdown",
-        "sticky_header_type": "on-scroll-up",
+        "menu_type_desktop": "mega",
+        "sticky_header_type": "reduce-logo-size",
         "show_line_separator": true,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
-        "enable_country_selector": false,
-        "enable_language_selector": false,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
         "mobile_logo_position": "center",
-        "margin_bottom": 16,
-        "padding_top": 12,
-        "padding_bottom": 12
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "special_link_1_text": "Grupo Vip",
+        "special_link_1_url": "shopify://pages/cupom-primeira-compra",
+        "special_link_1_icon": "https://cdn.shopify.com/s/files/1/0654/4860/7804/files/grupovip.svg",
+        "special_link_2_text": "Fale Conosco",
+        "special_link_2_url": "shopify://pages/fale-conosco",
+        "special_link_2_icon": "https://cdn.shopify.com/s/files/1/0654/4860/7804/files/faleconosco.svg",
+        "special_link_3_text": "Link Especial 03",
+        "special_link_3_url": "",
+        "special_link_3_icon": "icon-info.svg"
       }
     }
   },

@@ -17,9 +17,9 @@
 
 {%- if section.settings.quick_add == 'bulk' -%}
   <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
 {%- style -%}
@@ -66,7 +66,9 @@
                     </option>
                   {%- endfor -%}
                 </select>
-                {% render 'icon-caret' %}
+                <span class="svg-wrapper">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
               </div>
             </div>
           </div>
@@ -150,6 +152,7 @@
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               "
             >
+              {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
@@ -170,10 +173,14 @@
                     show_vendor: section.settings.show_vendor,
                     show_rating: section.settings.show_rating,
                     lazy_load: lazy_load,
+                    skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
-                    section_id: section.id
+                    section_id: section.id,
+                    show_videos: section.settings.show_videos,
+                    video_autoplay: section.settings.video_autoplay
                   %}
                 </li>
+                {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
 
@@ -186,34 +193,8 @@
     </div>
   {%- endpaginate -%}
   {% if section.settings.image_shape == 'arch' %}
-    {% render 'mask-arch' %}
+    {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
-
-  <div class="faq-section">
-    {% if section.settings.faq_items %}
-      <h2>{{ section.settings.faq_title }}</h2>
-      {% assign faq_items = section.settings.faq_items %}
-      <ul>
-        {% for item in faq_items %}
-          <li>
-            <h3>{{ item.question }}</h3>
-            <div class="answer">
-              {{ item.answer }}
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>Nenhuma FAQ disponível.</p>
-    {% endif %}
-  </div>
-
-  {% assign faq_items = '[{"question":"Teste","answer":"Funciona!"}]' | parse_json %}
-  <ul>
-    {% for item in faq_items %}
-      <li>{{ item.question }}: {{ item.answer }}</li>
-    {% endfor %}
-  </ul>
 </div>
 
 {% schema %}
@@ -331,6 +312,22 @@
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
     },
     {
+      "type": "header",
+      "content": "Configurações de Vídeo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_videos",
+      "default": true,
+      "label": "Exibir vídeos nos cards de produtos"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "default": false,
+      "label": "Habilitar autoplay para vídeos"
+    },
+    {
       "type": "select",
       "id": "quick_add",
       "default": "none",
@@ -432,18 +429,6 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
-    },
-    {
-      "type": "text",
-      "id": "faq_title",
-      "label": "Título da FAQ",
-      "default": "Perguntas Frequentes"
-    },
-    {
-      "type": "textarea",
-      "id": "faq_items",
-      "label": "Perguntas e Respostas (JSON)",
-      "default": "[{\"question\":\"O que é skincare?\",\"answer\":\"Skincare é o cuidado diário com a pele.\"}]"
     }
   ]
 }
