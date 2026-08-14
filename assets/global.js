@@ -1131,6 +1131,11 @@ class VariantSelects extends HTMLElement {
         '--swatch-focal-point',
         target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset'
       );
+
+      const selectedLabelValue = target
+        .closest('.product-form__input')
+        .querySelector('[data-selected-value]:not(.dropdown-swatch)');
+      if (selectedLabelValue) selectedLabelValue.textContent = value;
     } else if (tagName === 'INPUT' && target.type === 'radio') {
       const selectedSwatchValue = target.closest(`.product-form__input`).querySelector('[data-selected-value]');
       if (selectedSwatchValue) selectedSwatchValue.innerHTML = value;

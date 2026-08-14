@@ -1,85 +1,43 @@
-# Melhorias no Seletor de Variantes - Swatches com Cores
+# Seletor de variantes — cor e tamanho
 
-## 📋 Resumo das Alterações
+O PDP trata **Cor** e **Tamanho** como controles diferentes. Cores usam círculos visuais com o nome da opção selecionada na legenda (`Cor: PRETO`). Tamanhos usam pills (`Tamanho: P`). Funciona mesmo sem configuração no painel.
 
-Implementamos melhorias no sistema de swatches para produtos com kits (Bundles) que agora suportam:
+## Prioridade visual das cores
 
-1. **Prioridade de exibição**: Imagem > Cor > Nome da cor
-2. **Amostras visuais**: Quando há imagens ou cores configuradas
-3. **Fallback inteligente**: Exibição do nome da cor quando não há amostra visual
+1. Imagem do swatch nativo (`value.swatch.image`)
+2. Imagem da variante (`variant.image`, só em opção de cor)
+3. Cor nativa (`value.swatch.color`)
+4. **Theme settings → Color Swatches Custom** (`Nome:#hex` ou arquivo explícito)
+5. Paleta automática (Preto, Off White, Rosa Candy, Areia, Azul Candy, Marrom, Caramelo, Chumbo, Bordô, Marinho e tons comuns)
+6. Chip de texto com o **nome completo**, sem truncar
 
-## 🔧 Arquivos Modificados
+Não inferir `preto.png` / `areia.png` automaticamente: `file_url` no Liquid sempre gera URL, mesmo quando o arquivo não existe, e isso gerava círculos vazios com texto cortado (`ROS...`, `MA...`).
 
-### 1. `snippets/swatch.liquid`
-- ✅ Adicionado suporte para exibir texto quando não há imagem ou cor
-- ✅ Melhor lógica de fallback para mostrar o nome da variante
-- ✅ Novo parâmetro `value` para passar o nome da cor
+## Semântica das opções
 
-### 2. `snippets/swatch-input.liquid` 
-- ✅ Atualizado para passar o valor da cor para o componente swatch
+- `Cor`, `Color`, `Colour` → swatch
+- `Tamanho`, `Size` e qualquer outra opção → pills
+- Dropdown continua dropdown; `swatch_shape: none` também força pills nas cores
 
-### 3. `snippets/product-variant-picker.liquid`
-- ✅ Atualizado swatch do dropdown para incluir o nome da cor
+## Arquivos
 
-### 4. `assets/component-swatch.css`
-- ✅ Novos estilos para swatches de texto (`.swatch--text`)
-- ✅ Tipografia otimizada para diferentes tamanhos de swatch
-- ✅ Estilos específicos para swatches quadrados e circulares
+- `snippets/product-variant-picker.liquid`
+- `snippets/swatch.liquid`
+- `snippets/swatch-input.liquid`
+- `assets/component-product-variant-picker.css`
+- `assets/component-swatch.css`
+- `assets/component-swatch-input.css`
+- `assets/swatch-fallback.js` — só valida imagens realmente declaradas; se falhar, paleta e depois texto
 
-## 🎨 Como Funciona Agora
+## Configuração opcional
 
-### Cenário 1: Com Imagem de Swatch
+A paleta automática cobre os tons da loja. Se um nome novo não for reconhecido, o tema mostra o chip textual. Para forçar um hex ou arquivo:
+
+**Personalizar tema → Color Swatches Custom → Colors**
+
 ```
-[🖼️ Imagem da cor] ← Prioridade máxima
-```
-
-### Cenário 2: Com Cor Configurada (sem imagem)
-```
-[🔴 Amostra de cor] ← Segunda prioridade
-```
-
-### Cenário 3: Apenas Nome da Cor
-```
-[Azul] ← Texto estilizado quando não há amostra visual
+Rosa Candy:#f3b6c4
+Areia:#cbb89a
 ```
 
-## 🚀 Benefícios
-
-- **Experiência do usuário melhorada**: Sempre há uma indicação visual da cor
-- **Compatibilidade total**: Funciona com kits do app Bundles
-- **Responsivo**: Adapta-se a diferentes tamanhos de swatch
-- **Acessível**: Mantém textos alternativos e estrutura semântica
-
-## 📱 Compatibilidade
-
-- ✅ Produtos simples
-- ✅ Produtos com variantes
-- ✅ Kits criados via app Bundles
-- ✅ Todos os tipos de seletor (botão, dropdown, swatch)
-- ✅ Temas responsivos
-
-## 🔍 Como Configurar Swatches
-
-### Para usar imagens:
-1. Vá em **Produtos** > **[Seu Produto]**
-2. Na seção **Mídia**, adicione imagens para cada variante
-3. Configure os metafields de swatch (se necessário)
-
-### Para usar cores:
-1. Acesse **Configurações do Tema** > **Color Swatches Custom**
-2. Configure as cores no formato: `NomeDaCor:#CodigoHex`
-3. Exemplo: `Azul:#0066cc`
-
-## 🛠️ Personalização Avançada
-
-### Modificar estilos de texto:
-Edite `assets/component-swatch.css` na seção `.swatch__text`
-
-### Alterar comportamento:
-Modifique `snippets/swatch.liquid` para ajustar a lógica de fallback
-
----
-
-**Criado para:** Anna Engles Tone  
-**Data:** $(date)  
-**Tema:** Dawn (modificado)
+Ou `Areia: areia.png` (arquivo já enviado em Conteúdo → Arquivos).

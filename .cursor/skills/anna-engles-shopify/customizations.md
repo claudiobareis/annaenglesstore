@@ -4,14 +4,19 @@ Ler o doc completo na raiz antes de mudar comportamento. Este arquivo é só ín
 
 ## Swatches com imagem / cor
 
-**Arquivos:** `snippets/swatch.liquid`, `snippets/color-option.liquid`, `snippets/swatch-input.liquid`, `snippets/product-variant-options.liquid`, `assets/swatch-fallback.js`, `assets/component-swatch.css`, `assets/component-swatch-input.css`
+**Arquivos:** `snippets/swatch.liquid`, `snippets/product-variant-picker.liquid`, `snippets/product-variant-options.liquid`, `snippets/swatch-input.liquid`, `assets/swatch-fallback.js`, `assets/component-swatch.css`, `assets/component-swatch-input.css`, `assets/component-product-variant-picker.css`
+
+**Comportamento:** opções `Cor/Color` viram círculos visuais; `Tamanho/Size` e demais opções viram pills com o valor selecionado na legenda. Não depende de `picker_type: swatch` no template.
 
 **Prioridade de exibição (cor):**
 1. `value.swatch.image` (nativo)
 2. `variant.image` (só opção de COR)
 3. `value.swatch.color` (nativo)
-4. Arquivo por nome (`azul-marinho.png` etc. em Conteúdo → Arquivos)
-5. Cores em **Theme settings → Color Swatches Custom**
+4. Cores/arquivos em **Theme settings → Color Swatches Custom**
+5. Paleta automática (nomes em português: Preto, Off White, Rosa Candy, Areia, etc.)
+6. Chip de texto com o nome completo (sem truncar)
+
+Arquivos `preto.png` em Conteúdo → Arquivos **não** são mais inferidos automaticamente (o `file_url` sempre gerava URL e quebrava o visual). Use o painel Color Swatches Custom se quiser arquivo por nome.
 
 **Docs:** `VARIANT_IMAGE_SWATCHES.md`, `CONFIGURACAO_SWATCHES_IMAGEM.md`, `MELHORIAS_SWATCH_CORES.md`, `SOLUCAO_IMEDIATA_SWATCHES.md`, `SOLUCAO_SWATCHES_KITS.md`
 

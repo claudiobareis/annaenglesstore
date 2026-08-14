@@ -9,104 +9,209 @@
   - option_position: {Number} position of the option (required when variant_image is true)
   - option_name: {String} name of the option (required when variant_image is true)
 
-  Usage:
-  {% render 'swatch',
-    swatch: value.swatch,
-    shape: 'square',
-    value: value,
-    variant_image: true,
-    product: product,
-    option_position: option.position,
-    option_name: option.name
-  %}
+  Priority:
+  1. Native swatch image
+  2. Variant featured image (color options only)
+  3. Native swatch color
+  4. Theme settings Color Swatches Custom
+  5. Built-in Portuguese/fashion color palette
+  6. Full-name text chip
 {% endcomment %}
 
 {%- liquid
   assign swatch_value = null
   assign has_visual_swatch = false
   assign swatch_focal_point = null
-  
-  # Prioridade 1: Imagem do swatch nativo
+  assign swatch_source = 'text'
+  assign display_value = value | default: swatch.name | default: ''
+
+  assign color_key = display_value | downcase | strip
+  assign color_key = color_key | replace: 'ã', 'a' | replace: 'á', 'a' | replace: 'â', 'a' | replace: 'à', 'a'
+  assign color_key = color_key | replace: 'é', 'e' | replace: 'ê', 'e'
+  assign color_key = color_key | replace: 'í', 'i'
+  assign color_key = color_key | replace: 'ó', 'o' | replace: 'ô', 'o' | replace: 'õ', 'o'
+  assign color_key = color_key | replace: 'ú', 'u' | replace: 'ü', 'u'
+  assign color_key = color_key | replace: 'ç', 'c'
+  assign color_key = color_key | replace: ' ', '-' | replace: '_', '-' | replace: '/', '-'
+
   if swatch.image
     assign image_url = swatch.image | image_url: width: 50
     assign swatch_value = 'url(' | append: image_url | append: ')'
     assign swatch_focal_point = swatch.image.presentation.focal_point
     assign has_visual_swatch = true
-  # Prioridade 2: Imagem da variante (apenas para opções de COR)
-  elsif variant_image and value and option_name
-    # Verificar se é uma opção de cor (case insensitive)
-    assign option_name_lower = option_name | downcase
-    if option_name_lower contains 'cor' or option_name_lower contains 'color'
-      # Buscar diretamente a variante que tem este valor de cor
-      for variant in product.variants
-        # Verificar se esta variante tem o valor atual em qualquer uma de suas opções
-        for variant_option in variant.options
-          if variant_option == value and variant.image
-            assign image_url = variant.image | image_url: width: 50
-            assign swatch_value = 'url(' | append: image_url | append: ')'
-            assign swatch_focal_point = variant.image.presentation.focal_point
-            assign has_visual_swatch = true
+    assign swatch_source = 'image'
+  endif
+
+  unless has_visual_swatch
+    if variant_image and value != blank and option_name != blank and product
+      assign option_name_lower = option_name | downcase
+      if option_name_lower contains 'cor' or option_name_lower contains 'color' or option_name_lower contains 'colour'
+        for variant in product.variants
+          for variant_option in variant.options
+            if variant_option == value and variant.image
+              assign image_url = variant.image | image_url: width: 50
+              assign swatch_value = 'url(' | append: image_url | append: ')'
+              assign swatch_focal_point = variant.image.presentation.focal_point
+              assign has_visual_swatch = true
+              assign swatch_source = 'image'
+              break
+            endif
+          endfor
+          if has_visual_swatch
             break
           endif
         endfor
-        if has_visual_swatch
-          break
+      endif
+    endif
+  endunless
+
+  unless has_visual_swatch
+    if swatch.color
+      assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+      assign has_visual_swatch = true
+      assign swatch_source = 'color'
+    endif
+  endunless
+
+  unless has_visual_swatch
+    if settings.swatchColors != blank and display_value != blank
+      assign swatch_color_rows = settings.swatchColors | newline_to_br | split: '<br />'
+      for color_row in swatch_color_rows
+        assign color_row_parts = color_row | split: ':'
+        if color_row_parts.size > 1
+          assign rule_name = color_row_parts[0] | strip | downcase
+          assign rule_name = rule_name | replace: 'ã', 'a' | replace: 'á', 'a' | replace: 'â', 'a' | replace: 'à', 'a'
+          assign rule_name = rule_name | replace: 'é', 'e' | replace: 'ê', 'e'
+          assign rule_name = rule_name | replace: 'í', 'i'
+          assign rule_name = rule_name | replace: 'ó', 'o' | replace: 'ô', 'o' | replace: 'õ', 'o'
+          assign rule_name = rule_name | replace: 'ú', 'u' | replace: 'ü', 'u'
+          assign rule_name = rule_name | replace: 'ç', 'c'
+          assign rule_name = rule_name | replace: ' ', '-' | replace: '_', '-' | replace: '/', '-'
+
+          if color_key == rule_name
+            assign rule_value = color_row_parts[1] | strip
+            if rule_value contains '#'
+              assign color_codes = rule_value | split: '#'
+              if color_codes.size == 2
+                assign swatch_value = '#' | append: color_codes[1] | strip
+                assign has_visual_swatch = true
+                assign swatch_source = 'color'
+              elsif color_codes.size == 3
+                assign swatch_value = 'linear-gradient(135deg, #' | append: color_codes[1] | strip | append: ' 50%, #' | append: color_codes[2] | strip | append: ' 50%)'
+                assign has_visual_swatch = true
+                assign swatch_source = 'color'
+              elsif color_codes.size > 3
+                assign swatch_value = 'linear-gradient(to right, #' | append: color_codes[1] | strip | append: ' 33%, #' | append: color_codes[2] | strip | append: ' 33%, #' | append: color_codes[2] | strip | append: ' 66%, #' | append: color_codes[3] | strip | append: ' 66%)'
+                assign has_visual_swatch = true
+                assign swatch_source = 'color'
+              endif
+            elsif rule_value contains '.png' or rule_value contains '.jpg' or rule_value contains '.jpeg' or rule_value contains '.webp'
+              assign file_name = rule_value | split: '?' | first | split: '/' | last | strip
+              assign file_image_url = file_name | file_url
+              assign swatch_value = 'url(' | append: file_image_url | append: ')'
+              assign has_visual_swatch = true
+              assign swatch_source = 'image'
+            endif
+            break
+          endif
         endif
       endfor
     endif
-  # Prioridade 3: Cor do swatch nativo  
-  
-  elsif swatch.color
-    assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
-    assign has_visual_swatch = true
-  # Prioridade 4: Buscar arquivo de imagem por nome da cor
-  elsif value
-    assign color_name = value | downcase | replace: ' ', '-' | replace: 'ã', 'a' | replace: 'á', 'a' | replace: 'é', 'e' | replace: 'í', 'i' | replace: 'ó', 'o' | replace: 'ú', 'u' | replace: 'ç', 'c'
-    assign swatch_file_url = color_name | append: '.png' | file_url
-    if swatch_file_url != blank
-      assign swatch_value = 'url(' | append: swatch_file_url | append: ')'
+  endunless
+
+  unless has_visual_swatch
+    assign palette_hex = null
+    case color_key
+      when 'off-white', 'offwhite', 'off-whte'
+        assign palette_hex = '#f4efe6'
+      when 'branco', 'white', 'neve'
+        assign palette_hex = '#ffffff'
+      when 'preto', 'black'
+        assign palette_hex = '#1a1a1a'
+      when 'rosa-candy', 'rosacandy'
+        assign palette_hex = '#f3b6c4'
+      when 'rosa', 'pink'
+        assign palette_hex = '#e8a0b4'
+      when 'areia', 'sand', 'bege', 'beige'
+        assign palette_hex = '#cbb89a'
+      when 'azul-candy', 'azulcandy'
+        assign palette_hex = '#9ec4d4'
+      when 'azul', 'blue'
+        assign palette_hex = '#3d6b8c'
+      when 'marrom', 'brown', 'cafe'
+        assign palette_hex = '#6b3d2a'
+      when 'caramelo', 'caramel'
+        assign palette_hex = '#c4894a'
+      when 'chumbo', 'grafite', 'graphite', 'cinza-escuro'
+        assign palette_hex = '#5a5a5a'
+      when 'bordo', 'burgundy', 'vinho', 'wine'
+        assign palette_hex = '#6b1c2a'
+      when 'marinho', 'navy', 'azul-marinho'
+        assign palette_hex = '#1b2a4a'
+      when 'cinza', 'grey', 'gray'
+        assign palette_hex = '#8a8a8a'
+      when 'verde', 'green'
+        assign palette_hex = '#3d6b4f'
+      when 'vermelho', 'red'
+        assign palette_hex = '#a31d2e'
+      when 'laranja', 'orange'
+        assign palette_hex = '#d46a2c'
+      when 'amarelo', 'yellow'
+        assign palette_hex = '#e6c84a'
+      when 'roxo', 'purple'
+        assign palette_hex = '#6b3d6b'
+      when 'lilas', 'lilac'
+        assign palette_hex = '#c4a0c4'
+      when 'nude'
+        assign palette_hex = '#e6d5c5'
+      when 'cru', 'ecru', 'natural', 'off'
+        assign palette_hex = '#e8e0d4'
+      when 'creme', 'cream', 'ivory', 'marfim'
+        assign palette_hex = '#f7f1e3'
+      when 'terracota', 'terracotta'
+        assign palette_hex = '#c46a4a'
+      when 'oliva', 'olive'
+        assign palette_hex = '#6b6b3d'
+      when 'dourado', 'gold'
+        assign palette_hex = '#c4a35a'
+      when 'prata', 'silver'
+        assign palette_hex = '#c0c0c0'
+      when 'coral'
+        assign palette_hex = '#e07a6a'
+      when 'verde-militar', 'militar', 'military'
+        assign palette_hex = '#4a5a3d'
+      when 'jeans', 'denim'
+        assign palette_hex = '#4a6b8c'
+      when 'chocolate'
+        assign palette_hex = '#4a2a1a'
+      when 'camel', 'camelo'
+        assign palette_hex = '#c4a06a'
+      when 'off-black', 'preto-fosco'
+        assign palette_hex = '#2a2a2a'
+    endcase
+
+    if palette_hex != blank
+      assign swatch_value = palette_hex
       assign has_visual_swatch = true
-    else
-      # Tentar com extensão .jpg
-      assign swatch_file_url = color_name | append: '.jpg' | file_url
-      if swatch_file_url != blank
-        assign swatch_value = 'url(' | append: swatch_file_url | append: ')'
-        assign has_visual_swatch = true
-      endif
+      assign swatch_source = 'color'
     endif
-  # Prioridade 5: Buscar cores pré-definidas no tema
-  elsif value and settings.swatchColors contains value
-    assign swatchColors = settings.swatchColors | newline_to_br | split: '<br />'
-    for colorData in swatchColors
-      assign colorDataArr = colorData | split: ':'
-      assign ruleName = colorDataArr[0] | strip
-      if value == ruleName
-        assign colorCodes = colorDataArr[1] | strip | split: '#'
-        if colorCodes.size > 1
-          assign swatch_value = '#' | append: colorCodes[1]
-          assign has_visual_swatch = true
-          break
-        endif
-      endif
-    endfor
-  endif
+  endunless
 -%}
 
 <span
+  class="swatch{% if has_visual_swatch %} swatch--with-fallback{% else %} swatch--text{% endif %}{% if shape == 'square' %} swatch--square{% endif %}{% if swatch_source == 'color' %} swatch--color{% endif %}"
   {% if swatch_value %}
-    class="swatch swatch--with-fallback{% if shape == 'square' %} swatch--square{% endif %}{% unless has_visual_swatch %} swatch--text{% endunless %}"
     style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
-    data-swatch-value="{{ value | escape }}"
-    data-has-visual="{{ has_visual_swatch }}"
-  {% else %}
-    class="swatch swatch--text{% if shape == 'square' %} swatch--square{% endif %}"
   {% endif %}
+  data-swatch-value="{{ display_value | escape }}"
+  data-has-visual="{{ has_visual_swatch }}"
+  data-swatch-source="{{ swatch_source }}"
 >
   {%- unless has_visual_swatch -%}
-    <span class="swatch__text">{{ value | default: swatch.name | default: 'N/A' }}</span>
+    <span class="swatch__text" aria-hidden="true">{{ display_value }}</span>
   {%- endunless -%}
-  
+
   {%- if has_visual_swatch -%}
-    <span class="swatch__fallback-text" style="display: none;">{{ value | default: swatch.name | default: 'N/A' }}</span>
+    <span class="swatch__fallback-text" aria-hidden="true">{{ display_value }}</span>
   {%- endif -%}
 </span>

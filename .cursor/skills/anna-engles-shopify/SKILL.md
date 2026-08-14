@@ -22,7 +22,7 @@ Se a tarefa tocar swatches, mega menu, vídeo, footer accordion ou FAQ, ler tamb
 
 ## Customizações desta loja
 
-1. **Swatches / cores** — `snippets/swatch.liquid`, `color-option.liquid`, `swatch-input.liquid`, `assets/swatch-fallback.js`, settings Color Swatches Custom. Prioridade típica: `value.swatch.image` → `variant.image` → …
+1. **Swatches / cores** — `snippets/swatch.liquid`, `product-variant-picker.liquid`, `swatch-input.liquid`, `assets/swatch-fallback.js`. Cor = círculos; tamanho = pills. Prioridade: swatch nativo → imagem da variante → cor nativa → Color Swatches Custom → paleta automática PT → chip de texto completo. Sem inferir `nome.png` automaticamente.
 2. **Mega menu + banner** — `snippets/header-mega-menu.liquid` + metafields de collection `custom.banner_menu` / `custom.banner_menu_link` (imagem sugerida ~280×210, 4:3).
 3. **Vídeo nos cards** — `snippets/card-product.liquid` + settings em `featured-collection`, `related-products`, `main-collection-product-grid`.
 4. **Footer accordion (mobile)** — `sections/footer.liquid` + `assets/footer-accordion.js` (< 750px).
