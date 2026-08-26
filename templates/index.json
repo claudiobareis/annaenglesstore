@@ -11,6 +11,7 @@
   "sections": {
     "video_HYy3p4": {
       "type": "video",
+      "disabled": true,
       "name": "Vídeo Desktop",
       "settings": {
         "heading": "",
@@ -29,6 +30,7 @@
     },
     "video_hPaB6z": {
       "type": "video",
+      "disabled": true,
       "name": "Vídeo Mobile",
       "settings": {
         "heading": "",
@@ -43,6 +45,119 @@
         "custom_class": "video-mobile",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "slideshow_r7UWrw": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_T7n3Vf": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2-slide-1785497300502-1191010307-b7edae5a4d0ae1cbb55e652c66c96ec11785497301-1920-1920_1.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "shopify://collections/live-shop",
+            "button_style_secondary": true,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_4chxdR": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2-slide-1779134259966-3091979741-fe4d1f38e68c6571c246ace4714c046b1779134261-1920-1920.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "shopify://products/conjunto-calca-e-blusa-comfy-maya-879575090",
+            "button_style_secondary": true,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_wQDQyF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2-slide-1759586470555-780537757-0834af409549facd11d12f7cb20c90f31759586477-1920-1920.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_NC49A6": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2-slide-1770499739716-2604680802-b2d6f522f87ae94bc19dd7663fe2bbbb1770499741-1920-1920.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_dnafKP": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2-slide-1779134569244-1426004297-fa04b4a70df5b6e55b13d7b4b09604971779134570-1920-1920.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "shopify://collections/news-da-semana",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_T7n3Vf",
+        "slide_4chxdR",
+        "slide_wQDQyF",
+        "slide_NC49A6",
+        "slide_dnafKP"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Apresentação de slides sobre nossa marca"
       }
     },
     "multicolumn_Jp79tV": {
@@ -491,6 +606,7 @@
   "order": [
     "video_HYy3p4",
     "video_hPaB6z",
+    "slideshow_r7UWrw",
     "multicolumn_Jp79tV",
     "collection_list_jkLExi",
     "featured_collection",
