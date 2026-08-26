@@ -2865,6 +2865,10 @@
             "image": {
               "label": "Imagen"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Título",
               "default": "Diapositiva de imagen"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "Etiqueta de botón",
-              "info": "Deja la etiqueta en blanco para ocultar el botón.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Etiqueta de botón"
             },
             "link": {
-              "label": "Enlace de botón"
+              "label": "Enlace de botón",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Usar estilo de botón con contorno"

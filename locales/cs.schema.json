@@ -2865,6 +2865,10 @@
             "image": {
               "label": "Obrázek"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Nadpis",
               "default": "Obrázkový snímek"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "Text tlačítka",
-              "info": "Pokud chcete tlačítko skrýt, nezadávejte žádný text.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Text tlačítka"
             },
             "link": {
-              "label": "Tlačítkový odkaz"
+              "label": "Tlačítkový odkaz",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Použít styl tlačítka s obrysem"

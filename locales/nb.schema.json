@@ -2874,6 +2874,10 @@
             "image": {
               "label": "Bilde"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Overskrift",
               "default": "Lysbilde"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "Knappetikett",
-              "info": "La etiketten stå tom for å skjule knappen.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Knappetikett"
             },
             "link": {
-              "label": "Knappekobling"
+              "label": "Knappekobling",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Bruk knappestil med omriss"

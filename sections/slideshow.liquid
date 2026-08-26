@@ -3,12 +3,20 @@
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
+  {%- liquid
+    assign first_image = section.blocks.first.settings.image
+    if section.blocks.first.settings.image_mobile != blank
+      assign first_image_mobile = section.blocks.first.settings.image_mobile
+    else
+      assign first_image_mobile = first_image
+    endif
+  -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
       #Slider-{{ section.id }}::before,
       #Slider-{{ section.id }} .media::before,
       #Slider-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
-        padding-bottom: {{ 1 | divided_by: section.blocks.first.settings.image.aspect_ratio | times: 100 }}%;
+        padding-bottom: {{ 1 | divided_by: first_image_mobile.aspect_ratio | times: 100 }}%;
         content: '';
         display: block;
       }
@@ -17,7 +25,7 @@
     @media screen and (min-width: 750px) {
       #Slider-{{ section.id }}::before,
       #Slider-{{ section.id }} .media::before {
-        padding-bottom: {{ 1 | divided_by: section.blocks.first.settings.image.aspect_ratio | times: 100 }}%;
+        padding-bottom: {{ 1 | divided_by: first_image.aspect_ratio | times: 100 }}%;
         content: '';
         display: block;
       }
@@ -120,6 +128,21 @@
         aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
         tabindex="-1"
       >
+        {%- if block.settings.link != blank and block.settings.button_label == blank -%}
+          {%- liquid
+            if block.settings.heading != blank
+              assign slide_link_label = block.settings.heading | strip_html
+            else
+              assign slide_link_label = section.settings.accessibility_info
+            endif
+          -%}
+          <a
+            href="{{ block.settings.link }}"
+            class="slideshow__link"
+          >
+            <span class="visually-hidden">{{ slide_link_label | escape }}</span>
+          </a>
+        {%- endif -%}
         <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
           {%- if block.settings.image -%}
             {%- liquid
@@ -135,8 +158,57 @@
               if section.index == 1
                 assign fetch_priority = 'high'
               endif
+              assign has_mobile_image = false
+              if block.settings.image_mobile != blank
+                assign has_mobile_image = true
+                assign height_mobile = block.settings.image_mobile.width | divided_by: block.settings.image_mobile.aspect_ratio | round
+              endif
             -%}
-            {%- if forloop.first %}
+            {%- if has_mobile_image -%}
+              {%- if forloop.first -%}
+                {{
+                  block.settings.image_mobile
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: 'medium-hide large-up-hide',
+                    height: height_mobile,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+                }}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: 'small-hide',
+                    height: height,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+                }}
+              {%- else -%}
+                {{
+                  block.settings.image_mobile
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: 'medium-hide large-up-hide',
+                    loading: 'lazy',
+                    height: height_mobile,
+                    sizes: sizes,
+                    widths: widths
+                }}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: 'small-hide',
+                    loading: 'lazy',
+                    height: height,
+                    sizes: sizes,
+                    widths: widths
+                }}
+              {%- endif -%}
+            {%- elsif forloop.first -%}
               {{
                 block.settings.image
                 | image_url: width: 3840
@@ -158,34 +230,39 @@
             {%- endif -%}
           {%- endif -%}
         </div>
-        <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
-          <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
-            {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
-                {{ block.settings.heading }}
-              </h2>
-            {%- endif -%}
-            {%- if block.settings.subheading != blank -%}
-              <div class="banner__text rte" {{ block.shopify_attributes }}>
-                <p>{{ block.settings.subheading }}</p>
-              </div>
-            {%- endif -%}
-            {%- if block.settings.button_label != blank -%}
-              <div class="banner__buttons">
-                <a
-                  {% if block.settings.link %}
-                    href="{{ block.settings.link }}"
-                  {% else %}
-                    role="link" aria-disabled="true"
-                  {% endif %}
-                  class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
-                >
-                  {{- block.settings.button_label | escape -}}
-                </a>
-              </div>
-            {%- endif -%}
+        {%- if block.settings.heading != blank
+          or block.settings.subheading != blank
+          or block.settings.button_label != blank
+        -%}
+          <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
+            <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
+              {%- if block.settings.heading != blank -%}
+                <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+                  {{ block.settings.heading }}
+                </h2>
+              {%- endif -%}
+              {%- if block.settings.subheading != blank -%}
+                <div class="banner__text rte" {{ block.shopify_attributes }}>
+                  <p>{{ block.settings.subheading }}</p>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <div class="banner__buttons">
+                  <a
+                    {% if block.settings.link %}
+                      href="{{ block.settings.link }}"
+                    {% else %}
+                      role="link" aria-disabled="true"
+                    {% endif %}
+                    class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
+                  >
+                    {{- block.settings.button_label | escape -}}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
           </div>
-        </div>
+        {%- endif -%}
       </div>
     {%- endfor -%}
   </div>
@@ -400,6 +477,12 @@
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
         },
         {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "t:sections.slideshow.blocks.slide.settings.image_mobile.label",
+          "info": "t:sections.slideshow.blocks.slide.settings.image_mobile.info"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading",
           "default": "t:sections.slideshow.blocks.slide.settings.heading.default",
@@ -449,7 +532,8 @@
         {
           "type": "url",
           "id": "link",
-          "label": "t:sections.slideshow.blocks.slide.settings.link.label"
+          "label": "t:sections.slideshow.blocks.slide.settings.link.label",
+          "info": "t:sections.slideshow.blocks.slide.settings.link.info"
         },
         {
           "type": "checkbox",

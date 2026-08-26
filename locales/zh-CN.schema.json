@@ -2865,6 +2865,10 @@
             "image": {
               "label": "图片"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "标题",
               "default": "图片幻灯片"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "按钮标签",
-              "info": "将标签留空可隐藏按钮。",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "按钮标签"
             },
             "link": {
-              "label": "按钮链接"
+              "label": "按钮链接",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "使用轮廓按钮样式"

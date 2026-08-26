@@ -2865,6 +2865,10 @@
             "image": {
               "label": "Bild"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Titel",
               "default": "Slideshow"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "Schaltflächenbeschriftung",
-              "info": "Lasse die Beschriftung leer, um die Schaltfläche auszublenden.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Schaltflächenbeschriftung"
             },
             "link": {
-              "label": "Schaltflächenlink"
+              "label": "Schaltflächenlink",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Umriss-Stil für Schaltfläche verwenden"

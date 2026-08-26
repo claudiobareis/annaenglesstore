@@ -2865,6 +2865,10 @@
             "image": {
               "label": "Görsel"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Başlık",
               "default": "Görsel slaytı"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "Düğme etiketi",
-              "info": "Düğmeyi gizlemek için etiketi boş bırakın.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Düğme etiketi"
             },
             "link": {
-              "label": "Düğme bağlantısı"
+              "label": "Düğme bağlantısı",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Dış çizgi düğme stilini kullan"

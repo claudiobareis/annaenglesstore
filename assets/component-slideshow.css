@@ -20,6 +20,18 @@ slideshow-component .slideshow.banner {
   visibility: visible;
 }
 
+.slideshow__link {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+/* Text layer sits at z-index 2 and would block the slide link without this */
+.slideshow__slide:has(.slideshow__link) .slideshow__text-wrapper {
+  pointer-events: none;
+}
+
 @media screen and (max-width: 749px) {
   .slideshow--placeholder.banner--mobile-bottom.banner--adapt_image .slideshow__media,
   .slideshow--placeholder.banner--adapt_image:not(.banner--mobile-bottom) {

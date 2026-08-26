@@ -2,7 +2,8 @@
 name: anna-engles-shopify
 description: >-
   Particularidades do tema Shopify Anna Engles: swatches, mega menu com
-  metafields, vídeo nos cards, footer accordion, FAQ coleção/produto.
+  metafields, vídeo nos cards, footer accordion, FAQ coleção/produto,
+  slideshow (link no slide + imagem mobile).
   Use ao trabalhar neste repositório, metafields ou essas features.
   Plataforma Shopify/Push: skill pessoal `shopify` (CLI, theme check, push.css, Liquid).
 ---
@@ -18,7 +19,7 @@ Responder em **português (Brasil)**.
 
 ## Antes de tarefas de feature
 
-Se a tarefa tocar swatches, mega menu, vídeo, footer accordion ou FAQ, ler também [customizations.md](customizations.md) e o `.md` correspondente na raiz.
+Se a tarefa tocar swatches, mega menu, vídeo, footer accordion, FAQ ou slideshow, ler também [customizations.md](customizations.md) e o `.md` correspondente na raiz.
 
 ## Customizações desta loja
 
@@ -27,6 +28,7 @@ Se a tarefa tocar swatches, mega menu, vídeo, footer accordion ou FAQ, ler tamb
 3. **Vídeo nos cards** — `snippets/card-product.liquid` + settings em `featured-collection`, `related-products`, `main-collection-product-grid`.
 4. **Footer accordion (mobile)** — `sections/footer.liquid` + `assets/footer-accordion.js` (< 750px).
 5. **FAQ coleção/produto** — `snippets/faq-list.liquid`, `sections/collection-faq.liquid`, `sections/product-faq.liquid`. Metafields: coleção `custom.faq` (JSON); produto `custom.caracteristicas_faq` (JSON) + `custom.caracteristicas_titulo_faq` (texto). PDP: produto → coleção do URL → primeira collection com FAQ. Sem itens = seção oculta. JSON-LD FAQPage.
+6. **Slideshow** — `sections/slideshow.liquid` + `assets/component-slideshow.css`. Link sem `button_label` → overlay `.slideshow__link` no slide inteiro; com botão → só o botão clica. `image_mobile` opcional (fallback = imagem desktop); `adapt_image` no mobile usa aspect ratio da imagem mobile quando existir.
 
 Ao alterar qualquer um: preservar o comportamento documentado em [customizations.md](customizations.md).
 
@@ -36,6 +38,6 @@ Usar `--store=annaenglesstore.myshopify.com` em todos os comandos. Fluxo auth/de
 
 ## Checklist extra (além da plataforma)
 
-- [ ] Features tocadas retestadas (swatch / mega menu / vídeo / footer / FAQ se aplicável)
+- [ ] Features tocadas retestadas (swatch / mega menu / vídeo / footer / FAQ / slideshow se aplicável)
 
 Ao mudar features, atualize esta skill. Se o padrão for reutilizável, alimentar o Brain — skill `shopify` → `compounding.md`.

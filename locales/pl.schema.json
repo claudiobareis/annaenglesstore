@@ -2874,6 +2874,10 @@
             "image": {
               "label": "Obraz"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Nagłówek",
               "default": "Slajd obrazu"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "Przycisk z etykietą",
-              "info": "Pozostaw etykietę pustą, aby ukryć przycisk.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Przycisk z etykietą"
             },
             "link": {
-              "label": "Link przycisku"
+              "label": "Link przycisku",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Użyj stylu przycisku konspektu"

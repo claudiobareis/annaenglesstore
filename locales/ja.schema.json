@@ -2874,6 +2874,10 @@
             "image": {
               "label": "画像"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "見出し",
               "default": "画像スライド"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "ボタンのラベル",
-              "info": "ボタンを非表示にするには、ラベルを空白にします。",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "ボタンのラベル"
             },
             "link": {
-              "label": "ボタンのリンク"
+              "label": "ボタンのリンク",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "アウトラインボタンのスタイルを使用する"

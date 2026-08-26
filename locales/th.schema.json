@@ -2865,6 +2865,10 @@
             "image": {
               "label": "รูปภาพ"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "หัวเรื่อง",
               "default": "สไลด์รูปภาพ"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "ป้ายกำกับปุ่ม",
-              "info": "เว้นป้ายกำกับให้ว่างไว้เพื่อซ่อนปุ่ม",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "ป้ายกำกับปุ่ม"
             },
             "link": {
-              "label": "ลิงก์ปุ่ม"
+              "label": "ลิงก์ปุ่ม",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "ใช้รูปแบบปุ่มแบบเค้าโครง"

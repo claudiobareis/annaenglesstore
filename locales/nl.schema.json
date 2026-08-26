@@ -2874,6 +2874,10 @@
             "image": {
               "label": "Afbeelding"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Kop",
               "default": "Afbeelding dia"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "Knoplabel",
-              "info": "Laat het label leeg om de knop te verbergen.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Knoplabel"
             },
             "link": {
-              "label": "Knoplink"
+              "label": "Knoplink",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Gebruik de knopstijl Omlijnen"

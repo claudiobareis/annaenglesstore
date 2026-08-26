@@ -2874,6 +2874,10 @@
             "image": {
               "label": "Image"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "Titolo",
               "default": "Slide immagine"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "Etichetta pulsante",
-              "info": "Lascia vuota l'etichetta per nascondere il pulsante.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Etichetta pulsante"
             },
             "link": {
-              "label": "Link pulsante"
+              "label": "Link pulsante",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Utilizza stile contorno pulsante"

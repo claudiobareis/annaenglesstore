@@ -2886,6 +2886,10 @@
             "image": {
               "label": "Imagem"
             },
+            "image_mobile": {
+              "label": "Imagem (mobile)",
+              "info": "Opcional. Se estiver em branco, a imagem do desktop é usada no mobile."
+            },
             "heading": {
               "label": "Título",
               "default": "Slide de imagem"
@@ -2896,11 +2900,12 @@
             },
             "button_label": {
               "label": "Etiqueta de botão",
-              "info": "Deixe a etiqueta em branco para ocultar o botão.",
+              "info": "Deixe a etiqueta em branco para ocultar o botão. Com link e sem etiqueta, o slide inteiro fica clicável.",
               "default": "Etiqueta de botão"
             },
             "link": {
-              "label": "Link de botão"
+              "label": "Link",
+              "info": "Se a etiqueta do botão estiver em branco, este link vale para o slide inteiro."
             },
             "secondary_style": {
               "label": "Usar estilo de botão com contorno"

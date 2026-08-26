@@ -2874,6 +2874,10 @@
             "image": {
               "label": "이미지"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "제목",
               "default": "이미지 슬라이드"
@@ -2884,11 +2888,12 @@
             },
             "button_label": {
               "label": "버튼 레이블",
-              "info": "버튼을 숨기려면 레이블을 비워 둡니다.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "버튼 레이블"
             },
             "link": {
-              "label": "버튼 링크"
+              "label": "버튼 링크",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "윤곽 버튼 스타일 사용"

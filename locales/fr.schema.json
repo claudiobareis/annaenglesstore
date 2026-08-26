@@ -2865,6 +2865,10 @@
             "image": {
               "label": "Image"
             },
+            "image_mobile": {
+              "label": "Image (mobile)",
+              "info": "Optional. If blank, the desktop image is used on mobile."
+            },
             "heading": {
               "label": "En-tête",
               "default": "Diapositive (image)"
@@ -2875,11 +2879,12 @@
             },
             "button_label": {
               "label": "Texte du bouton",
-              "info": "Laissez le texte vide pour masquer le bouton.",
+              "info": "Leave the label blank to hide the button. With a link and no label, the whole slide is clickable.",
               "default": "Texte du bouton"
             },
             "link": {
-              "label": "Lien du bouton"
+              "label": "Lien du bouton",
+              "info": "If the button label is blank, this link applies to the entire slide."
             },
             "secondary_style": {
               "label": "Utiliser le style de bouton en relief"

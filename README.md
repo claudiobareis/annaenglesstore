@@ -12,7 +12,5 @@ shopify auth logout
 shopify login
 
 shopify theme pull - se quiser baixar o tema
-shopify pull --store annaenglesstore.myshopify.com
 
 shopify theme dev --live-reload full-page --store=annaenglesstore.myshopify.com
-senha: 1234
