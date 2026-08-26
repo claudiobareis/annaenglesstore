@@ -316,7 +316,7 @@
         "tab_collection_NdWkht": {
           "type": "tab_collection",
           "settings": {
-            "collection": "novidades",
+            "collection": "destaques",
             "products_to_show": 4,
             "columns_desktop": 4,
             "show_view_all": true,
@@ -337,7 +337,7 @@
         "tab_collection_eWqz9i": {
           "type": "tab_collection",
           "settings": {
-            "collection": "blusa-e-regata",
+            "collection": "destaques",
             "products_to_show": 4,
             "columns_desktop": 4,
             "show_view_all": true,
