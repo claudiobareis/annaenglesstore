@@ -204,7 +204,7 @@
                 </p>
                 
               {%- when 'description' -%}
-                {%- if product.description != blank -%}
+                {%- if section.settings.description_layout != 'below_media' and product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
                     {{ product.description }}
                   </div>
@@ -712,6 +712,12 @@
         </section>
       </div>
     </div>
+
+    {%- if section.settings.description_layout == 'below_media' and product.description != blank -%}
+      <div class="product__description-below product__description rte quick-add-hidden">
+        {{ product.description }}
+      </div>
+    {%- endif -%}
 
     <div class="products-extra-fileds">
       {% if product.metafields.custom.habilitar_descricao_extra.value %}
@@ -2233,6 +2239,22 @@
     }
   ],
   "settings": [
+    {
+      "type": "select",
+      "id": "description_layout",
+      "options": [
+        {
+          "value": "sidebar",
+          "label": "Coluna lateral (padrão)"
+        },
+        {
+          "value": "below_media",
+          "label": "Abaixo das fotos (aberta)"
+        }
+      ],
+      "default": "sidebar",
+      "label": "Posição da descrição"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
