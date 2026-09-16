@@ -13,8 +13,8 @@ Ler o doc completo na raiz antes de mudar comportamento. Este arquivo é só ín
 2. `variant.image` (só opção de COR)
 3. `value.swatch.color` (nativo)
 4. Cores/arquivos em **Theme settings → Color Swatches Custom**
-5. Paleta automática (nomes em português: Preto, Off White, Rosa Candy, Areia, etc.)
-6. Chip de texto com o nome completo (sem truncar)
+5. Paleta automática (nomes em português: Preto, Off White, Rosa Candy, Verde Menta, Manteiga, Mocha Mousse, Areia, etc.)
+6. Círculo com iniciais (mesmo tamanho; nome completo na legenda)
 
 Arquivos `preto.png` em Conteúdo → Arquivos **não** são mais inferidos automaticamente (o `file_url` sempre gerava URL e quebrava o visual). Use o painel Color Swatches Custom se quiser arquivo por nome.
 

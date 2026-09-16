@@ -9,8 +9,8 @@ npm install -g @shopify/cli@latest
 tem que usar o powershell
 
 shopify auth logout
+
 shopify login
+shopify theme dev --live-reload full-page --store=annaenglesstore.myshopify.com
 
 shopify theme pull - se quiser baixar o tema
-
-shopify theme dev --live-reload full-page --store=annaenglesstore.myshopify.com

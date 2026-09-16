@@ -15,7 +15,7 @@
   3. Native swatch color
   4. Theme settings Color Swatches Custom
   5. Built-in Portuguese/fashion color palette
-  6. Full-name text chip
+  6. Circular initials chip (same size as color swatches)
 {% endcomment %}
 
 {%- liquid
@@ -33,6 +33,20 @@
   assign color_key = color_key | replace: 'ú', 'u' | replace: 'ü', 'u'
   assign color_key = color_key | replace: 'ç', 'c'
   assign color_key = color_key | replace: ' ', '-' | replace: '_', '-' | replace: '/', '-'
+
+  assign swatch_initials = ''
+  assign name_parts = display_value | strip | split: ' '
+  if name_parts.size > 1
+    for part in name_parts
+      if forloop.index <= 3 and part != blank
+        assign letter = part | slice: 0, 1
+        assign swatch_initials = swatch_initials | append: letter
+      endif
+    endfor
+  else
+    assign swatch_initials = display_value | strip | slice: 0, 2
+  endif
+  assign swatch_initials = swatch_initials | upcase
 
   if swatch.image
     assign image_url = swatch.image | image_url: width: 50
@@ -130,11 +144,15 @@
         assign palette_hex = '#1a1a1a'
       when 'rosa-candy', 'rosacandy'
         assign palette_hex = '#f3b6c4'
+      when 'rosa-claro', 'light-pink'
+        assign palette_hex = '#f2c4ce'
       when 'rosa', 'pink'
         assign palette_hex = '#e8a0b4'
       when 'areia', 'sand', 'bege', 'beige'
         assign palette_hex = '#cbb89a'
       when 'azul-candy', 'azulcandy'
+        assign palette_hex = '#9ec4d4'
+      when 'azul-claro', 'light-blue'
         assign palette_hex = '#9ec4d4'
       when 'azul', 'blue'
         assign palette_hex = '#3d6b8c'
@@ -150,6 +168,8 @@
         assign palette_hex = '#1b2a4a'
       when 'cinza', 'grey', 'gray'
         assign palette_hex = '#8a8a8a'
+      when 'verde-menta', 'menta', 'mint'
+        assign palette_hex = '#98d8c8'
       when 'verde', 'green'
         assign palette_hex = '#3d6b4f'
       when 'vermelho', 'red'
@@ -186,6 +206,10 @@
         assign palette_hex = '#4a2a1a'
       when 'camel', 'camelo'
         assign palette_hex = '#c4a06a'
+      when 'manteiga', 'butter'
+        assign palette_hex = '#f0e4a8'
+      when 'mocha-mousse', 'mocha'
+        assign palette_hex = '#a47864'
       when 'off-black', 'preto-fosco'
         assign palette_hex = '#2a2a2a'
     endcase
@@ -204,14 +228,15 @@
     style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
   {% endif %}
   data-swatch-value="{{ display_value | escape }}"
+  data-swatch-initials="{{ swatch_initials | escape }}"
   data-has-visual="{{ has_visual_swatch }}"
   data-swatch-source="{{ swatch_source }}"
 >
   {%- unless has_visual_swatch -%}
-    <span class="swatch__text" aria-hidden="true">{{ display_value }}</span>
+    <span class="swatch__text" aria-hidden="true">{{ swatch_initials }}</span>
   {%- endunless -%}
 
   {%- if has_visual_swatch -%}
-    <span class="swatch__fallback-text" aria-hidden="true">{{ display_value }}</span>
+    <span class="swatch__fallback-text" aria-hidden="true">{{ swatch_initials }}</span>
   {%- endif -%}
 </span>

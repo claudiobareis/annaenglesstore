@@ -8,8 +8,8 @@ O PDP trata **Cor** e **Tamanho** como controles diferentes. Cores usam círculo
 2. Imagem da variante (`variant.image`, só em opção de cor)
 3. Cor nativa (`value.swatch.color`)
 4. **Theme settings → Color Swatches Custom** (`Nome:#hex` ou arquivo explícito)
-5. Paleta automática (Preto, Off White, Rosa Candy, Areia, Azul Candy, Marrom, Caramelo, Chumbo, Bordô, Marinho e tons comuns)
-6. Chip de texto com o **nome completo**, sem truncar
+5. Paleta automática (Preto, Off White, Rosa Candy, Rosa Claro, Areia, Azul Candy, Verde Menta, Manteiga, Mocha Mousse, Marrom, Caramelo, Chumbo, Bordô, Marinho e tons comuns)
+6. Círculo com **iniciais** (mesmo tamanho dos demais; nome completo só na legenda `Cor: …`)
 
 Não inferir `preto.png` / `areia.png` automaticamente: `file_url` no Liquid sempre gera URL, mesmo quando o arquivo não existe, e isso gerava círculos vazios com texto cortado (`ROS...`, `MA...`).
 
@@ -27,17 +27,19 @@ Não inferir `preto.png` / `areia.png` automaticamente: `file_url` no Liquid sem
 - `assets/component-product-variant-picker.css`
 - `assets/component-swatch.css`
 - `assets/component-swatch-input.css`
-- `assets/swatch-fallback.js` — só valida imagens realmente declaradas; se falhar, paleta e depois texto
+- `assets/swatch-fallback.js` — só valida imagens realmente declaradas; se falhar, paleta e depois círculo com iniciais
 
 ## Configuração opcional
 
-A paleta automática cobre os tons da loja. Se um nome novo não for reconhecido, o tema mostra o chip textual. Para forçar um hex ou arquivo:
+A paleta automática cobre os tons da loja. Se um nome novo não for reconhecido, o tema mostra um círculo com iniciais. Para forçar um hex ou arquivo:
 
 **Personalizar tema → Color Swatches Custom → Colors**
 
 ```
 Rosa Candy:#f3b6c4
 Areia:#cbb89a
+Verde Menta:#98d8c8
+Mocha Mousse:#a47864
 ```
 
 Ou `Areia: areia.png` (arquivo já enviado em Conteúdo → Arquivos).

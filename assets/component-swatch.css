@@ -26,32 +26,34 @@
 }
 
 .swatch--text {
-  width: auto;
+  width: var(--swatch--size);
   min-width: var(--swatch--size);
-  min-height: 4.4rem;
-  height: auto;
-  padding: 0.8rem 1.2rem;
+  height: var(--swatch--size);
+  min-height: var(--swatch--size);
+  padding: 0;
   background: rgb(var(--color-background));
   border: 0.1rem solid rgba(var(--color-foreground), 0.2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .swatch__text,
 .swatch__fallback-text {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   color: rgb(var(--color-foreground));
   text-align: center;
-  line-height: 1.2;
+  line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
-  max-width: none;
+  overflow: hidden;
+  text-overflow: clip;
+  max-width: 100%;
+  padding: 0 0.2rem;
 }
 
 .swatch--with-fallback {

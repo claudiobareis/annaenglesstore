@@ -1,7 +1,7 @@
 /**
  * Swatch image fallback
  * Only inspects declared image backgrounds. Failed images fall back to
- * the built-in color palette, then to a full-name text chip.
+ * the built-in color palette, then to a circular initials chip.
  */
 const SWATCH_COLOR_MAP = {
   bege: '#cbb89a',
@@ -20,10 +20,18 @@ const SWATCH_COLOR_MAP = {
   black: '#1a1a1a',
   'rosa candy': '#f3b6c4',
   'rosa-candy': '#f3b6c4',
+  'rosa claro': '#f2c4ce',
+  'rosa-claro': '#f2c4ce',
+  'light-pink': '#f2c4ce',
+  'light pink': '#f2c4ce',
   rosa: '#e8a0b4',
   pink: '#e8a0b4',
   'azul candy': '#9ec4d4',
   'azul-candy': '#9ec4d4',
+  'azul claro': '#9ec4d4',
+  'azul-claro': '#9ec4d4',
+  'light-blue': '#9ec4d4',
+  'light blue': '#9ec4d4',
   azul: '#3d6b8c',
   blue: '#3d6b8c',
   caramelo: '#c4894a',
@@ -40,6 +48,10 @@ const SWATCH_COLOR_MAP = {
   cinza: '#8a8a8a',
   grey: '#8a8a8a',
   gray: '#8a8a8a',
+  'verde menta': '#98d8c8',
+  'verde-menta': '#98d8c8',
+  menta: '#98d8c8',
+  mint: '#98d8c8',
   verde: '#3d6b4f',
   green: '#3d6b4f',
   vermelho: '#a31d2e',
@@ -54,6 +66,11 @@ const SWATCH_COLOR_MAP = {
   cru: '#e8e0d4',
   creme: '#f7f1e3',
   cream: '#f7f1e3',
+  manteiga: '#f0e4a8',
+  butter: '#f0e4a8',
+  'mocha mousse': '#a47864',
+  'mocha-mousse': '#a47864',
+  mocha: '#a47864',
 };
 
 class SwatchFallback {
@@ -95,6 +112,10 @@ class SwatchFallback {
   activateFallback(swatch) {
     const swatchValue = swatch.getAttribute('data-swatch-value');
     if (swatchValue && this.applyColorFallback(swatch, swatchValue)) return;
+
+    const initials = swatch.getAttribute('data-swatch-initials');
+    const textEl = swatch.querySelector('.swatch__fallback-text, .swatch__text');
+    if (textEl && initials) textEl.textContent = initials;
 
     swatch.classList.add('swatch--image-failed', 'swatch--text');
     swatch.classList.remove('swatch--with-fallback');
