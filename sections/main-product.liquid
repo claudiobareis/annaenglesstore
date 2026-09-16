@@ -803,31 +803,13 @@
             </div>
           {% endif %}
          
-          {% assign tabela = product.metafields.custom.tabela_de_medidas.value %}
-          {% if tabela %}
-            <div class="extra-tabela-medidas"> 
-              <table class="tabela-medidas">
-                <thead>
-                  <tr>
-                    <th>Tamanho</th>
-                    <th>Busto</th>
-                    <th>Cintura</th>
-                    <th>Quadril</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for linha in tabela.linhas.value %}
-                    <tr>
-                      <td>{{ linha.tamanho.value }}</td>
-                      <td>{{ linha.busto.value }}</td>
-                      <td>{{ linha.cintura.value }}</td>
-                      <td>{{ linha.quadril.value }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+          {%- assign guia_medidas = product.metafields.custom.guia_de_medidas.value -%}
+          {%- if guia_medidas != blank -%}
+            <div class="extra-tabela-medidas">
+              {% render 'tabela-medidas', source: guia_medidas %}
             </div>
-          {% endif %}
+          {%- endif -%}
+
         </div>
       {% endif %}
     </div>

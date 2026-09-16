@@ -1,0 +1,96 @@
+{%- comment -%}
+  Renderiza 1..N tabelas de medidas a partir de texto multilinha.
+  Params: source (string do metafield custom.guia_de_medidas)
+
+  Formato:
+  - Tabelas separadas por linha em branco
+  - Linha sem separador = título (opcional)
+  - Linhas com ; (ou tab / ,) = células; a 1ª é o cabeçalho
+{%- endcomment -%}
+{% # theme-check-disable UnclosedHTMLElement %}
+
+{%- if source != blank -%}
+  {%- assign lines = source | strip | newline_to_br | split: '<br />' -%}
+  {%- assign block_open = false -%}
+  {%- assign table_open = false -%}
+  {%- assign header_written = false -%}
+
+  {%- for line in lines -%}
+    {%- assign raw = line | strip -%}
+
+    {%- if raw == blank -%}
+      {%- if table_open -%}
+        </tbody>
+        </table>
+        {%- assign table_open = false -%}
+        {%- assign header_written = false -%}
+      {%- endif -%}
+      {%- if block_open -%}
+        </div>
+        {%- assign block_open = false -%}
+      {%- endif -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- assign row = raw | replace: '	', ';' -%}
+    {%- unless row contains ';' -%}
+      {%- if row contains ',' -%}
+        {%- assign row = row | replace: ',', ';' -%}
+      {%- endif -%}
+    {%- endunless -%}
+
+    {%- if row contains ';' -%}
+      {%- assign cells = row | split: ';' -%}
+      {%- unless block_open -%}
+        <div class="tabela-medidas-block">
+        {%- assign block_open = true -%}
+      {%- endunless -%}
+      {%- unless table_open -%}
+        <table class="tabela-medidas">
+        {%- assign table_open = true -%}
+        {%- assign header_written = false -%}
+      {%- endunless -%}
+
+      {%- unless header_written -%}
+        <thead>
+          <tr>
+            {%- for cell in cells -%}
+              <th>{{ cell | strip | escape }}</th>
+            {%- endfor -%}
+          </tr>
+        </thead>
+        <tbody>
+        {%- assign header_written = true -%}
+      {%- else -%}
+        <tr>
+          {%- for cell in cells -%}
+            <td>{{ cell | strip | escape }}</td>
+          {%- endfor -%}
+        </tr>
+      {%- endunless -%}
+    {%- else -%}
+      {%- if table_open -%}
+        </tbody>
+        </table>
+        {%- assign table_open = false -%}
+        {%- assign header_written = false -%}
+      {%- endif -%}
+      {%- if block_open -%}
+        </div>
+        {%- assign block_open = false -%}
+      {%- endif -%}
+      <div class="tabela-medidas-block">
+      {%- assign block_open = true -%}
+      <p class="tabela-medidas__title">{{ raw | escape }}</p>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if table_open -%}
+    </tbody>
+    </table>
+  {%- endif -%}
+  {%- if block_open -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
+{% # theme-check-enable UnclosedHTMLElement %}

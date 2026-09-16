@@ -1,6 +1,6 @@
 # Seletor de variantes — cor e tamanho
 
-O PDP trata **Cor** e **Tamanho** como controles diferentes. Cores usam círculos visuais com o nome da opção selecionada na legenda (`Cor: PRETO`). Tamanhos usam pills (`Tamanho: P`). Funciona mesmo sem configuração no painel.
+O PDP trata **Cor** e **Tamanho** como controles diferentes. Cores usam retângulos arredondados (retrato) com o nome da opção selecionada na legenda (`Cor: PRETO`). Tamanhos usam pills com cantos arredondados (`Tamanho: P`). Funciona mesmo sem configuração no painel.
 
 ## Prioridade visual das cores
 
@@ -9,15 +9,20 @@ O PDP trata **Cor** e **Tamanho** como controles diferentes. Cores usam círculo
 3. Cor nativa (`value.swatch.color`)
 4. **Theme settings → Color Swatches Custom** (`Nome:#hex` ou arquivo explícito)
 5. Paleta automática (Preto, Off White, Rosa Candy, Rosa Claro, Areia, Azul Candy, Verde Menta, Manteiga, Mocha Mousse, Marrom, Caramelo, Chumbo, Bordô, Marinho e tons comuns)
-6. Círculo com **iniciais** (mesmo tamanho dos demais; nome completo só na legenda `Cor: …`)
+6. Retângulo com **iniciais** (mesmo tamanho dos demais; nome completo só na legenda `Cor: …`)
 
-Não inferir `preto.png` / `areia.png` automaticamente: `file_url` no Liquid sempre gera URL, mesmo quando o arquivo não existe, e isso gerava círculos vazios com texto cortado (`ROS...`, `MA...`).
+Não inferir `preto.png` / `areia.png` automaticamente: `file_url` no Liquid sempre gera URL, mesmo quando o arquivo não existe, e isso gerava swatches vazios com texto cortado (`ROS...`, `MA...`).
 
 ## Semântica das opções
 
-- `Cor`, `Color`, `Colour` → swatch
-- `Tamanho`, `Size` e qualquer outra opção → pills
+- `Cor`, `Color`, `Colour` → swatch (retângulo retrato 3:4, cantos 0.6rem)
+- `Tamanho`, `Size` e qualquer outra opção → pills (cantos 0.6rem)
 - Dropdown continua dropdown; `swatch_shape: none` também força pills nas cores
+
+## Visual (PDP)
+
+- Cores: `swatch_shape: square` + overrides em `push.css` (~4.8×6.4rem mobile, ~4.4×5.8rem desktop)
+- Tamanhos: pills com `border-radius: 0.6rem` (não cápsula total)
 
 ## Arquivos
 
