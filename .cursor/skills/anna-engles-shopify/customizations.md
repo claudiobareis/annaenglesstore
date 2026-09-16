@@ -77,7 +77,9 @@ JSON: `[{"question":"...","answer":"..."}]`. `answer` pode ter HTML; o JSON-LD u
 
 ## Guia de medidas (PDP)
 
-**Arquivos:** `snippets/tabela-medidas.liquid`, bloco em `sections/main-product.liquid`, CSS em `assets/push.css` (`.extra-tabela-medidas`, `.tabela-medidas`).
+**Arquivos:** bloco `guia_medidas` em `sections/main-product.liquid`, `snippets/tabela-medidas.liquid`, CSS em `assets/push.css` (`.guia-medidas-box`, `.extra-tabela-medidas`, `.tabela-medidas`), bloco em `templates/product.json`.
+
+**UI:** box limpo com ícone de régua abaixo do botão comprar (reordenável no editor do tema). Clique abre modal com a(s) tabela(s). Sem conteúdo no metafield = box oculto.
 
 **Metafield (Produto):**
 
@@ -106,7 +108,7 @@ Cintura;64cm;66cm;70cm
 Comprimento;26cm;27cm;28cm
 ```
 
-Separadores aceitos no tema: `;` (preferido), tab ou `,`. Sem conteúdo = bloco oculto. O metafield antigo `custom.tabela_de_medidas` (lista de metaobjetos) não é mais usado.
+Separadores aceitos no tema: `;` (preferido), tab ou `,`. Settings do bloco: título e subtítulo. Independente de `habilitar_descricao_extra`. O metafield antigo `custom.tabela_de_medidas` (lista de metaobjetos) não é mais usado.
 
 ## CSS / branding global
 

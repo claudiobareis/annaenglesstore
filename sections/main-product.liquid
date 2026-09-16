@@ -514,6 +514,37 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+              {%- when 'guia_medidas' -%}
+                {%- assign guia_medidas = product.metafields.custom.guia_de_medidas.value -%}
+                {%- if guia_medidas != blank -%}
+                  <modal-opener
+                    class="guia-medidas-opener quick-add-hidden"
+                    data-modal="#GuiaMedidasModal-{{ block.id }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <button
+                      type="button"
+                      class="guia-medidas-box"
+                      id="GuiaMedidasTrigger-{{ block.id }}"
+                      aria-haspopup="dialog"
+                    >
+                      <span class="guia-medidas-box__icon" aria-hidden="true">
+                        {{- 'icon-ruler.svg' | inline_asset_content -}}
+                      </span>
+                      <span class="guia-medidas-box__text">
+                        <span class="guia-medidas-box__title">
+                          {{ block.settings.heading | default: 'Tabela de medidas' | escape }}
+                        </span>
+                        {%- if block.settings.subtitle != blank -%}
+                          <span class="guia-medidas-box__subtitle">{{ block.settings.subtitle | escape }}</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="guia-medidas-box__caret" aria-hidden="true">
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </span>
+                    </button>
+                  </modal-opener>
+                {%- endif -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -802,14 +833,6 @@
               {% endif %}
             </div>
           {% endif %}
-         
-          {%- assign guia_medidas = product.metafields.custom.guia_de_medidas.value -%}
-          {%- if guia_medidas != blank -%}
-            <div class="extra-tabela-medidas">
-              {% render 'tabela-medidas', source: guia_medidas %}
-            </div>
-          {%- endif -%}
-
         </div>
       {% endif %}
     </div>
@@ -841,6 +864,43 @@
         </div>
       </modal-dialog>
     {%- endfor -%}
+
+    {%- assign guia_medidas_blocks = section.blocks | where: 'type', 'guia_medidas' -%}
+    {%- assign guia_medidas_content = product.metafields.custom.guia_de_medidas.value -%}
+    {%- if guia_medidas_content != blank -%}
+      {%- for block in guia_medidas_blocks -%}
+        <modal-dialog
+          id="GuiaMedidasModal-{{ block.id }}"
+          class="product-popup-modal guia-medidas-modal"
+          {{ block.shopify_attributes }}
+        >
+          <div
+            role="dialog"
+            aria-label="{{ block.settings.heading | default: 'Tabela de medidas' | escape }}"
+            aria-modal="true"
+            class="product-popup-modal__content"
+            tabindex="-1"
+          >
+            <button
+              id="ModalClose-{{ block.id }}"
+              type="button"
+              class="product-popup-modal__toggle"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {{- 'icon-close.svg' | inline_asset_content -}}
+            </button>
+            <div class="product-popup-modal__content-info guia-medidas-modal__body">
+              <h2 class="h2 guia-medidas-modal__heading">
+                {{ block.settings.heading | default: 'Tabela de medidas' | escape }}
+              </h2>
+              <div class="extra-tabela-medidas extra-tabela-medidas--modal">
+                {% render 'tabela-medidas', source: guia_medidas_content %}
+              </div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endfor -%}
+    {%- endif -%}
 
     {%- if product.media.size > 0 -%}
       <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
@@ -1056,6 +1116,29 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        }
+      ]
+    },
+    {
+      "type": "guia_medidas",
+      "name": "Guia de medidas",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Exibe um box com ícone que abre a tabela do metafield custom.guia_de_medidas. Sem conteúdo no produto, o bloco fica oculto."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Tabela de medidas"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtítulo",
+          "default": "Confira as medidas da peça"
         }
       ]
     },

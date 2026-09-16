@@ -30,7 +30,7 @@ Se a tarefa tocar swatches, mega menu, vídeo, footer accordion, FAQ, guia de me
 5. **FAQ coleção/produto** — `snippets/faq-list.liquid`, `sections/collection-faq.liquid`, `sections/product-faq.liquid`. Metafields: coleção `custom.faq` (JSON); produto `custom.caracteristicas_faq` (JSON) + `custom.caracteristicas_titulo_faq` (texto). PDP: produto → coleção do URL → primeira collection com FAQ. Sem itens = seção oculta. JSON-LD FAQPage.
 6. **Slideshow** — `sections/slideshow.liquid` + `assets/component-slideshow.css`. Link sem `button_label` → overlay `.slideshow__link` no slide inteiro; com botão → só o botão clica. `image_mobile` opcional (fallback = imagem desktop); `adapt_image` no mobile usa aspect ratio da imagem mobile quando existir.
 7. **Posição da Descrição do Produto** — `sections/main-product.liquid` + `assets/push.css` (`.product__description-below`). Setting `description_layout` no tema: `sidebar` (coluna lateral) ou `below_media` (aberta abaixo da seção de fotos/produto).
-8. **Guia de medidas** — `snippets/tabela-medidas.liquid` + bloco em `sections/main-product.liquid` + CSS em `assets/push.css`. Metafield produto `custom.guia_de_medidas` (Multi-line text), formato planilha com `;`. Antigo `custom.tabela_de_medidas` (metaobjeto) não é mais lido.
+8. **Guia de medidas** — bloco `guia_medidas` em `sections/main-product.liquid` (box com ícone → modal) + `snippets/tabela-medidas.liquid` + CSS em `assets/push.css`. Metafield produto `custom.guia_de_medidas` (Multi-line text). Posição editável no editor do tema (default: após comprar). Sem metafield = bloco oculto. Antigo `custom.tabela_de_medidas` (metaobjeto) não é mais lido.
 
 Ao alterar qualquer um: preservar o comportamento documentado em [customizations.md](customizations.md).
 
