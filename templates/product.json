@@ -115,6 +115,7 @@
     },
     "product-faq": {
       "type": "product-faq",
+      "disabled": true,
       "settings": {
         "eyebrow": "Dúvidas",
         "heading": "Perguntas frequentes",
