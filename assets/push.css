@@ -1359,6 +1359,10 @@ footer .footer-block__details-content ul li {
     color: rgba(var(--color-foreground), 0.88);
 }
 
+.product__description-below > p {
+    max-width: 72ch;
+}
+
 .product__description-below h1,
 .product__description-below h2,
 .product__description-below h3,
@@ -1373,6 +1377,23 @@ footer .footer-block__details-content ul li {
 
 .product__description-below h2 {
     font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin-top: 3.6rem;
+    margin-bottom: 1.4rem;
+}
+
+.product__description-below h2::after {
+    content: "";
+    display: block;
+    width: 3.2rem;
+    height: 1px;
+    margin-top: 1rem;
+    background: #03a079;
+}
+
+.product__description-below .push-product-benefits + h2 {
+    margin-top: 3.2rem;
 }
 
 .product__description-below h3 {
@@ -1391,6 +1412,30 @@ footer .footer-block__details-content ul li {
 
 .product__description-below li {
     margin-bottom: 0.5rem;
+}
+
+/* Lista de detalhes (definição) */
+.product__description-below h2 + ul {
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem 3.2rem;
+}
+
+.product__description-below h2 + ul li {
+    margin: 0;
+    padding: 0;
+    font-size: 1.45rem;
+    line-height: 1.55;
+    color: rgba(var(--color-foreground), 0.78);
+}
+
+.product__description-below h2 + ul li strong {
+    display: inline;
+    font-weight: 500;
+    color: rgb(var(--color-foreground));
+    margin-right: 0.35rem;
 }
 
 .product__description-below img {
@@ -1412,11 +1457,158 @@ footer .footer-block__details-content ul li {
     border: 1px solid rgba(var(--color-foreground), 0.12);
 }
 
+/* Benefits — cards */
+.product__description-below .push-product-benefits,
+.product__description .push-product-benefits {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin: 2.8rem 0 0;
+    max-width: none;
+}
+
+.product__description-below .push-product-benefit,
+.product__description .push-product-benefit {
+    background: #faf8f5;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    padding: 2rem 1.8rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.product__description-below .push-product-benefit::before,
+.product__description .push-product-benefit::before {
+    content: "";
+    display: block;
+    width: 2.4rem;
+    height: 1px;
+    margin-bottom: 0.6rem;
+    background: #03a079;
+}
+
+.product__description-below .push-product-benefit > strong,
+.product__description .push-product-benefit > strong {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    color: rgb(var(--color-foreground));
+}
+
+.product__description-below .push-product-benefit > p,
+.product__description .push-product-benefit > p {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.72);
+}
+
+/* FAQ na descrição — editorial flat */
+.product__description-below .push-product-faq,
+.product__description .push-product-faq {
+    margin: 0.4rem 0 0;
+    counter-reset: push-faq;
+}
+
+.product__description-below .push-product-faq-item,
+.product__description .push-product-faq-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.6rem;
+    row-gap: 0.6rem;
+    padding: 1.6rem 0;
+    counter-increment: push-faq;
+}
+
+.product__description-below .push-product-faq-item + .push-product-faq-item,
+.product__description .push-product-faq-item + .push-product-faq-item {
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.product__description-below .push-product-faq-item::before,
+.product__description .push-product-faq-item::before {
+    content: counter(push-faq, decimal-leading-zero);
+    grid-row: 1 / span 2;
+    padding-top: 0.25rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: rgba(var(--color-foreground), 0.4);
+    line-height: 1.35;
+}
+
+.product__description-below .push-product-faq-item > h3,
+.product__description .push-product-faq-item > h3 {
+    grid-column: 2;
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: rgb(var(--color-foreground));
+}
+
+.product__description-below .push-product-faq-item > div,
+.product__description .push-product-faq-item > div {
+    grid-column: 2;
+}
+
+.product__description-below .push-product-faq-item > div p,
+.product__description .push-product-faq-item > div p {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.7;
+    color: rgba(var(--color-foreground), 0.78);
+}
+
+.product__description-below .push-product-faq-item > div p + p,
+.product__description .push-product-faq-item > div p + p {
+    margin-top: 0.8rem;
+}
+
 @media screen and (min-width: 750px) {
     .product__description-below {
         margin: 5rem 0 3rem;
         padding-top: 4rem;
         width: 100%;
+    }
+
+    .product__description-below .push-product-benefits,
+    .product__description .push-product-benefits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.6rem;
+        margin-top: 3.2rem;
+    }
+
+    .product__description-below .push-product-benefit,
+    .product__description .push-product-benefit {
+        padding: 2.4rem 2.2rem 2.2rem;
+    }
+
+    .product__description-below h2 + ul {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 3.2rem;
+    }
+
+    .product__description-below .push-product-faq-item > h3,
+    .product__description .push-product-faq-item > h3 {
+        font-size: 1.65rem;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .product__description-below h2 {
+        font-size: 1.9rem;
+        margin-top: 3rem;
+    }
+
+    .product__description-below .push-product-faq-item {
+        column-gap: 1.2rem;
+    }
+
+    .product__description-below .push-product-faq-item > h3,
+    .product__description .push-product-faq-item > h3 {
+        font-size: 1.5rem;
     }
 }
 
