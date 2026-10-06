@@ -1,0 +1,66 @@
+{% comment %}
+  Etiquetas de produto configuradas no metaobjeto `etiqueta_produto`
+  (campos: tag, cor_fundo, cor_texto, rotulo). Só tags cadastradas aparecem,
+  na ordem das entradas do metaobjeto.
+
+  Accepts:
+  - product: {Object} produto
+  - context: {String} 'card' ou 'pdp'
+
+  Usage:
+  {% render 'product-tags', product: card_product, context: 'card' %}
+{% endcomment %}
+
+{%- if product != blank and product.tags.size > 0 -%}
+{%- liquid
+  assign product_tag_handles = '|'
+  for t in product.tags
+    assign t_handle = t | handleize
+    assign product_tag_handles = product_tag_handles | append: t_handle | append: '|'
+  endfor
+
+  if context == 'pdp'
+    assign wrapper_class = 'product-tags-product-page'
+    assign tag_class = 'product-tag-product'
+  else
+    assign wrapper_class = 'product-tags'
+    assign tag_class = 'product-tag'
+  endif
+-%}
+
+{%- capture badges -%}
+  {%- for etiqueta in shop.metaobjects.etiqueta_produto.values -%}
+    {%- assign tag_name = etiqueta.tag.value | strip -%}
+    {%- assign tag_handle = tag_name | handleize -%}
+    {%- if tag_handle == blank -%}{%- continue -%}{%- endif -%}
+    {%- assign needle = '|' | append: tag_handle | append: '|' -%}
+    {%- if product_tag_handles contains needle -%}
+      {%- liquid
+        assign label = etiqueta.rotulo.value | strip
+        if label == blank
+          assign label = tag_name
+        endif
+        assign tag_style = ''
+        if etiqueta.cor_fundo.value != blank
+          assign tag_style = tag_style | append: '--tag-bg: ' | append: etiqueta.cor_fundo.value | append: ';'
+        endif
+        if etiqueta.cor_texto.value != blank
+          assign tag_style = tag_style | append: '--tag-color: ' | append: etiqueta.cor_texto.value | append: ';'
+        endif
+      -%}
+      <a
+        href="{{ routes.search_url }}?q={{ tag_name | url_encode }}&type=product"
+        class="product-tag-link product-tag-{{ tag_handle }}"
+      >
+        <span class="{{ tag_class }}"{% if tag_style != blank %} style="{{ tag_style | escape }}"{% endif %}>
+          {{- label | escape -}}
+        </span>
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if badges != blank -%}
+  <div class="{{ wrapper_class }}">{{ badges }}</div>
+{%- endif -%}
+{%- endif -%}

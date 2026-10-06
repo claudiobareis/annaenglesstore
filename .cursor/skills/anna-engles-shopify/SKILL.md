@@ -33,6 +33,7 @@ Se a tarefa tocar swatches, mega menu, vídeo, footer accordion, FAQ, guia de me
 8. **Guia de medidas** — bloco `guia_medidas` em `sections/main-product.liquid` (box com ícone → modal) + `snippets/tabela-medidas.liquid` + CSS em `assets/push.css`. Metafield produto `custom.guia_de_medidas` (Multi-line text). Posição editável no editor do tema (default: após comprar). Sem metafield = bloco oculto. Antigo `custom.tabela_de_medidas` (metaobjeto) não é mais lido.
 
 9. **Mini cart** — `snippets/mini-cart.liquid` + `assets/mini-cart.js` + bloco "Mini cart" em `assets/push.css`. Gaveta lateral customizada (não é o `cart-drawer` do Dawn). `window.openCartNotification` é definido só em `mini-cart.js` (usado pelo ícone do header e pelo `product-form.js`). Dados de `/cart.js`, +/- e lixeira via `/cart/change.js`, moeda via `Intl.NumberFormat`.
+10. **Etiquetas de produto** — `snippets/product-tags.liquid` (card + PDP) + metaobjeto `etiqueta_produto` (`tag`, `cor_fundo`, `cor_texto`, `rotulo`). Só tags cadastradas aparecem, com cores via `--tag-bg`/`--tag-color` (CSS em `assets/push.css`). Comparação por `handleize`; ordem = ordem das entradas no admin.
 
 Ao alterar qualquer um: preservar o comportamento documentado em [customizations.md](customizations.md).
 
@@ -42,6 +43,6 @@ Usar `--store=annaenglesstore.myshopify.com` em todos os comandos. Fluxo auth/de
 
 ## Checklist extra (além da plataforma)
 
-- [ ] Features tocadas retestadas (swatch / mega menu / vídeo / footer / FAQ / guia de medidas / slideshow / mini cart se aplicável)
+- [ ] Features tocadas retestadas (swatch / mega menu / vídeo / footer / FAQ / guia de medidas / slideshow / mini cart / etiquetas se aplicável)
 
 Ao mudar features, atualize esta skill. Se o padrão for reutilizável, alimentar o Brain — skill `shopify` → `compounding.md`.

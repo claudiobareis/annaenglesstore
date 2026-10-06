@@ -122,6 +122,21 @@ Separadores aceitos no tema: `;` (preferido), tab ou `,`. Settings do bloco: tí
 
 **Visual:** título uppercase 1.5rem com contador; item em grid (imagem 9rem 3:4 arredondada / 8rem no mobile); nome 1.4rem 500 (fonte do corpo); variante e preço unitário 1.2rem cinza; lixeira no canto superior direito; quantidade em pill + total da linha à direita; rodapé com "Total estimado" 1.8rem, nota de frete/tributos, botão Finalizar e link "Ver carrinho". Produto sem imagem mantém o quadro (Dawn esconde `a:empty`, por isso o override `.mini-cart-item__media:empty`). Overlay escuro discreto (`rgba(0,0,0,.35)`, fade) atrás da gaveta; clicar nele fecha. Ele precisa do override `.mini-cart__overlay:empty { display: block }`, porque o Dawn esconde `div:empty`.
 
+## Etiquetas de produto (tags com cor)
+
+**Arquivos:** `snippets/product-tags.liquid` (renderizado em `snippets/card-product.liquid` com `context: 'card'` e no bloco `text` de `sections/main-product.liquid` com `context: 'pdp'`), CSS em `assets/push.css` (`.product-tags`, `.product-tag`, `.product-tags-product-page`, `.product-tag-product`).
+
+**Metaobjeto `etiqueta_produto`** (Configurações → Dados personalizados → Metaobjetos, com acesso da vitrine ativo):
+
+| Campo | Tipo | Uso |
+|-------|------|-----|
+| `tag` | Single line text (obrigatório) | Nome da tag no produto (ex.: Black Friday) |
+| `cor_fundo` | Color | Fundo do badge |
+| `cor_texto` | Color | Texto do badge |
+| `rotulo` | Single line text (opcional) | Texto exibido no lugar do nome da tag |
+
+**Regras:** só tags cadastradas no metaobjeto aparecem; tags internas (coleções automáticas etc.) ficam ocultas. A comparação é por `handleize` (ignora maiúsculas e acentos). A ordem de exibição segue a ordem das entradas no admin. As cores vão como `--tag-bg` / `--tag-color` inline; sem cor, o card usa fundo preto e texto branco e a PDP usa fundo branco com contorno preto. Sem entradas no metaobjeto = nenhuma etiqueta.
+
 ## Slideshow (banner da home)
 
 **Arquivos:** `sections/slideshow.liquid`, `assets/component-slideshow.css`, overrides em `assets/push.css` (bloco `.page-home slideshow-component .slideshow__controls`).
