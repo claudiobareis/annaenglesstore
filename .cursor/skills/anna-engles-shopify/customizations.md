@@ -8,6 +8,8 @@ Ler o doc completo na raiz antes de mudar comportamento. Este arquivo é só ín
 
 **Comportamento:** opções `Cor/Color` viram retângulos arredondados (retrato 3:4) com imagem/cor; `Tamanho/Size` e demais opções viram pills com cantos arredondados (`border-radius: 0.6rem`) e o valor selecionado na legenda. Não depende de `picker_type: swatch` no template. Visual dos swatches/pills na PDP: `assets/push.css` + `swatch_shape: square` em `templates/product.json`.
 
+**Carrossel de variantes:** opções de Cor e Tamanho (e demais opções em pill) ficam dentro de `<variant-option-slider>` (`assets/variant-option-slider.js`, CSS `.variant-slider*` em `assets/push.css`). Vira carrossel com setas quando a quantidade passa do limite do bloco `variant_picker` (`slider_colors_desktop`/`_mobile` default 6/5, `slider_sizes_desktop`/`_mobile` default 8/5; breakpoint 750px) ou quando os itens não cabem na largura. Desktop: o track mostra exatamente N itens no tamanho natural. Mobile (`is-fill`): o carrossel ocupa 100% da largura e os N itens dividem o espaço igualmente (swatch mantém 3:4). Como `product-info.js` substitui o HTML de `variant-selects` a cada troca, o elemento se re-mede no `connectedCallback` e centraliza o item selecionado. Selecionado: pill preenchida + negrito; swatch com outline 2px + sombra; valor na legenda em negrito.
+
 **Prioridade de exibição (cor):**
 1. `value.swatch.image` (nativo)
 2. `variant.image` (só opção de COR)
@@ -109,6 +111,22 @@ Comprimento;26cm;27cm;28cm
 ```
 
 Separadores aceitos no tema: `;` (preferido), tab ou `,`. Settings do bloco: título e subtítulo. Independente de `habilitar_descricao_extra`. O metafield antigo `custom.tabela_de_medidas` (lista de metaobjetos) não é mais usado.
+
+## Mini cart (gaveta lateral customizada)
+
+**Arquivos:** `snippets/mini-cart.liquid` (markup + textos traduzidos em `data-*` + `<template>` dos ícones), `assets/mini-cart.js` (renderização e ações), CSS em `assets/push.css` (bloco "Mini cart"). Renderizado em `sections/header.liquid` via `{%- render 'mini-cart' -%}`.
+
+**Atenção:** a loja **não** usa o `cart-drawer` do Dawn (`snippets/cart-drawer.liquid` fica intocado) nem a `cart-notification` como UI principal. O ícone do header chama `openCartNotification()`, e o `product-form.js` também chama `window.openCartNotification()` após adicionar ao carrinho. Esse nome global é definido em `mini-cart.js`; não redefinir em outro lugar.
+
+**Comportamento:** dados de `/cart.js`; quantidade (+/-) e lixeira via `/cart/change.js` por `line`, re-renderizando com a resposta. Dinheiro formatado com `Intl.NumberFormat` na moeda/locale do carrinho (sem "R$" fixo); usa `final_line_price`/`original_line_price` (respeita descontos). Erros da Shopify (ex.: estoque) aparecem em `#mini-cart-error`. Atualiza/cria/remove o `.cart-count-bubble` do header. Fecha com overlay, X ou Esc; trava o scroll com `body.mini-cart-open`.
+
+**Visual:** título uppercase 1.5rem com contador; item em grid (imagem 9rem 3:4 arredondada / 8rem no mobile); nome 1.4rem 500 (fonte do corpo); variante e preço unitário 1.2rem cinza; lixeira no canto superior direito; quantidade em pill + total da linha à direita; rodapé com "Total estimado" 1.8rem, nota de frete/tributos, botão Finalizar e link "Ver carrinho". Produto sem imagem mantém o quadro (Dawn esconde `a:empty`, por isso o override `.mini-cart-item__media:empty`). Overlay escuro discreto (`rgba(0,0,0,.35)`, fade) atrás da gaveta; clicar nele fecha. Ele precisa do override `.mini-cart__overlay:empty { display: block }`, porque o Dawn esconde `div:empty`.
+
+## Slideshow (banner da home)
+
+**Arquivos:** `sections/slideshow.liquid`, `assets/component-slideshow.css`, overrides em `assets/push.css` (bloco `.page-home slideshow-component .slideshow__controls`).
+
+**Na home:** as setas seguem o padrão dos carrosséis de produtos: quadrado preto 44px, ícone branco, `position: absolute` nas laterais e centralizadas verticalmente na imagem (desktop e mobile). O contador (`.slider-counter`) fica oculto via CSS, e a barra `.slideshow__controls` fica `static` e sem borda (altura zero). O `z-index: 4` das setas fica acima do overlay `.slideshow__link` (z-index 3). O seletor exige `.slideshow__controls` porque a barra de anúncios também é um `slideshow-component` e não pode ser afetada.
 
 ## CSS / branding global
 
