@@ -31,7 +31,19 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "square"
+            "swatch_shape": "square",
+            "slider_colors_desktop": 6,
+            "slider_colors_mobile": 5,
+            "slider_sizes_desktop": 8,
+            "slider_sizes_mobile": 5
+          }
+        },
+        "cotei_calculadora_correios_pdp_shipping_calculator_XP8Cad": {
+          "type": "shopify://apps/cotei-calculadora-correios/blocks/pdp_shipping_calculator/019d8e59-f530-7f7f-a93c-96a48d7be7b0",
+          "settings": {
+            "field_label": "Consulte o frete com seu CEP",
+            "button_label": "Calcular frete",
+            "auto_recalculate_on_variant_change": true
           }
         },
         "quantity_selector": {
@@ -87,6 +99,7 @@
         "title",
         "price",
         "variant_picker",
+        "cotei_calculadora_correios_pdp_shipping_calculator_XP8Cad",
         "quantity_selector",
         "buy_buttons",
         "guia_medidas",
